@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const AboutUs = () => {
   return (
     <>
-      {/* <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px] bg-white dark:bg-dark">
+      <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px] bg-white dark:bg-dark">
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center justify-between -mx-4">
             <div className="w-full px-4 lg:w-6/12">
@@ -621,18 +621,18 @@ const AboutUs = () => {
                 <p className="mb-8 text-base text-secondary-dark-color">
                 We understand the importance of competitive pricing without compromising on quality. Our efficient operations and direct sourcing from trusted manufacturers allow us to pass on significant savings to our valued customers. Additionally, our user-friendly ecommerce platform, secure payment options, and efficient shipping ensure a convenient and hassle-free shopping experience from the comfort of your home or office. Choose [Company Name] and experience the difference that comes with partnering with a reliable and reputable source for all your resin product needs.
                 </p>
-                <Link to='/about-us' className="  relative inline-flex items-center justify-center md:px-9 px-2 py-1  overflow-hidden font-medium font-poppins text-indigo-600 transition duration-300 border border-secondary-dark-color ease-out rounded-full shadow-md   group">
-<span className="absolute inset-0 flex items-center justify-center w-full h-full text-[#fff] duration-300 -translate-x-full bg-primarycolor group-hover:translate-x-0 ease">
+                <Link to='/about-us' className="  relative inline-flex items-center justify-center md:px-9 px-2 py-1  overflow-hidden font-medium font-poppins text-indigo-600 transition duration-300 border border-secondary-dark-color ease-out rounded-full shadow-md bg-black  group">
+<span className="absolute inset-0 flex items-center justify-center w-full h-full text-[#BDE0FE] duration-300 -translate-x-full bg-primarycolor group-hover:translate-x-0 ease">
 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
 </span>
-<span className="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease md:text-2xl text-lg text-primarycolor">About Us</span>
+<span className="absolute flex items-center justify-center w-full h-full text-[#BDE0FE] transition-all duration-300 transform group-hover:translate-x-full ease md:text-2xl text-lg text-primarycolor">About Us</span>
 <span className="relative invisible">About Us</span>
 </Link>
               </div>
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
     </>
   );
 };

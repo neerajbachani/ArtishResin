@@ -44,7 +44,7 @@ const HeroSection = ({ isOpen }) => {
         <>
           <Link to={heroSection.heroSections[currentImage]?.link}>
             <img
-              className="bg-no-repeat"
+              className="bg-no-repeat lg:h-[90vh] w-full h-[50vh] object-cover"
               src={heroSection.heroSections[currentImage]?.image}
               alt={heroSection.heroSections[currentImage]?.title}
             />
