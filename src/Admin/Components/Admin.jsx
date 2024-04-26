@@ -36,18 +36,24 @@ import OrderDetails from "../../user/components/Order/OrderDetails";
 import AdminOrderDetails from "./AdminOrderDetails";
 import ManageGallery from "./ManageGallery";
 import Contact from "./Contact";
+import ManageOurBestSellerProduct from "./ManageOurBestSellerProduct";
+import ManageOurProduct from "./ManageOurProduct";
 
 const drawerWidth = 240;
 
 const menu = [
   {name:"Dashboard",path:"/admin"},
   {name:"Products",path:"/admin/product"},
-  {name:"Customers",path:"/admin/customers"},
   {name:"Orders",path:"/admin/orders"},
-  {name:"Total Earnings",path:"/admin"},
   {name:"Add Product",path:"/admin/products"},
   {name: "Manage Herosection", path:"/admin/manageHeroSection"},
-  {name: "Gallery", path:"/admin/gallery"}
+  {name: "Gallery", path:"/admin/gallery"},
+  {name: "Manage Best Seller Product", path:"/admin/ourBestSeller"},
+  {name: "Manage Our Product Top - Featured - MaxDiscount", path:"/admin/ourProduct"},
+  {name: "Manage Featured Product", path:"/admin/ourFeaturedProduct"},
+
+
+
 
 ];
 
@@ -178,17 +184,13 @@ export default function AdminPannel() {
             <Route path="/product" element={<ProductsTable/>}></Route>
             <Route path="/orders" element={<OrdersTable/>}></Route>
             <Route path="/manageHeroSection" element={<ManageHerosection/>}></Route>
-            <Route path="/customers" element={<Customers/>}></Route>
             <Route path="/demo" element={<DemoAdmin />}></Route>
             {/* <Route path="/monthlOverview" element={<MonthlyOverview />}></Route> */}
             <Route path="/product/update/:productId" element={<UpdateProductForm/>}></Route>
             <Route path="/orders/:orderId" element={<AdminOrderDetails/>}></Route>
             <Route path="/gallery" element={<ManageGallery/>}></Route>
-
-
-
-
-
+            <Route path="/ourBestSeller" element={<ManageOurBestSellerProduct/>}></Route>
+            <Route path="/ourProduct" element={<ManageOurProduct/>}></Route>
         </Routes>
          
       </Box>

@@ -48,29 +48,27 @@ export default function Navigation() {
 
   const handleOpen = () => {
     setOpenAuthModal(true);
+    navigate('/signup')
   };
   const handleClose = () => {
     setOpenAuthModal(false);
    
   };
 
-  const handleCategoryClick = (category, section, item, close) => {
-    navigate(`/${category.id}/${section.id}/${item.id}`);
-    close();
-  };
+
 
   useEffect(() => {
     if (auth.user){ 
       handleClose();
     }
-    if( auth.user?.role!=="ADMIN" && (location.pathname==="/login" || location.pathname==="/register")){
+    if( auth.user?.role!=="admin" && (location.pathname==="/signup" || location.pathname==="/signin")){
       navigate(-1)
     }
   }, [auth.user]);
 
   const handleLogout = () => {
     handleCloseUserMenu();
-    dispatch(logout());
+    logout(dispatch)
   };
   const handleMyOrderClick=()=>{
     handleCloseUserMenu()
@@ -93,7 +91,7 @@ export default function Navigation() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <NavLink to="/products" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>
-          All Products
+          Products
         </NavLink>
       </Typography>
       <Typography
@@ -103,6 +101,14 @@ export default function Navigation() {
         className="flex items-center gap-x-2 p-1 font-medium"
       >
         <NavLink to="/gallery" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Gallery</NavLink>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="flex items-center gap-x-2 p-1 font-medium"
+      >
+        <NavLink to="/workshop" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Resin Workshop</NavLink>
       </Typography>
       <Typography
         as="li"
@@ -125,7 +131,7 @@ export default function Navigation() {
 
 
   return (
-    <div className="bg-white md:pb-7 pb-0">
+    <div className="bg-white  pb-0">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -176,7 +182,7 @@ export default function Navigation() {
 
       <header className="relative bg-[white]">
         <nav aria-label="Top" className="mx-auto">
-          <div className="border-b border-[gray]">
+          <div className="">
             <div className="flex h-16 items-center px-11">
               <button
                 type="button"

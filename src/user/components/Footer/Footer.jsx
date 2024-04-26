@@ -8,7 +8,7 @@ function Footer() {
     {
       icon: FaInstagram,
       alt: "instagram",
-      link: "https://www.instagram.com/rtsybyviishh?igsh=dnBqcW12Z3UzaXRr"
+      link: "https://www.instagram.com/artish_isha?igsh=MXdkb2p3d3lraWM4dA=="
     },
     {
       icon: BsPinterest,
@@ -32,11 +32,11 @@ function Footer() {
         <div className="container sm:px-5  sm:py-4 px-1 py-2">
           <div className="flex justify-between flex-col sm:flex-row  items-center md:items-start  sm:gap-[5rem] text-left">
             <div className="flex flex-col w-1/2 md:p-0 py-4 gap-8">
-              <img
+              {/* <img
                 src='https://res.cloudinary.com/dkhsnhjrh/image/upload/v1708707479/2_igcdbk.png'
                 alt="footer_logo"
                 className="w-[18rem]"
-              />
+              /> */}
               {/* <h1 className='  text-5xl font-poppins font-medium text-secondary-dark-color pt-20' >Resin Logo.</h1> */}
               <p className="text-[15px] font-medium text-[#646464]">
               Resin treasures crafted uniquely, each piece a heartfelt reflection of your story, bringing joy and memories to life.
@@ -67,11 +67,11 @@ function Footer() {
               <Link to='/products' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
                 All Products
               </Link>
-              <Link to='/products?resinRawMaterials=rawcollections' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-                Raw Materials
+              <Link to='/workshop' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+                Workshop
               </Link>
-              <Link to='/products?resin=wallclock' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-                Wall Clock
+              <Link to='/gallery' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+                Gallery
               </Link>
               <Link to='/about-us' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
                 About Us
@@ -86,20 +86,20 @@ function Footer() {
 
               <span className="top-[33px] absolute w-[7rem] h-[4px] bg-[#ff0366]"></span>
 
-              <Link to='/products?business=businessplate' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-                Business Plate
+              <Link to='/products?resin=opalArt' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+                Opal Art
               </Link>
-              <Link to='/products?digitalArt=digitalartedition' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-                Digital Art
+              <Link to='/products?resin=wallArt' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+                Wall Art
               </Link>
-              <Link to='/products?lippanArt=lippanartedition' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-                Lippan Art
+              <Link to='/products?resin=mantraFrame' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+                Mantra Frame
               </Link>
-              <Link to='/products?vintage=vinatgeExclusive' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-              Vintage
+              <Link to='/products?resin=nameplate' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+              Name Plate 
               </Link>
-              <Link to='/products?resin=photoframes' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
-                Photo Frames
+              <Link to='/products?varmalaPreservation=unevenRound' className="text-[16px] hover:text-[#ff0366] cursor-pointer text-[#646464] font-medium hover:font-bold">
+                Varmala Preservation
               </Link>
             </div>
 

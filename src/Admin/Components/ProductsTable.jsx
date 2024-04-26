@@ -62,7 +62,7 @@ const ProductsTable = () => {
       colors: [],
       resin: [],
       digitalArt: [],
-      jewel: [],
+      varmalaPreservation: [],
       resinRawMaterials: [],
       business: [],
       vintage: [],

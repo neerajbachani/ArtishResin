@@ -15,6 +15,9 @@ import heroSectionReducer from './HeroSection/Reducer';
 import ReviewReducer from './RateAndReview/Reducer';
 import galleryPhotoReducer from './Gallery/Reducer';
 import contactReducer from './Contact/Reducer';
+import ourBestSellerProductReducer from './OurBestSeller/Reducer';
+import ourFeaturedProductReducer from './OurFeaturedProduct/Reducer';
+import ourProductReducer from './OurProduct/Reducer';
 
 const rootReducers = combineReducers({
   auth: authReducer,
@@ -25,8 +28,10 @@ const rootReducers = combineReducers({
   heroSection: heroSectionReducer,
   review: ReviewReducer,
   gallery: galleryPhotoReducer,
-  contact: contactReducer
-  
+  contact: contactReducer,
+  ourBestSellerProduct: ourBestSellerProductReducer,
+  ourFeaturedProduct: ourFeaturedProductReducer,
+  ourProduct: ourProductReducer
 });
 
 export const store = legacy_createStore(rootReducers, applyMiddleware(thunk));

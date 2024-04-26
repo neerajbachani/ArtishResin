@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 import React from 'react'
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   FunnelIcon,
   MinusIcon,
@@ -57,6 +57,8 @@ export default function Product() {
   const businessValue = searchParams.get("business");
   const geodeArtValue = searchParams.get("geodeArt");
   const vintageValue = searchParams.get("vintage");
+  const varmalaPreservationValue = searchParams.get("varmalaPreservation");
+
   const festivalSpecialValue = searchParams.get("festivalSpecial");
   const sizeValue = searchParams.get("size");
 
@@ -88,6 +90,7 @@ export default function Product() {
       // category: param.lavelThree,
       colors: colorValue || [],
       resin: resinValue || [],
+      varmalaPreservation: varmalaPreservationValue || [],
       digitalArt: digitalArtValue || [],
       jewel: jewelValue || [],
       resinRawMaterials: resinRawMaterialsValue || [],
@@ -97,7 +100,7 @@ export default function Product() {
       vintage: vintageValue || [],
       business: businessValue || [],
       sizes: sizeValue || [],
-      
+      sort: sortValue || [],
       minDiscount: discount || 0,
    
       pageNumber: pageNumber ,
@@ -116,6 +119,7 @@ export default function Product() {
     
     colorValue,
     resinValue,
+    varmalaPreservationValue,
     digitalArtValue,
     jewelValue,
     resinRawMaterialsValue,
@@ -286,7 +290,7 @@ export default function Product() {
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
-                {/* <div>
+                <div>
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                     Sort
                     <ChevronDownIcon
@@ -294,7 +298,7 @@ export default function Product() {
                       aria-hidden="true"
                     />
                   </Menu.Button>
-                </div> */}
+                </div>
 
                 <Transition
                   as={Fragment}
@@ -355,9 +359,9 @@ export default function Product() {
 
             <div>
               <h2 className="py-5 font-semibold opacity-60 text-xl hidden lg:block font-poppins text-secondary-dark-color">Filters</h2>
-              <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
+              <div className="grid grid-cols-1 gap-x-3 gap-y-10 lg:grid-cols-5">
                 {/* Filters */}
-                <form className="hidden lg:block shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-md p-5">
+                <form className="hidden lg:block shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-md py-5 px-2 ">
                   {filters.map((section) => (
                     <Disclosure
                       // defaultOpen={false}
@@ -424,7 +428,7 @@ export default function Product() {
 
                 {/* Product grid */}
                 <div className="lg:col-span-4 w-full ">
-                  <div className="flex flex-wrap justify-evenly shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-white py-5 rounded-md ">
+                  <div className="sm:flex sm:flex-wrap justify-center space-x-5  grid grid-cols-2 bg-white py-5 rounded-md ">
                     {product?.products?.content?.map((item) => (
                       <ProductCard product={item} key={item.id} />
                      

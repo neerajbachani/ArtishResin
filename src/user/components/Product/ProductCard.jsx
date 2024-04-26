@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
       {image ? (
         <div className='productCard m-3 transition-all cursor-pointer '>
           <NavLink to={`/products/id/${product?._id}`}>
-            <div className='h-[20rem] relative w-[17rem]'>
+            <div className='sm:h-[20rem] relative sm:w-[17rem] h-[15rem] w-[12rem]'>
               <img
                 className='h-full w-full object-cover absolute top-0 right-0 '
                 src={image}
@@ -24,17 +24,17 @@ const ProductCard = ({ product }) => {
           <div className='textPart bg-white p-3 '>
             <div>
               {/* <p className='font-bold opacity-60'>{brand}</p> */}
-              <p className=' text-secondary-dark-color text-xl font-poppins'>
+              <p className=' text-secondary-dark-color sm:text-xl text-lg font-poppins'>
                 {name}
               </p>
               {/* <p className='font-semibold opacity-50'>{color}</p> */}
             </div>
             <div className='flex space-x-2 items-center'>
-              <p className='font-semibold font-poppins text-primarycolor text-2xl'>
+              <p className='font-semibold font-poppins text-primarycolor sm:text-2xl text-xl  '>
                 ₹{discountedPrice}
               </p>
               <p className='opacity-50 line-through'>₹{price}</p>
-              <p className='text-green-600 font-semibold font-poppins text-[#219ebc]'>
+              <p className=' font-semibold font-poppins text-[#219ebc]'>
                 {discount}% off
               </p>
             </div>

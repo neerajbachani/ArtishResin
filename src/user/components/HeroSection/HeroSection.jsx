@@ -33,7 +33,7 @@ const HeroSection = ({ isOpen }) => {
 
   const widthClass = isOpen
     ? 'sm:max-w-[70vw] 2xl:max-w-[75vw] w-full mx-auto sm:ml-[15rem] md:ml-[22rem] transition-all duration-500'
-    : 'w-full md:mx-0 md:px-4 transition-all duration-500 ml-[0rem] mt-[2rem]';
+    : 'w-full md:mx-0 md:px-4 transition-all duration-500 ml-[0rem]';
   const widthClas = isOpen ? 'mx-0' : 'md:mx-4';
 
   const items = [

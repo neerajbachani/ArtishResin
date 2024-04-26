@@ -1,65 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOurProduct } from '../../redux/OurProduct/Action'
+import { Link } from 'react-router-dom';
 
 const OurProducts = () => {
-  const [activeButton, setActiveButton] = useState('Top');
+  const dispatch = useDispatch();
+  const { ourProduct } = useSelector((store) => store);
+  const OurProduct = ourProduct.ourProducts || [];
+  console.log(OurProduct)
 
-  const products = [
-    {
-      id: 1,
-      image: '/path/to/product1.jpg',
-      details: 'Rp. 129.000',
-      type: 'Top',
-    },
-    {
-      id: 4,
-      image: '/path/to/product1.jpg',
-      details: 'Rp. 129.000',
-      type: 'Top',
-    },
-    {
-      id: 5,
-      image: '/path/to/product1.jpg',
-      details: 'Rp. 129.000',
-      type: 'Top',
-    },
-    {
-      id: 6,
-      image: '/path/to/product1.jpg',
-      details: 'Rp. 129.000',
-      type: 'Top',
-    },
-    {
-      id: 7,
-      image: '/path/to/product1.jpg',
-      details: 'Rp. 129.000',
-      type: 'Top',
-    },
-    {
-      id: 8,
-      image: '/path/to/product1.jpg',
-      details: 'Rp. 129.000',
-      type: 'Top',
-    },
-    {
-      id: 2,
-      image: '/path/to/product2.jpg',
-      details: 'Rp. 139.000',
-      type: 'Featured',
-    },
-    {
-      id: 3,
-      image: '/path/to/product3.jpg',
-      details: 'Rp. 130.000',
-      type: 'Max Discount',
-    },
-    // Add more products here
-  ];
+  useEffect(() => {
+    dispatch(getOurProduct());
+  }, [dispatch]);
+
+  const [activeButton, setActiveButton] = useState('Top');
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
   };
 
-  const filteredProducts = products.filter((product) => product.type === activeButton);
+  const filteredProducts = OurProduct.filter((product) => product.type === activeButton);
 
   return (
     <div className="w-full bg-white">
@@ -99,7 +59,10 @@ const OurProducts = () => {
             </div>
           ))}
           <div className=' flex justify-center col-span-full'>
-          <button className=' bg-white text-xl font-poppins px-5 py-3 rounded-xl ' >Explore Now</button>
+            <Link to='/products'>
+            <button className=' bg-white text-xl font-poppins px-5 py-3 rounded-xl ' >Explore Now</button>
+            </Link>
+          
           </div>
          
         </div>

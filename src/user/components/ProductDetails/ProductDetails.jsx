@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
-import DeptAndSearch from '../DepartmentAndSearch/DeptAndSearch'
 import WhatsAppButton from './Whatsapp'
 import { Link, useNavigate } from 'react-router-dom'
 import { addItemToCart, getCart } from "../../redux/Cart/Action"
@@ -112,8 +111,6 @@ export default function ProductDetails() {
   return (
    
     <div className="bg-white">
-       
-      <DeptAndSearch />
       <LoadingBar
         color="#f11946"
         progress={progress}
@@ -164,7 +161,7 @@ export default function ProductDetails() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 ">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-4xl tracking-tight font-bold text-primarycolor font-poppins">{product.product?.discountedPrice}₹ <span className=' text-[#808080] font-thin  text-3xl ml-5 line-through font-poppins ' >{product.product?.price}₹</span> </p>
+              <p className="text-4xl tracking-tight font-bold text-primarycolor font-poppins text-[#e63946] ">{product.product?.discountedPrice}₹ <span className=' text-[#808080] font-thin  text-3xl ml-5 line-through font-poppins ' >{product.product?.price}₹</span> </p>
               <p className=' mt-10 text-xl text-primarycolor font-poppins ' >You Save: {product.savedprice} <span>({product.product?.discount}%)</span> </p>
 
 
@@ -235,19 +232,19 @@ export default function ProductDetails() {
               <button
                 onClick={handleAddToCart}
                 type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3  font-medium  bg-primarycolor hover:bg-light-text-color  transition duration-500 text-2xl font-poppins "
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3  font-medium hover:bg-black hover:text-[#BDE0FE]  bg-[#BDE0FE] text-[#000] hover:bg-light-text-color  transition duration-500 text-2xl font-poppins "
               >
                 Add to Cart
               </button>
 
 
-              <button
+              {/* <button
               onClick={handleBuyNoW}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3  font-medium   hover:bg-secondary-dark-color hover:text-light-bg-color  transition duration-500 text-2xl font-poppins "
               >
                 Buy Now
-              </button>
+              </button> */}
 
             </div>
 
@@ -272,7 +269,7 @@ export default function ProductDetails() {
         {/*   */}
         <div className="relative max-w-4xl mx-auto flex flex-col gap-5  ">
           <div className=' flex justify-between '>
-            <p className='text-2xl text-primarycolor font-poppins font-semibold underline-offset-2 underline' >Details</p>
+            <p className='text-2xl text-[#e63946] font-poppins font-semibold underline-offset-2 underline' >Details</p>
             <button
               onClick={toggleDropdown1}
               className="bg-gray-dark/5 p-2 rounded-lg focus:outline-none"
@@ -320,7 +317,7 @@ export default function ProductDetails() {
           )}
           <div className=' bg-secondarycolor w-full h-[0.1rem]'></div>
           <div className=' flex justify-between '>
-            <p className='text-2xl text-primarycolor font-poppins font-semibold underline-offset-2 underline'>Delivery & Returns</p>
+            <p className='text-2xl text-[#e63946] font-poppins font-semibold underline-offset-2 underline'>Delivery & Returns</p>
             <button
               onClick={toggleDropdown2}
               className="bg-gray-dark/5 p-2 rounded-lg focus:outline-none"
@@ -352,7 +349,7 @@ export default function ProductDetails() {
                   <div className="flex w-full gap-[0.625rem] items-start">
 
                     <div className="grow">
-                      <h6 className=" text-xl font-bold font-poppins text-secondary-dark-color  lg:text-h6">
+                      <h6 className=" text-xl font-bold font-poppins text-secondary-dark-color   lg:text-h6">
                         SHIPPING
                       </h6>
                       <ul className='text-lg py-2 font-poppins text-secondary-dark-color list-disc'>
@@ -407,7 +404,7 @@ export default function ProductDetails() {
           <div className='  bg-secondarycolor w-full h-[0.1rem]'></div>
 
           <div className=' flex justify-between '>
-            <p className='text-2xl text-primarycolor font-poppins font-semibold underline-offset-2 underline'>Similar Products</p>
+            <p className='text-2xl text-primarycolor text-[#e63946] font-poppins font-semibold underline-offset-2 underline'>Similar Products</p>
             <button
               onClick={toggleDropdown3}
               className="bg-gray-dark/5 p-2 rounded-lg focus:outline-none"

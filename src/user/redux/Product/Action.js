@@ -26,6 +26,7 @@ export const findProducts = (reqData) => async (dispatch) => {
   const {
     colors,
     resin,
+    varmalaPreservation,
     digitalArt,
     jewel,
     resinRawMaterials,
@@ -49,32 +50,16 @@ export const findProducts = (reqData) => async (dispatch) => {
     dispatch({ type: FIND_PRODUCTS_BY_CATEGORY_REQUEST });
 
     const { data } = await api.get(
-      `/api/products?resin=${resin}&digitalArt=${digitalArt}&jewel=${jewel}&resinRawMaterials=${resinRawMaterials}&festivalSpecial=${festivalSpecial}&business=${business}&vintage=${vintage}&lippanArt=${lippanArt}&geodeArt=${geodeArt}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+      `/api/products?resin=${resin}&varmalaPreservation=${varmalaPreservation}&digitalArt=${digitalArt}&resinRawMaterials=${resinRawMaterials}&festivalSpecial=${festivalSpecial}&business=${business}&vintage=${vintage}&lippanArt=${lippanArt}&geodeArt=${geodeArt}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
 
     console.log("Fetched data from API:", data);
-
-    // Check if the content property exists and is an array
-    if (data.content && Array.isArray(data.content)) {
-      console.log("Data content is an array");
-
-      // Create a new array reference by spreading the content array
-      const randomizedProducts = [...data.content].sort(() => Math.random() - 0.5);
-
-      console.log("Randomized data:", randomizedProducts);
-
       dispatch({
         type: FIND_PRODUCTS_BY_CATEGORY_SUCCESS,
-        payload: {
-          ...data, // Preserve the other properties
-          content: randomizedProducts, // Replace the content with the randomized array
-        },
+        payload: data
       });
-    } else {
-      console.log("Data content is not an array");
-      // Handle the case where data.content is not an array
-    }
-  } catch (error) {
+   
+  }catch (error) {
     dispatch({
       type: FIND_PRODUCTS_BY_CATEGORY_FAILURE,
       payload:

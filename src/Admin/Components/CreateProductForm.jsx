@@ -28,15 +28,14 @@ const CreateProductForm = () => {
     discount: "",
     price: "",
     discountPercent: "",
-   
     quantity: "",
     resin: "",
-    jewel:"",
     resinRawMaterials: "",
     festivalSpecial: "",
     digitalArt: "",
     business: "",
     lippanArt: "",
+    varmalaPreservation: "",
     geodeArt: "",
     vintage: "",
     description1: "",
@@ -77,13 +76,14 @@ const jwt=localStorage.getItem("jwt")
           discountPercent: "",
           quantity: "",
           resin: "",
-          jewel: "",
+      
           resinRawMaterials: "",
           festivalSpecial: "",
           digitalArt: "",
           business: "",
           lippanArt: "",
           geodeArt: "",
+          varmalaPreservation: "",
           vintage: "",
           description1: "",
           description2: "",
@@ -203,17 +203,21 @@ const jwt=localStorage.getItem("jwt")
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Jewel</InputLabel>
+              <InputLabel>Varmala Preservation</InputLabel>
               <Select
-                name="jewel"
-                value={productData.jewel}
+                name="varmalaPreservation"
+                value={productData.varmalaPreservation}
                 onChange={handleChange}
-                label="Jewel"
+                label="Varmala Preservation"
               >
-                <MenuItem value="bracelet">Bracelet</MenuItem>
-                <MenuItem value="earrings">Earrings</MenuItem>
-                <MenuItem value="pendant">Pendant</MenuItem>
-                <MenuItem value="rings">Rings</MenuItem>
+                <MenuItem value="planter">Planter</MenuItem>
+                <MenuItem value="unevenRound">10' Uneven Round</MenuItem>
+                <MenuItem value="square12">12' Square</MenuItem>
+                <MenuItem value="clock12">12' Clock</MenuItem>
+                <MenuItem value="round12">12' Round</MenuItem>
+                <MenuItem value="round18">18' Round</MenuItem>
+
+
 
               </Select>
             </FormControl>
