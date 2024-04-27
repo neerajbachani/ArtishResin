@@ -16,14 +16,14 @@ const OurBestSeller = () => {
       <h1 className="text-center font-poppins font-semibold md:text-4xl text-2xl mt-[7rem] max-w-screen-2xl mx-auto ">
         Our Best Seller
       </h1>
-      <div className="flex sm:flex-nowrap flex-wrap justify-center mt-[2rem] gap-5">
+      <div className="flex sm:flex-nowrap flex-wrap justify-center mt-[2rem] lg:gap-8 gap-5">
       
         {ourBestSellerProduct?.ourBestSellerProducts?.map((product) => (
           <Link to={product?.link}>
           <div className="flex-col" key={product.id}>
             <img
               src={product.image}
-              className="lg:w-[25rem] lg:h-[30rem] md:w-[25rem] md:h-[20rem] sm:w-[20rem] sm:h-[15rem] w-[10rem] h-[10rem] object-cover"
+              className="lg:w-[20rem] lg:h-[25rem] md:w-[25rem] md:h-[20rem] sm:w-[20rem] sm:h-[15rem] w-[10rem] h-[10rem] object-cover"
               alt={product.title}
             />
             <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-4">

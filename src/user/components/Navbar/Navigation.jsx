@@ -131,7 +131,7 @@ export default function Navigation() {
 
 
   return (
-    <div className="bg-white  pb-0">
+    <div className="bg-white pb-0">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -180,10 +180,10 @@ export default function Navigation() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-[white]">
+      <header className="relative max-w-screen-2xl mx-auto bg-[white]">
         <nav aria-label="Top" className="mx-auto">
           <div className="">
-            <div className="flex h-16 items-center px-11">
+            <div className="flex h-16 items-center px-4">
               <button
                 type="button"
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"

@@ -51,7 +51,7 @@ const OurProducts = () => {
             Max Discount
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-[#BDE0FE] p-4 ">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-[#BDE0FE] p-4 ">
           {filteredProducts.map((product) => (
             <div key={product.id} className="bg-gray-100 rounded-md p-4">
               <img src={product.image} alt={`Product ${product.id}`} className="w-full h-64 object-cover rounded-md" />

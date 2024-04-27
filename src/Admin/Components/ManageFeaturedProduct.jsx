@@ -61,7 +61,7 @@ const jwt=localStorage.getItem("jwt")
   
   const { ourFeaturedProduct } = useSelector((store) => store);
   console.log(ourFeaturedProduct?.ourFeaturedProducts)
-
+console.log("1")
 
   useEffect(() => {
     
@@ -73,6 +73,8 @@ const jwt=localStorage.getItem("jwt")
     console.log("delete our featured product ", ourFeaturedProductId)
     dispatch(deleteOurFeaturedProduct(ourFeaturedProductId))
   }
+console.log("2")
+
 
   return (
     <div className=" bg-[#1b1b1b]">

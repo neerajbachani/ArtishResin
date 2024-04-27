@@ -38,6 +38,7 @@ import ManageGallery from "./ManageGallery";
 import Contact from "./Contact";
 import ManageOurBestSellerProduct from "./ManageOurBestSellerProduct";
 import ManageOurProduct from "./ManageOurProduct";
+import ManageFeaturedProduct from "./ManageFeaturedProduct";
 
 const drawerWidth = 240;
 
@@ -191,6 +192,8 @@ export default function AdminPannel() {
             <Route path="/gallery" element={<ManageGallery/>}></Route>
             <Route path="/ourBestSeller" element={<ManageOurBestSellerProduct/>}></Route>
             <Route path="/ourProduct" element={<ManageOurProduct/>}></Route>
+            <Route path="/ourFeaturedProduct" element={<ManageFeaturedProduct/>}></Route>
+
         </Routes>
          
       </Box>
