@@ -60,14 +60,12 @@ const ProductsTable = () => {
      
 
       colors: [],
-      resin: [],
-      digitalArt: [],
       varmalaPreservation: [],
+      wallClock: [],
+      namePlate: [],
+      navkarMantraFrame: [],
+      resinSpecial: [],
       resinRawMaterials: [],
-      business: [],
-      vintage: [],
-      lippanArt: [],
-      festivalSpecial: [],
       geodeArt: [],
       sizes: [],
       minPrice: 0,

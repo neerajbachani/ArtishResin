@@ -49,17 +49,12 @@ export default function Product() {
   const decodedQueryString = decodeURIComponent(location.search);
   const searchParams = new URLSearchParams(decodedQueryString);
   const colorValue = searchParams.get("color");
-  const resinValue = searchParams.get("resin");
-  const digitalArtValue = searchParams.get("digitalArt");
-  const jewelValue = searchParams.get("jewel");
-  const resinRawMaterialsValue = searchParams.get("resinRawMaterials");
-  const lippanArtValue = searchParams.get("lippanArt");
-  const businessValue = searchParams.get("business");
-  const geodeArtValue = searchParams.get("geodeArt");
-  const vintageValue = searchParams.get("vintage");
   const varmalaPreservationValue = searchParams.get("varmalaPreservation");
-
-  const festivalSpecialValue = searchParams.get("festivalSpecial");
+  const wallClockValue = searchParams.get("wallClock");
+  const namePlateValue = searchParams.get("namePlate");
+  const navkarMantraFrameValue = searchParams.get("navkarMantraFrame");
+  const geodeArtValue = searchParams.get("geodeArt");
+  const resinSpecialValue = searchParams.get("resinSpecial");
   const sizeValue = searchParams.get("size");
 
   const discount = searchParams.get("discount");
@@ -89,16 +84,12 @@ export default function Product() {
     const data = {
       // category: param.lavelThree,
       colors: colorValue || [],
-      resin: resinValue || [],
       varmalaPreservation: varmalaPreservationValue || [],
-      digitalArt: digitalArtValue || [],
-      jewel: jewelValue || [],
-      resinRawMaterials: resinRawMaterialsValue || [],
-      festivalSpecial: festivalSpecialValue || [],
-      lippanArt: lippanArtValue || [],
+      wallClock: wallClockValue || [],
+      namePlate: namePlateValue || [],
+      navkarMantraFrame: navkarMantraFrameValue || [],
       geodeArt: geodeArtValue || [],
-      vintage: vintageValue || [],
-      business: businessValue || [],
+      resinSpecial: resinSpecialValue || [],
       sizes: sizeValue || [],
       sort: sortValue || [],
       minDiscount: discount || 0,
@@ -118,15 +109,11 @@ export default function Product() {
     // param.lavelThree,
     
     colorValue,
-    resinValue,
     varmalaPreservationValue,
-    digitalArtValue,
-    jewelValue,
-    resinRawMaterialsValue,
-    businessValue,
-    festivalSpecialValue,
-    lippanArtValue,
-    vintageValue,
+    wallClockValue,
+    namePlateValue,
+    resinSpecialValue,
+    navkarMantraFrameValue,
     geodeArtValue,
     sizeValue,
     discount,

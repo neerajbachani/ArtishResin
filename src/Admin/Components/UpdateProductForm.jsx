@@ -90,7 +90,7 @@ const UpdateProductForm = () => {
   console.log(product.product)
 
   return (
-    <div className=" bg-secondary-dark-color ">
+    <div className=" bg-[#000] ">
       <Typography
         variant="h3"
         sx={{ textAlign: "center" }}

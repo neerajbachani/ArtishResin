@@ -45,6 +45,15 @@ export const filters = [
     ],
   },
   {
+    id: "resinSpecial",
+    name: "Resin Art Special",
+    options: [
+      { value: "ourSignatureStyle", label: "Our Signature Style" },
+      { value: "wallArt", label: "Wall Art" },
+      { value: "opalArt", label: "Opal Art" },
+    ],
+  }, 
+  {
     id: "geodeArt",
     name: "Geode Art",
     options: [
@@ -65,15 +74,7 @@ export const filters = [
       { value: "presonalizedMantraFrame", label: "Personalized Mantra Frame" },
     ],
   },
-  {
-    id: "otherProducts",
-    name: "Other Products",
-    options: [
-      { value: "ourSignatureStyle", label: "Our Signature Style" },
-      { value: "wallArt", label: "Wall Art" },
-      { value: "opalArt", label: "Opal Art" },
-    ],
-  }, 
+ 
 ];
 
 export const sortOptions = [

@@ -29,15 +29,12 @@ const CreateProductForm = () => {
     price: "",
     discountPercent: "",
     quantity: "",
-    resin: "",
-    resinRawMaterials: "",
-    festivalSpecial: "",
-    digitalArt: "",
-    business: "",
-    lippanArt: "",
     varmalaPreservation: "",
+    wallClock: "",
+    namePlate: "",
+    navkarMantraFrame: "",
+    resinSpecial: "",
     geodeArt: "",
-    vintage: "",
     description1: "",
     description2: "",
     description3: "",
@@ -74,17 +71,13 @@ const jwt=localStorage.getItem("jwt")
           discount: "",
           price: "",
           discountPercent: "",
-          quantity: "",
-          resin: "",
-      
-          resinRawMaterials: "",
-          festivalSpecial: "",
-          digitalArt: "",
-          business: "",
-          lippanArt: "",
+          quantity: "", 
           geodeArt: "",
           varmalaPreservation: "",
-          vintage: "",
+          wallClock: "",
+          namePlate: "",
+          navkarMantraFrame: "",
+          resinSpecial: "",
           description1: "",
           description2: "",
           description3: "",
@@ -167,42 +160,6 @@ const jwt=localStorage.getItem("jwt")
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Resin</InputLabel>
-              <Select
-                name="resin"
-                value={productData.resin}
-                onChange={handleChange}
-                label="Resin"
-              >
-                <MenuItem value="wallclock">Wall Clock</MenuItem>
-                <MenuItem value="keychains">Keychains</MenuItem>
-                <MenuItem value="poojathali">Pooja Thali</MenuItem>
-                <MenuItem value="homedecor">Home Decor</MenuItem>
-                <MenuItem value="photoframes">Photo Frames</MenuItem>
-                <MenuItem value="photokeychains">Photo Keychains</MenuItem>
-                <MenuItem value="photoframes">Photo Frames</MenuItem>
-                <MenuItem value="phonecase">Phone Case</MenuItem>
-                <MenuItem value="tray">Tray</MenuItem>
-                <MenuItem value="marriagespecial">Marriage Special</MenuItem>
-                <MenuItem value="mantraframe">Mantra Frame</MenuItem>
-                <MenuItem value="nameplate">Name Plate</MenuItem>
-                <MenuItem value="nailplatter">Nail Platter</MenuItem>
-                <MenuItem value="book">Book</MenuItem>
-                <MenuItem value="chess">Chess</MenuItem>
-                <MenuItem value="coaster">Coaster</MenuItem>
-
-
-
-
-
-
-
-
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={6} sm={4}>
-            <FormControl fullWidth>
               <InputLabel>Varmala Preservation</InputLabel>
               <Select
                 name="varmalaPreservation"
@@ -224,67 +181,59 @@ const jwt=localStorage.getItem("jwt")
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Resin Raw Materials</InputLabel>
+              <InputLabel>Wall Clock</InputLabel>
               <Select
-                name="resinRawMaterials"
-                value={productData.resinRawMaterials}
+                name="wallClock"
+                value={productData.wallClock}
                 onChange={handleChange}
-                label="Resin Raw Materials"
+                label="Wall Clock"
               >
-                <MenuItem value="rawcollections">Raw Collections</MenuItem>
+                <MenuItem value="resinWallClock">Resin Wall Clock</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Festival Special</InputLabel>
+              <InputLabel>Name Plate</InputLabel>
               <Select
-                name="festivalSpecial"
-                value={productData.festivalSpecial}
+                name="namePlate"
+                value={productData.namePlate}
                 onChange={handleChange}
-                label="Festival Special"
+                label="Name Plate"
               >
-                <MenuItem value="diwali">Diwali</MenuItem>
-                <MenuItem value="rakhi">Rakhi</MenuItem>
+                <MenuItem value="customizedNamePlate">Customized Name Plate</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Digital Art</InputLabel>
+              <InputLabel>Resin Special</InputLabel>
               <Select
-                name="digitalArt"
-                value={productData.digitalArt}
+                name="resinSpecial"
+                value={productData.resinSpecial}
                 onChange={handleChange}
-                label="Digital Art"
+                label="Resin Special"
               >
-                <MenuItem value="digitalartedition">Digital Art Edition</MenuItem>
+                <MenuItem value="ourSignatureStyle">Our Signature Style</MenuItem>
+                <MenuItem value="wallArt">Wall Art</MenuItem>
+                <MenuItem value="opalArt">Opal Art</MenuItem>
+
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Business</InputLabel>
+              <InputLabel>Navkar Mantra Frame</InputLabel>
               <Select
-                name="business"
-                value={productData.business}
+                name="navkarMantraFrame"
+                value={productData.navkarMantraFrame}
                 onChange={handleChange}
-                label="business"
+                label="navkarMantraFrame"
               >
-                <MenuItem value="businessplate">Business Plate</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={6} sm={4}>
-            <FormControl fullWidth>
-              <InputLabel>Lippan Art</InputLabel>
-              <Select
-                name="lippanArt"
-                value={productData.lippanArt}
-                onChange={handleChange}
-                label="Lippan Art"
-              >
-                <MenuItem value="lippanartedition">Lippan Art Edition</MenuItem>
+                <MenuItem value="presonalizedMantraFrame">Personalized Mantra Frame</MenuItem>
+              
+
               </Select>
             </FormControl>
           </Grid>
@@ -298,19 +247,6 @@ const jwt=localStorage.getItem("jwt")
                 label="Geode Art"
               >
                 <MenuItem value="geodeartedition">Geode Art Edition</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={6} sm={4}>
-            <FormControl fullWidth>
-              <InputLabel>Vinatage</InputLabel>
-              <Select
-                name="vintage"
-                value={productData.vintage}
-                onChange={handleChange}
-                label="Vinatage"
-              >
-                <MenuItem value="vintageExclusive">Vinatage Exclusive</MenuItem>
               </Select>
             </FormControl>
           </Grid>

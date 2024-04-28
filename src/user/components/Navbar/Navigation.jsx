@@ -131,7 +131,7 @@ export default function Navigation() {
 
 
   return (
-    <div className="bg-white pb-0">
+    <div className="bg-white pb-0 ">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -194,16 +194,16 @@ export default function Navigation() {
               </button>
 
               {/* Logo */}
-              <div className="ml-4 flex lg:ml-0">
+              <div className="ml-4 flex lg:ml-0 ">
                 <Link to="/">
-                 <h1 className=' font-poppins text-3xl font-semibold'>Artish Resin</h1>
+                 <img src='https://res.cloudinary.com/ducutbdvu/image/upload/v1714309586/Clock/Artish_kwozcv.png' className=' w-[8rem] h-[6rem] mt-4'/>
                 </Link>
               </div>
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-10">
                 <div className="flex h-full items-center">
-                <div className="container mx-auto">
+                <div className="container mx-auto mt-3">
           {navList}
           </div>
                   
@@ -212,7 +212,7 @@ export default function Navigation() {
                 </div>
               </Popover.Group>
 
-              <div className="ml-auto flex items-center">
+              <div className="ml-auto flex items-center mt-3">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {auth.user ? (
                     <div>

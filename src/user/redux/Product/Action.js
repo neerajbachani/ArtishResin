@@ -25,21 +25,17 @@ import {
 export const findProducts = (reqData) => async (dispatch) => {
   const {
     colors,
-    resin,
+ 
     varmalaPreservation,
-    digitalArt,
-    jewel,
-    resinRawMaterials,
-    festivalSpecial,
-    lippanArt,
-    business,
-    vintage,
+    wallClock,
+    navkarMantraFrame,
+    namePlate,
+    resinSpecial,
     geodeArt,
     sizes,
     minPrice,
     maxPrice,
     minDiscount,
-    category,
     stock,
     sort,
     pageNumber,
@@ -48,9 +44,11 @@ export const findProducts = (reqData) => async (dispatch) => {
 
   try {
     dispatch({ type: FIND_PRODUCTS_BY_CATEGORY_REQUEST });
+    console.log(wallClock)
+    console.log(varmalaPreservation)
 
     const { data } = await api.get(
-      `/api/products?resin=${resin}&varmalaPreservation=${varmalaPreservation}&digitalArt=${digitalArt}&resinRawMaterials=${resinRawMaterials}&festivalSpecial=${festivalSpecial}&business=${business}&vintage=${vintage}&lippanArt=${lippanArt}&geodeArt=${geodeArt}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+      `/api/products?varmalaPreservation=${varmalaPreservation}&wallClock=${wallClock}&navkarMantraFrame=${navkarMantraFrame}&namePlate=${namePlate}&resinSpecial=${resinSpecial}&geodeArt=${geodeArt}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
 
     console.log("Fetched data from API:", data);

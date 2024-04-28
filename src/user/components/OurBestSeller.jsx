@@ -13,6 +13,7 @@ const OurBestSeller = () => {
 
   return (
     <>
+     <div data-aos="fade-up">
       <h1 className="text-center font-poppins font-semibold md:text-4xl text-2xl mt-[7rem] max-w-screen-2xl mx-auto ">
         Our Best Seller
       </h1>
@@ -26,15 +27,16 @@ const OurBestSeller = () => {
               className="lg:w-[20rem] lg:h-[25rem] md:w-[25rem] md:h-[20rem] sm:w-[20rem] sm:h-[15rem] w-[10rem] h-[10rem] object-cover"
               alt={product.title}
             />
-            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-4">
+            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-4 font-poppins">
               {product.title}
             </p>
-            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-1">
+            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-1 font-poppins">
               Rs. {product.price}
             </p>
           </div>
           </Link>
         ))}
+      </div>
       </div>
     </>
   );
