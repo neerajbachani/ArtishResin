@@ -269,7 +269,7 @@ export default function Product() {
           </Dialog>
         </Transition.Root>
 
-        <main className=" px-4 lg:px-10 ">
+        <main className=" sm:px-4 px-0 lg:px-10 ">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 font-poppins text-secondary-dark-color ">
               Product
@@ -414,8 +414,8 @@ export default function Product() {
                 </form>
 
                 {/* Product grid */}
-                <div className="lg:col-span-4 w-full ">
-                  <div className="sm:flex sm:flex-wrap justify-center space-x-5  grid grid-cols-2 bg-white py-5 rounded-md ">
+                <div className="lg:col-span-4 sm:w-full max-w-lg mx-auto sm:max-w-full sm:mx-0 px-0 ">
+                  <div className="sm:flex sm:flex-wrap justify-center sm:space-x-5 gap-5 grid grid-cols-2 bg-white py-5  rounded-md ">
                     {product?.products?.content?.map((item) => (
                       <ProductCard product={item} key={item.id} />
                      

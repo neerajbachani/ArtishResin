@@ -11,7 +11,7 @@ const WhatsAppButton = () => {
 
   return (
     <button 
-    className="whatsapp-button bg-[#075e54] p-3 rounded-md text-[#fff]"
+    className="whatsapp-button bg-[#075e54] sm:p-3 p-2 text-md sm:text-xl rounded-md text-[#fff]"
     onClick={handleWhatsAppShare}
     >
       Share on WhatsApp

@@ -11,9 +11,9 @@ const ProductCard = ({ product }) => {
   return (
     <>
       {image ? (
-        <div className='productCard m-3 transition-all cursor-pointer '>
+        <div className='productCard transition-all cursor-pointer  '>
           <NavLink to={`/products/id/${product?._id}`}>
-            <div className='sm:h-[20rem] relative sm:w-[17rem] h-[15rem] w-[12rem]'>
+            <div className='sm:h-[20rem] relative sm:w-[17rem] h-[15rem] w-[11rem]'>
               <img
                 className='h-full w-full object-cover absolute top-0 right-0 '
                 src={image}
@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
               />
             </div>
           </NavLink>
-          <div className='textPart bg-white p-3 '>
+          <div className='textPart bg-white mt-3 mb-3 '>
             <div>
               {/* <p className='font-bold opacity-60'>{brand}</p> */}
               <p className=' text-secondary-dark-color sm:text-xl text-lg font-poppins'>
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
               {/* <p className='font-semibold opacity-50'>{color}</p> */}
             </div>
             <div className='flex space-x-2 items-center'>
-              <p className='font-semibold font-poppins text-primarycolor sm:text-2xl text-xl  '>
+              <p className='font-semibold font-poppins text-primarycolor sm:text-2xl text-lg  '>
                 ₹{discountedPrice}
               </p>
               <p className='opacity-50 line-through'>₹{price}</p>

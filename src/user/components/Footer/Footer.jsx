@@ -13,17 +13,17 @@ function Footer() {
     {
       icon: BsPinterest,
       alt: "pinteres",
-      link: "https://pin.it/JIJM3y5nO"
+      link: "https://pin.it/JIJM5nO"
     },
     {
       icon: FaFacebook,
       alt: "facebook",
-      link: "https://www.facebook.com/share/ToQb7nY7Vw7wDAtc/?mibextid=qi2Omg"
+      link: "https://www.facebo.com/share/ToQb7nY7Vw7wDAtc/?mibextid=qi2Omg"
     },
     {
       icon: FaYoutube,
       alt: "youtube",
-      link: "https://youtube.com/@ResinGiftStore?si=jKxMDNKgKbL9EnGj"
+      link: "https://youtube.com/@Resin?si=jKxMDNKgKbL9EnGj"
     }
   ];
   return (
@@ -32,12 +32,12 @@ function Footer() {
         <div className="container sm:px-5  sm:py-4 px-1 py-2">
           <div className="flex justify-between flex-col sm:flex-row  items-center md:items-start  sm:gap-[5rem] text-left">
             <div className="flex flex-col w-1/2 md:p-0 py-4 gap-8">
-              {/* <img
-                src='https://res.cloudinary.com/dkhsnhjrh/image/upload/v1708707479/2_igcdbk.png'
+              <img
+                src='https://res.cloudinary.com/ducutbdvu/image/upload/v1714309586/Clock/Artish_kwozcv.png'
                 alt="footer_logo"
                 className="w-[18rem]"
-              /> */}
-              {/* <h1 className='  text-5xl font-poppins font-medium text-secondary-dark-color pt-20' >Resin Logo.</h1> */}
+              />
+           
               <p className="text-[15px] font-medium text-[#646464]">
               Resin treasures crafted uniquely, each piece a heartfelt reflection of your story, bringing joy and memories to life.
               </p>

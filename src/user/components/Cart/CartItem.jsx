@@ -15,9 +15,9 @@ const CartItem = ({ item, showButton, cartItemsCount }) => {
   );
 
   useEffect(() => {
-    setCustomizationNote(item.customizationNote || "");
-    setCustomizationImage(item.customizationImage || null);
-  }, [item.customizationNote, item.customizationImage]);
+    setCustomizationNote(item?.customizationNote || "");
+    setCustomizationImage(item?.customizationImage || null);
+  }, [item?.customizationNote, item?.customizationImage]);
 
   const handleRemoveItemFromCart = () => {
     const data = { cartItemId: item?._id, jwt };

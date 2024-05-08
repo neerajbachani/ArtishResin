@@ -14,6 +14,7 @@ import rectangle34 from '../../../assets/rectangle-34@2x.png'
 // import ProductReviewCard from '../ProductReviewCard/ProductReviewCard'
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { CiZoomIn } from "react-icons/ci";
 
 
 
@@ -137,13 +138,14 @@ console.log(customizationNote)
         {/* Image gallery */}
         <div className=' flex flex-col md:flex-row   lg:max-w-7xl  mx-5  sm:mx-20 pt-10 mb-10 col-span-1 '>
           <div className=" py-auto ">
-            <div className=" sm:overflow-hidden sm:rounded-lg">
-            <button type="button" onClick={() => setOpen(true)}>
+            <div className=" sm:overflow-hidden sm:rounded-lg ">
+            <button type="button" className='relative' onClick={() => setOpen(true)}>
             <img
                 src={`${product.product?.image}`}
                 alt='product_detail'
                 className="h-[30rem] w-[25rem] object-cover "
               />
+              <CiZoomIn className='absolute top-3 left-3 text-4xl rounded-full font-bold bg-black text-white bg-opacity-30 p-1 '/>
       </button>
       <Lightbox
         open={open}
@@ -163,7 +165,7 @@ console.log(customizationNote)
           </div>
 
           {/* Product info */}
-          <div className=" max-w-2xl px-4 pb-16 pt-10 sm:px-6 w-full col-span-1   lg:pl-20 lg:pb-24 lg:pt-16">
+          <div className=" max-w-2xl  pb-16 pt-10 sm:px-6 w-full col-span-1   lg:pl-20 lg:pb-24 lg:pt-16">
 
             <div className=' ' >
 
@@ -180,7 +182,7 @@ console.log(customizationNote)
 
 
               {/* Reviews */}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center space-x-1">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -205,12 +207,12 @@ console.log(customizationNote)
                 </div>
 
 
-              </div>
+              </div> */}
 
-              <div className=' mt-10 ' >
-                <h3 className="sr-only font-poppins">Description</h3>
-                <div className="mt-4">
-                  <ul role="list" className=" list-none space-y-2 pl-4 text-md">
+              <div className=' sm:mt-8 mt-4 ' >
+                <h3 className="text-lg font-poppins">Description:</h3>
+                <div className="mt-2">
+                  <ul role="list" className=" list-none space-y-2  text-md">
 
                     <li className="text-gray-400">
                       <span className="text-gray-600 font-poppins text-xl ">{product.product?.description1}</span>
@@ -264,9 +266,17 @@ console.log(customizationNote)
 
             </div>
 
-            <div className=' flex justify-end mt-5 ' >
-
-            <input type="file" onChange={handleImageUpload} />
+            <div className=' flex justify-between mt-5 ' >
+            <label className="block">
+                  <span className="sr-only">Upload Customization Image</span>
+                  <input
+                    type="file"
+                    onChange={handleImageUpload}
+                    accept="image/*"
+                    className="block w-44 md:w-auto border border-gray-300 rounded-lg py-2 px-3 bg-white text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  />
+                </label>
+           
               <div>
 
                 <WhatsAppButton />
@@ -476,42 +486,27 @@ console.log(customizationNote)
 
       </div>
 
-      <div className="flex mt-[7rem] space-x-[1.1rem] md:space-x-[2rem] justify-between ssm:ml-[1.9rem] ssm:mr-[1.8rem] mr-[1rem]
-         ml-[1rem]  ">
+      <div className="flex mt-[7rem] max-w-5xl mx-auto  justify-between  ">
         <div className="flex flex-col  items-center">
           <img src={rectangle34} alt="Returns & Exchanges" className=" w-8 h-8 md:w-[4.16rem] md:h-[4.16rem] 
   ssm:w-[3.68rem] 
   ssm:h-[3.68rem] lg:h-14 lg:w-14 " />
           <p className="text-black text-[1.2rem] font-poppins md:text-[1.7rem]  font-normal leading-normal ssm:text-[1.5rem]
    mt-2 lg:text-2xl text-secondary-dark-color  ">Offers & Gifts</p>
-          <div className="flex flex-col">
-            <p className="text-black font-poppins  text-[0.9rem] mt-1 text-center ssm:text-[1rem] md:text-[1.2rem]   header-info-subtext lg:text-xl text-primarycolor  ">
-            Explore exclusive offers on a wide range 
-            </p>
-            <p className=' text-center text-primarycolor font-poppins text-[0.9rem] ssm:text-[1rem] md:text-[1.2rem] lg:text-xl '>of gifts for every occasion</p>
-
-          </div>
+         
         </div>
 
         <div className="flex flex-col items-center">
           <img src={rectangle35} alt="Fast Shipping" className="w-8 h-8 ssm:w-[3.68rem] 
   ssm:h-[3.68rem] md:w-[4.16rem] md:h-[4.16rem] lg:h-14 lg:w-14  " />
           <p className="text-black font-kurale font-normal md:text-[1.7rem] leading-normal mt-2 ssm:text-[1.5rem]  text-[1.2rem] lg:text-2xl text-secondary-dark-color font-poppins  ">Fast Shipping</p>
-          <p className="text-black font-kurale  mt-1 text-center header-info-subtext ssm:text-[1rem]
-             md:text-[1.2rem]  text-[0.9rem] text-primarycolor font-poppins lg:text-xl ">
-            Experience lightning-fast delivery, ensuring 
-          </p>
-          <p className=' text-primarycolor font-poppins text-center  ssm:text-[1rem] font-kurale   text-[0.9rem] md:text-[1.2rem] lg:text-xl '>your orders reach you in no time</p>
+       
         </div>
         <div className="flex flex-col items-center">
           <img src={rectangle36} alt="Support 24/7" className="w-8 h-8 ssm:w-[3.68rem] 
   ssm:h-[3.68rem] md:w-[4.16rem] md:h-[4.16rem] lg:h-14 lg:w-14  " />
           <p className="text-black font-kurale  font-normal md:text-[1.7rem] leading-normal mt-2 header-info-text text-[1.2rem] ssm:text-[1.5rem] lg:text-2xl text-secondary-dark-color font-poppins   ">Support 24/7</p>
-          <p className="text-black font-kurale  mt-1 text-center header-info-subtext ssm:text-[1rem] 
-            md:text-[1.2rem] lg:text-xl text-[0.9rem] text-primarycolor font-poppins  ">
-            Enjoy peace of mind with our dedicated 24/7 
-          </p>
-          <p className=' text-primarycolor font-poppins text-center text-[0.9rem] ssm:text-[1rem] font-kurale  md:text-[1.2rem] lg:text-xl '>support team always at your service</p>
+         
         </div>
       </div>
 
