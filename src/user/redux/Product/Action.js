@@ -2,7 +2,8 @@
 
 
 import axios from "axios";
-import { api } from "../../../Config/ApiConfig";
+import { API_BASE_URL, api } from "../../../Config/ApiConfig";
+
 import {
   FIND_PRODUCTS_BY_CATEGORY_REQUEST,
   FIND_PRODUCTS_BY_CATEGORY_SUCCESS,
@@ -20,6 +21,7 @@ import {
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILURE,
 } from "./ActionType";
+import { showErrorToast, showSuccessToast } from "../../components/toast";
 
 
 export const findProducts = (reqData) => async (dispatch) => {
@@ -90,20 +92,45 @@ export const findProductById = (reqData) => async (dispatch) => {
   }
 };
 
+const jwt = localStorage.getItem("jwt")
+
+const apii = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Authorization": `Bearer ${jwt}`,
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
 export const createProduct = (product) => async (dispatch) => {
-  console.log(product)
   try {
     dispatch({ type: CREATE_PRODUCT_REQUEST });
 
-    const { data } = await api.post(`/api/admin/products/`,product);
-    console.log(data)
+    const formData = new FormData();
+    formData.append('image', product.image);
+    formData.append('name', product.name);
+    formData.append('details', product.details);
+    formData.append('color', product.color);
+    formData.append('discount', product.discount);
+    formData.append('price', product.price);
+    formData.append('discountPercent', product.discountPercent);
+    formData.append('discountedPrice', product.discountedPrice);
+    formData.append('quantity', product.quantity);
+    formData.append('varmalaPreservation', product.varmalaPreservation);
+    formData.append('wallClock', product.wallClock);
+    formData.append('namePlate', product.namePlate);
+    formData.append('navkarMantraFrame', product.navkarMantraFrame);
+    formData.append('resinSpecial', product.resinSpecial);
+    formData.append('geodeArt', product.geodeArt);
+    formData.append('description1', product.description1);
+    formData.append('description2', product.description2);
+    formData.append('description3', product.description3);
 
-    dispatch({
-      type: CREATE_PRODUCT_SUCCESS,
-      payload: data,
-    });
+    const { data } = await apii.post(`/api/admin/products/`, formData);
 
-    console.log("created product ", data);
+    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data });
+    console.log('created product ', data);
+    showSuccessToast('Product created successfully');
   } catch (error) {
     dispatch({
       type: CREATE_PRODUCT_FAILURE,
@@ -112,33 +139,87 @@ export const createProduct = (product) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+    if (error.response && error.response.status === 400) {
+      // Validation error
+      showErrorToast('Please fill in all required fields');
+    } else {
+      console.log(error.response);
+      console.log(error);
+      showErrorToast('Failed to create product. Please try again.');
+    }
   }
 };
 
 export const updateProduct = (product, productId) => async (dispatch) => {
-  
   try {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
 
-    const { data } = await api.put(
-      `/api/admin/products/${productId}`, // Accessing productId property
-      product // Passing the entire product object as the request body
-    );
-    console.log("update product ", data);
-    dispatch({
-      type: UPDATE_PRODUCT_SUCCESS,
-      payload: data,
-    });
+    const formData = new FormData();
+    formData.append('image', product.image);
+    formData.append('name', product.name);
+    formData.append('details', product.details);
+    formData.append('color', product.color);
+    formData.append('discount', product.discount);
+    formData.append('price', product.price);
+    formData.append('discountPercent', product.discountPercent);
+    formData.append('discountedPrice', product.discountedPrice);
+    formData.append('varmalaPreservation', product.varmalaPreservation);
+    formData.append('wallClock', product.wallClock);
+    formData.append('namePlate', product.namePlate);
+    formData.append('navkarMantraFrame', product.navkarMantraFrame);
+    formData.append('resinSpecial', product.resinSpecial);
+    formData.append('geodeArt', product.geodeArt);
+    formData.append('description1', product.description1);
+    formData.append('description2', product.description2);
+    formData.append('description3', product.description3);
+
+    const { data } = await apii.put(`/api/admin/products/${productId}`, formData);
+
+    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data });
+    console.log('created product ', data);
+    showSuccessToast('Product created successfully');
   } catch (error) {
     dispatch({
-      type: UPDATE_PRODUCT_FAILURE,
+      type: CREATE_PRODUCT_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
     });
+    if (error.response && error.response.status === 400) {
+      // Validation error
+      showErrorToast('Please fill in all required fields');
+    } else {
+      console.log(error.response);
+      console.log(error);
+      showErrorToast('Failed to create product. Please try again.');
+    }
   }
 };
+
+// export const updateProduct = (product, productId) => async (dispatch) => {
+//   try {
+//     dispatch({ type: UPDATE_PRODUCT_REQUEST });
+//     const { data } = await api.put(`/api/admin/products/${productId}`, product);
+//     console.log('update product ', data);
+//     dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data });
+//     // showSuccessToast('Product updated successfully');
+//   } catch (error) {
+//     dispatch({
+//       type: UPDATE_PRODUCT_FAILURE,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//     if (error.response && error.response.status === 400) {
+//       // Validation error
+//       showErrorToast('Please fill in all required fields');
+//     } else {
+//       console.log(error)
+//     }
+//   }
+// };
 
 
 export const deleteProduct = (productId) => async (dispatch) => {
@@ -154,7 +235,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
       type: DELETE_PRODUCT_SUCCESS,
       payload: productId,
     });
-
+    showSuccessToast('Product Deleted Successfully');
     console.log("product delte ",data)
   } catch (error) {
     console.log("catch error ",error)

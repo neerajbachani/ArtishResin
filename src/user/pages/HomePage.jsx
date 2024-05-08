@@ -7,6 +7,8 @@ import OurBestSeller from '../components/OurBestSeller';
 import OurProducts from '../components/OurProducts/OurProducts';
 import OurFeaturedCollections from '../components/OurFeaturedCollections/OurFeaturedCollections';
 import WorkshopPoster from '../components/WorkshopPoster/WorkshopPoster';
+import { Toaster } from 'react-hot-toast';
+import Categories from '../components/Categories/Categories';
 
 const HomePage = () => {
   useEffect(() => {
@@ -18,9 +20,11 @@ const HomePage = () => {
   return (
     <>
       <div className="max-w-screen-3xl mx-auto">
+      <Toaster />
         <HeroSection />
         <OurBestSeller />
         <OurProducts />
+        <Categories/>
         <OurFeaturedCollections />
         <WorkshopPoster />
         <AboutUs />

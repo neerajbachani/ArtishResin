@@ -16,7 +16,13 @@ const OurFeaturedCollections = () => {
     <>
   
       <div className='max-w-5xl mx-auto' >
-        <h2 className="text-center font-poppins font-semibold md:text-4xl text-2xl mt-[5rem] mb-4 "> Our Featured Products </h2>
+      <div className=' flex   items-center justify-center md:mt-[7rem] mt-[4rem] space-x-5 '>
+          <div className=' bg-[#5baef7] w-1 h-7 '></div>
+        <h1 className="  font-poppins font-semibold md:text-4xl text-2xl     ">
+          
+        Our Featured
+      </h1>
+      </div>
         <div className='py-5 grid md:grid-cols-3 grid-cols-2 gap-5' data-aos='fade-up' >
           <div className='flex flex-col gap-2'>
             {featuredProducts.length > 0 && (

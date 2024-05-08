@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { getUser, register } from '../../redux/Auth/Action';
 import LoadingBar from 'react-top-loading-bar';
+import { Toaster, toast } from 'react-hot-toast'; // Import from react-hot-toast
 
 const SignUpForm = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const SignUpForm = ({ setIsLoggedIn }) => {
     try {
       event.preventDefault();
       if (userData.password !== userData.confirmPassword) {
+        toast.error('Passwords do not match'); // Display error toast
         return;
       }
 
@@ -54,6 +56,8 @@ const SignUpForm = ({ setIsLoggedIn }) => {
           console.log("printing account data ");
           console.log(accountData);
 
+          toast.success('Account created successfully'); // Display success toast
+
           // Navigate to the previous page (-1)
           navigate(-1, { replace: true });
 
@@ -63,12 +67,14 @@ const SignUpForm = ({ setIsLoggedIn }) => {
       );
     } catch (error) {
       console.error('Submit handler error:', error);
+      toast.error('An error occurred. Please try again.'); // Display error toast
       setProgress(0); // Reset progress if an error occurs
     }
   }
 
   return (
     <div>
+      <Toaster /> {/* Render the Toaster component */}
       <LoadingBar color="#f11946" progress={progress} />
       <form onSubmit={submitHandler}>
         {/* first name and lastName */}
@@ -155,7 +161,7 @@ const SignUpForm = ({ setIsLoggedIn }) => {
           Create Account
         </button>
       </form>
-      <Link className='  text-xl text-secondary-dark-color' to='/signin'>Already have and Account? <span>Login</span></Link>
+      <Link className='  text-xl text-[#BDE0FE]' to='/signin'>Already have and Account? <span>Login</span></Link>
     </div>
   );
 };

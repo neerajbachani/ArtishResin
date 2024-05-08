@@ -4,6 +4,7 @@ import { TextField, Button, Typography, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createContact } from "../../redux/Contact/Action";
 
+
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +22,9 @@ export default function ContactForm() {
   };
 
   return (
+    <>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.991818381604!2d73.12744447529306!3d22.31614917967511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc933ad095567%3A0xf08f50e967d73000!2sArtish_Isha&#39;s%20Resin%20Art%20Studio!5e0!3m2!1sen!2sin!4v1714390868858!5m2!1sen!2sin" width="100%" height="450"  allowFullScreen='' loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+  
     <Box
       sx={{
         display: "flex",
@@ -100,5 +104,6 @@ export default function ContactForm() {
         </form>
       </Box>
     </Box>
+    </>
   );
 }

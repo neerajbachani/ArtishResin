@@ -61,12 +61,26 @@ export default function ProductDetails() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+const [customizationNote, setCustomizationNote] = useState('');
+
+const [customizationImage, setCustomizationImage] = useState(null);
+
+  const handleImageUpload = (event) => {
+    setCustomizationImage(event.target.files[0]);
+  };
+
   const handleAddToCart = () => {
-    const data = { productId: productId };
-    console.log(data);
-    dispatch(addItemToCart({ data, jwt }));
+    const formData = new FormData();
+    formData.append('productId', productId);
+    formData.append('customizationNote', customizationNote);
+    if (customizationImage) {
+      formData.append('customizationImage', customizationImage);
+    }
+
+    dispatch(addItemToCart({ formData, jwt }));
     navigate('/cart');
   };
+console.log(customizationNote)
 
   const handleBuyNoW = () => {
     const data = { productId: productId };
@@ -213,21 +227,23 @@ export default function ProductDetails() {
 
 
               <form className="mt-5 ">
-                <div className="mb-5">
-                  <label
-                    htmlFor="large-input"
-                    className="block mb-2 font-poppins text-xl font-medium text-[#808080] dark:text-white"
-                  >
-                    *Note
-                  </label>
-                  <input
-                    type="text"
-                    id="large-input"
-                    className="block w-full h-[5rem] p-4 text-gray-900 pb-24 text-sm font-poppins border border-light-text-color rounded-md "
-                    placeholder="Share your desired changes or customizations in your note. "
-                  />
-                </div>
-              </form>
+  <div className="mb-5">
+    <label
+      htmlFor="large-input"
+      className="block mb-2 font-poppins text-xl font-medium text-[#808080] dark:text-white"
+    >
+      *Note
+    </label>
+    <input
+      type="text"
+      id="large-input"
+      className="block w-full h-[5rem] p-4 text-gray-900 pb-24 text-sm font-poppins border border-light-text-color rounded-md "
+      placeholder="Share your desired changes or customizations in your note."
+      value={customizationNote}
+      onChange={(e) => setCustomizationNote(e.target.value)}
+    />
+  </div>
+</form>
 
               <button
                 onClick={handleAddToCart}
@@ -250,7 +266,7 @@ export default function ProductDetails() {
 
             <div className=' flex justify-end mt-5 ' >
 
-
+            <input type="file" onChange={handleImageUpload} />
               <div>
 
                 <WhatsAppButton />

@@ -10,6 +10,8 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { Toaster, toast } from 'react-hot-toast';
+import { showSuccessToast, showErrorToast } from '../../user/components/toast';
 
 import { Fragment } from "react";
 // import "./CreateProductForm.css";
@@ -27,6 +29,7 @@ const initialSizes = [
 ];
 
 const UpdateProductForm = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
   const [productData, setProductData] = useState({
     image: "",
     name: "",
@@ -69,8 +72,28 @@ const UpdateProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateProduct(productData, productId));
-    console.log(productData);
+    dispatch(updateProduct({ ...productData, image: selectedFile}, productId ))
+      .then(() => {
+        setProductData({
+          image: '',
+          name: '',
+          discountedPrice: '',
+          price: '',
+          discount: '',
+          size: initialSizes,
+          quantity: '',
+          description1: '',
+          description2: '',
+          description3: '',
+          details: '',
+        });
+        setSelectedFile(null);
+        showSuccessToast('Product updated successfully');
+      })
+      .catch((error) => {
+        console.log('error');
+        showErrorToast('Failed to update product. Please try again.');
+      });
   };
 
   useEffect(() => {
@@ -91,6 +114,7 @@ const UpdateProductForm = () => {
 
   return (
     <div className=" bg-[#000] ">
+      <Toaster/>
       <Typography
         variant="h3"
         sx={{ textAlign: "center" }}
@@ -103,15 +127,13 @@ const UpdateProductForm = () => {
         className="createProductContainer min-h-screen"
       >
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Image URL"
-              name="image"
-              value={productData.image}
-              onChange={handleChange}
-            />
-          </Grid>
+        <Grid item xs={12}>
+  <input
+    type="file"
+    name="image"
+    onChange={(e) => setSelectedFile(e.target.files[0])}
+  />
+</Grid>
           
 
           <Grid item xs={12} sm={6}>

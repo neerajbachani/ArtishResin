@@ -27,7 +27,7 @@ const initialState = {
 const customerProductReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIND_PRODUCTS_BY_CATEGORY_REQUEST:
-      return { ...state, loading: true, error: null,products:[] };
+      return { ...state, loading: true, error: null };
     case FIND_PRODUCTS_BY_CATEGORY_SUCCESS:
       return { ...state, products: action.payload, loading: false };
     case FIND_PRODUCTS_BY_CATEGORY_FAILURE:
@@ -44,12 +44,13 @@ const customerProductReducer = (state = initialState, action) => {
           loading: true,
           error: null,
         };
-      case CREATE_PRODUCT_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-          products: [...state.products, action.payload],
-        };
+        case CREATE_PRODUCT_SUCCESS:
+          const products = Array.isArray(state.products) ? [...state.products, action.payload] : [action.payload];
+          return {
+            ...state,
+            loading: false,
+            products,
+          };
       case CREATE_PRODUCT_FAILURE:
         return {
           ...state,

@@ -39,11 +39,12 @@ useEffect(() => {
       progress={progress}
       onLoaderFinished={() => setProgress(0)}
     />
+    
       {cart.cartItems?.length>0 && <div className="lg:grid grid-cols-3 lg:px-16 relative">
         <div className="lg:col-span-2 lg:px-5 bg-white">
         <div className=" space-y-3">
           {cart.cartItems.map((item) => (
-            <>
+            <><h2 className="text-2xl font-bold mb-4">Your Cart</h2>
               <CartItem item={item} showButton={true}/>
             </>
           ))}

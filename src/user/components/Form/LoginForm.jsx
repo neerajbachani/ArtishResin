@@ -8,6 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../redux/Auth/Action';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import LoadingBar from 'react-top-loading-bar';
+import { Toaster, toast } from 'react-hot-toast';
+import { showSuccessToast, showErrorToast } from '../toast';
 
 const LoginForm = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -34,21 +36,23 @@ const LoginForm = ({ setIsLoggedIn }) => {
     event.preventDefault();
     setProgress(30);
     setIsLoggedIn(true);
-
     try {
       await dispatch(login(userData));
       setProgress(100);
+      showSuccessToast('Login successful');
       setTimeout(() => {
         navigate(-1);
       }, 500); // Adjust the delay as needed
     } catch (error) {
       console.error('Login failed:', error);
       setProgress(0);
+      showErrorToast('Invalid email or password');
     }
   }
 
   return (
     <div>
+       <Toaster />
       <LoadingBar
         color="#f11946"
         progress={progress}

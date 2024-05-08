@@ -11,15 +11,19 @@ import {
   MenuItem,
 } from "@mui/material";
 
+
 import { Fragment } from "react";
 
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../user/redux/Product/Action";
+import { Toaster, toast } from 'react-hot-toast';
+import { showSuccessToast, showErrorToast } from '../../user/components/toast';
 
  
 
 const CreateProductForm = () => {
   
+  const [selectedFile, setSelectedFile] = useState(null);
   const [productData, setProductData] = useState({
     image: "",
     name: "",
@@ -28,6 +32,7 @@ const CreateProductForm = () => {
     discount: "",
     price: "",
     discountPercent: "",
+    discountedPrice: "",
     quantity: "",
     varmalaPreservation: "",
     wallClock: "",
@@ -51,46 +56,42 @@ const jwt=localStorage.getItem("jwt")
     }));
   };
 
- 
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(createProduct(productData))
-  //   console.log(productData);
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createProduct(productData))
+    dispatch(createProduct({ ...productData, image: selectedFile }))
       .then(() => {
-        
-        setProductData({ // Reset form fields
-          image: "",
-          name: "",
-          details: "",
-          color: "",
-          discount: "",
-          price: "",
-          discountPercent: "",
-          quantity: "", 
-          geodeArt: "",
-          varmalaPreservation: "",
-          wallClock: "",
-          namePlate: "",
-          navkarMantraFrame: "",
-          resinSpecial: "",
-          description1: "",
-          description2: "",
-          description3: "",
+        setProductData({
+          image: '',
+          name: '',
+          details: '',
+          color: '',
+          discount: '',
+          price: '',
+          discountPercent: '',
+          discountedPrice: '',
+          quantity: '',
+          geodeArt: '',
+          varmalaPreservation: '',
+          wallClock: '',
+          namePlate: '',
+          navkarMantraFrame: '',
+          resinSpecial: '',
+          description1: '',
+          description2: '',
+          description3: '',
         });
+        setSelectedFile(null);
+        // showSuccessToast('Product created successfully');
       })
       .catch((error) => {
-       
-        consoloe.log("error")
+        console.log('error');
+        // showErrorToast('Failed to create product. Please try again.');
       });
   };
 
  
   return (
+    <><Toaster />
     <div className=" bg-[#1b1b1b]">
       <Typography
         variant="h3"
@@ -104,15 +105,13 @@ const jwt=localStorage.getItem("jwt")
         className="createProductContainer min-h-screen"
       >
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Image URL"
-              name="image"
-              value={productData.image}
-              onChange={handleChange}
-            />
-          </Grid>
+        <Grid item xs={12}>
+  <input
+    type="file"
+    name="image"
+    onChange={(e) => setSelectedFile(e.target.files[0])}
+  />
+</Grid>
           
         
           <Grid item xs={12} sm={6}>
@@ -312,6 +311,7 @@ const jwt=localStorage.getItem("jwt")
       </form>
    
     </div>
+    </>
   );
 };
 

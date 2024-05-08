@@ -26,6 +26,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, findProducts } from "../../user/redux/Product/Action";
+import { Toaster } from "react-hot-toast";
 
 
 const ProductsTable = () => {
@@ -98,6 +99,8 @@ const ProductsTable = () => {
 
 
   return (
+    <>
+    <Toaster/>
     <Box width={"100%"}>
       <Card className="mt-2">
         <CardHeader
@@ -115,8 +118,9 @@ const ProductsTable = () => {
                 <TableCell>Image</TableCell>
                 <TableCell>Title</TableCell>
                 {/* <TableCell sx={{ textAlign: "center" }}>Category</TableCell> */}
+                <TableCell sx={{ textAlign: "center" }}>Discounted/Original Price</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Quantity</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Discount</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Update</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
               </TableRow>
@@ -151,7 +155,10 @@ const ProductsTable = () => {
                   </TableCell>
                   {/* <TableCell sx={{ textAlign: "center" }}>{item.category.name}</TableCell> */}
                    <TableCell sx={{ textAlign: "center" }}>{item.discountedPrice}</TableCell>
-                   <TableCell sx={{ textAlign: "center" }}>{item.quantity}</TableCell>
+                   <TableCell sx={{ textAlign: "center" }}>{item.price}</TableCell>
+                   <TableCell sx={{ textAlign: "center" }}>{item.discount}</TableCell>
+
+                
                    
                    <TableCell sx={{ textAlign: "center" }}>
                     <Button variant="text" 
@@ -183,6 +190,7 @@ const ProductsTable = () => {
         </div>
       </Card>
     </Box>
+    </>
   );
 };
 

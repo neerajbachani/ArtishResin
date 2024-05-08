@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOurBestSellerProduct } from '../redux/OurBestSeller/Action';
 import { Link } from 'react-router-dom';
 
+
 const OurBestSeller = () => {
   const dispatch = useDispatch();
   const { ourBestSellerProduct } = useSelector((store) => store);
@@ -11,15 +12,27 @@ const OurBestSeller = () => {
     dispatch(getOurBestSellerProduct());
   }, [dispatch]);
 
+ 
+
   return (
     <>
      <div data-aos="fade-up">
-      <h1 className="text-center font-poppins font-semibold md:text-4xl text-2xl mt-[7rem] max-w-screen-2xl mx-auto ">
+ 
+        <div className=' flex   items-center justify-center md:mt-[7rem] mt-[4rem] space-x-5 '>
+          <div className=' bg-[#5baef7] w-1 h-7 '></div>
+        <h1 className="  font-poppins font-semibold md:text-4xl text-2xl     ">
+          
         Our Best Seller
       </h1>
+      </div>
+      
+      
+     
+    
       <div className="flex sm:flex-nowrap flex-wrap justify-center mt-[2rem] lg:gap-8 gap-5">
       
         {ourBestSellerProduct?.ourBestSellerProducts?.map((product) => (
+          <div className=' flex flex-col '>
           <Link to={product?.link}>
           <div className="flex-col" key={product.id}>
             <img
@@ -35,6 +48,8 @@ const OurBestSeller = () => {
             </p>
           </div>
           </Link>
+       
+          </div>
         ))}
       </div>
       </div>

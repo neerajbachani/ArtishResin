@@ -44,11 +44,42 @@ const HeroSection = ({ isOpen }) => {
         <>
           <Link to={heroSection.heroSections[currentImage]?.link}>
             <img
-              className="bg-no-repeat lg:h-[90vh] w-full h-[50vh] object-cover"
+              className="bg-no-repeat lg:h-[90vh] w-full h-[60vh] object-cover relative"
               src={heroSection.heroSections[currentImage]?.image}
               alt={heroSection.heroSections[currentImage]?.title}
             />
+            <div
+    class="absolute inset-0 bg-white/25 sm:bg-transparent sm:from-white/60 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l "
+  ></div>
           </Link>
+          <div className=' absolute top-0'>
+          <div
+    className="relative mx-auto max-w-screen-xl px-8 py-64 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
+  >
+    <div class="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
+      <h1 class="text-3xl font-extrabold sm:text-5xl font-poppins ">
+      Where Art Meets Resin, 
+
+        <strong class="block font-extrabold text-rose-600 font-poppins ">Creating Mesmerizing Masterpieces. </strong>
+      </h1>
+
+      <p class="mt-4 max-w-lg sm:text-lg/relaxed text-[#5ab2ff] font-poppins ">
+      Crafted from mesmerizing resin, with captivating artistry, transforming your walls into a stunning showcase of time and beauty.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4 text-center">
+        <Link
+          to={heroSection.heroSections[currentImage]?.link}
+          class="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto font-poppins "
+        >
+          Explore Now
+        </Link>
+
+      
+      </div>
+    </div>
+  </div>
+  </div>
         </>
       )}
     </div>
