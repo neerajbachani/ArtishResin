@@ -14,7 +14,7 @@
   /* Style the scroll thumb (the draggable part of the scrollbar) */
   .horizontal-scroll-container::-webkit-scrollbar-thumb {
     background-color: #888; /* Set the color of the scroll thumb */
-    border-radius: 10px; /* Add rounded corners to the scroll thumb */
+     border-radius: 10px; /*Add rounded corners to the scroll thumb */
   }
   
   /* Style the scroll track (the area behind the scroll thumb) */

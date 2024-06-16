@@ -5,7 +5,7 @@ import { TypeAnimation } from 'react-type-animation';
 const WorkshopPoster = () => {
   const navigate = useNavigate()
   const handleButton = () => {
-    navigate('/workshop')
+    navigate('/products?workshop=bookWorkshop')
   }
   return (
     <>

@@ -21,6 +21,14 @@ import Gallery from '../user/components/Gallery/Gallery';
 import ForgotPassword from '../user/components/ForgotPassword/ForgotPassword';
 import OTPVerification from '../user/components/ForgotPassword/OTPVerification';
 import ResetPassword from '../user/components/ForgotPassword/ResetPassword';
+import WorkshopPage from '../user/pages/WorkshopPage';
+
+
+import { FloatingWhatsApp } from 'react-floating-whatsapp'
+
+import logo  from "./logo.png";
+console.log(logo);
+
 
 
 
@@ -28,7 +36,7 @@ import ResetPassword from '../user/components/ForgotPassword/ResetPassword';
 const CustomerRoutes = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <>
+    <div className=' bg-slate-50'>
   
     <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
   
@@ -52,6 +60,8 @@ const CustomerRoutes = () => {
       <Route path="/account/rate/:productId" element={<RateAndReview />}></Route>
       <Route path="/gallery" element={<Gallery/>}></Route>
       <Route path="/forgotPassword" element={<ForgotPassword/>}></Route>
+      <Route path="/workshop" element={<WorkshopPage/>}></Route>
+
       {/* <Route path="/otpVerification/email/:emailId" element={<OTPVerification/>}></Route> */}
       <Route path="/otpVerification/email/:emailId" element={<OTPVerification/>}></Route>
       <Route path="/resetPassword/email/:emailId" element={<ResetPassword/>}></Route>
@@ -61,9 +71,18 @@ const CustomerRoutes = () => {
 
 
     </Routes>
+    <FloatingWhatsApp
+        phoneNumber="9429350252"
+        accountName="ArtIsh Resin"
+        avatar={logo}
+        allowEsc
+        allowClickAway
+        notification
+        notificationSound
+      />
     
     <Footer/>
-    </>
+    </div>
   )
 }
 

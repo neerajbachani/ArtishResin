@@ -41,14 +41,15 @@ export const createOrder = (reqData) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${reqData.jwt}`,
+        'Content-Type': 'multipart/form-data',
+        
       },
     };
 
     const { data } = await api.post(
       `${API_BASE_URL}/api/orders/`,
       reqData.address,
+      config
     );
     
     if (data._id) {

@@ -359,6 +359,8 @@ const [isShippingAddressLoading, setIsShippingAddressLoading] = useState(true);
                                     <TableCell>Product Name</TableCell>
                                     <TableCell>Quantity</TableCell>
                                     <TableCell>Price</TableCell>
+                                    <TableCell>Customization Note</TableCell>
+                                    <TableCell>Customization Image</TableCell>
                                   </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -369,6 +371,12 @@ const [isShippingAddressLoading, setIsShippingAddressLoading] = useState(true);
                                       </TableCell>
                                       <TableCell>{orderItem.quantity}</TableCell>
                                       <TableCell>{orderItem.discountedPrice}₹</TableCell>
+                                      <TableCell>{orderItem?.customizationNote}</TableCell>
+                                      <TableCell>
+                                        <a href={orderItem?.customizationImage} target="_blank" rel="noreferrer">
+                                        <img src={orderItem?.customizationImage} width={70} height={70}/>
+                                        </a>
+                                        </TableCell>
                                     </TableRow>
                                   ))}
                                 </TableBody>

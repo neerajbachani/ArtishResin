@@ -57,15 +57,15 @@ const HeroSection = ({ isOpen }) => {
     className="relative mx-auto max-w-screen-xl px-8 py-64 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
   >
     <div class="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-      <h1 class="text-3xl font-extrabold sm:text-5xl font-poppins ">
+      <h1 class="text-3xl text-[#fefae0] font-extrabold sm:text-5xl font-poppins ">
       Where Art Meets Resin, 
 
-        <strong class="block font-extrabold text-rose-600 font-poppins ">Creating Mesmerizing Masterpieces. </strong>
+        <strong class="block font-extrabold text-rose-400 font-poppins ">Creating Mesmerizing Masterpieces. </strong>
       </h1>
 
-      <p class="mt-4 max-w-lg sm:text-lg/relaxed text-[#5ab2ff] font-poppins ">
+      {/* <p class="mt-4 max-w-lg sm:text-lg/relaxed text-[#5ab2ff] font-poppins ">
       Crafted from mesmerizing resin, with captivating artistry, transforming your walls into a stunning showcase of time and beauty.
-      </p>
+      </p> */}
 
       <div class="mt-8 flex flex-wrap gap-4 text-center">
         <Link

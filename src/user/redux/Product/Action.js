@@ -29,6 +29,7 @@ export const findProducts = (reqData) => async (dispatch) => {
     colors,
  
     varmalaPreservation,
+    workshop,
     wallClock,
     navkarMantraFrame,
     namePlate,
@@ -50,7 +51,7 @@ export const findProducts = (reqData) => async (dispatch) => {
     console.log(varmalaPreservation)
 
     const { data } = await api.get(
-      `/api/products?varmalaPreservation=${varmalaPreservation}&wallClock=${wallClock}&navkarMantraFrame=${navkarMantraFrame}&namePlate=${namePlate}&resinSpecial=${resinSpecial}&geodeArt=${geodeArt}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+      `/api/products?varmalaPreservation=${varmalaPreservation}&wallClock=${wallClock}&navkarMantraFrame=${navkarMantraFrame}&namePlate=${namePlate}&resinSpecial=${resinSpecial}&geodeArt=${geodeArt}&workshop=${workshop}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
 
     console.log("Fetched data from API:", data);
@@ -117,6 +118,7 @@ export const createProduct = (product) => async (dispatch) => {
     formData.append('discountedPrice', product.discountedPrice);
     formData.append('quantity', product.quantity);
     formData.append('varmalaPreservation', product.varmalaPreservation);
+    formData.append('workshop', product.workshop);
     formData.append('wallClock', product.wallClock);
     formData.append('namePlate', product.namePlate);
     formData.append('navkarMantraFrame', product.navkarMantraFrame);
@@ -164,6 +166,7 @@ export const updateProduct = (product, productId) => async (dispatch) => {
     formData.append('discountPercent', product.discountPercent);
     formData.append('discountedPrice', product.discountedPrice);
     formData.append('varmalaPreservation', product.varmalaPreservation);
+    formData.append('workshop', product.workshop);
     formData.append('wallClock', product.wallClock);
     formData.append('namePlate', product.namePlate);
     formData.append('navkarMantraFrame', product.navkarMantraFrame);

@@ -9,6 +9,7 @@ import OurFeaturedCollections from '../components/OurFeaturedCollections/OurFeat
 import WorkshopPoster from '../components/WorkshopPoster/WorkshopPoster';
 import { Toaster } from 'react-hot-toast';
 import Categories from '../components/Categories/Categories';
+import Review from '../components/Review/Review'
 
 const HomePage = () => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const HomePage = () => {
         <Categories/>
         <OurFeaturedCollections />
         <WorkshopPoster />
+        <Review/>
         <AboutUs />
       </div>
     </>

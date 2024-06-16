@@ -35,6 +35,7 @@ const CreateProductForm = () => {
     discountedPrice: "",
     quantity: "",
     varmalaPreservation: "",
+    workshop: "",
     wallClock: "",
     namePlate: "",
     navkarMantraFrame: "",
@@ -72,6 +73,7 @@ const jwt=localStorage.getItem("jwt")
           quantity: '',
           geodeArt: '',
           varmalaPreservation: '',
+          workshop: '',
           wallClock: '',
           namePlate: '',
           navkarMantraFrame: '',
@@ -246,6 +248,19 @@ const jwt=localStorage.getItem("jwt")
                 label="Geode Art"
               >
                 <MenuItem value="geodeartedition">Geode Art Edition</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel>Workshop</InputLabel>
+              <Select
+                name="workshop"
+                value={productData.workshop}
+                onChange={handleChange}
+                label="Workshop"
+              >
+                <MenuItem value="bookWorkshop">Book a Workshop</MenuItem>
               </Select>
             </FormControl>
           </Grid>

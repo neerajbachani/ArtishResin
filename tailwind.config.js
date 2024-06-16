@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
@@ -8,6 +9,7 @@ export default {
     extend: {
       fontFamily: {
         'poppins': ['Poppins'],
+        'ovo': ['Ovo']
      }
    
     },

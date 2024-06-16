@@ -44,13 +44,13 @@ useEffect(() => {
         <div className="lg:col-span-2 lg:px-5 bg-white">
         <div className=" space-y-3">
           {cart.cartItems.map((item) => (
-            <><h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+            <><h2 className="text-2xl font-bold mb-4 mt-3 font-poppins">Your Cart</h2>
               <CartItem item={item} showButton={true}/>
             </>
           ))}
         </div>
       </div>
-      <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0 ">
+      <div className="px-5 sticky top-0  mt-5 lg:mt-5 ">
         <div className="border p-5 bg-white shadow-lg rounded-md">
           <p className="font-bold opacity-60 pb-4 font-poppins">PRICE DETAILS</p>
           <hr />

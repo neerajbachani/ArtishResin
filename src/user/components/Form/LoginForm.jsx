@@ -38,6 +38,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
     setIsLoggedIn(true);
     try {
       await dispatch(login(userData));
+      window.location.reload();
       setProgress(100);
       showSuccessToast('Login successful');
       setTimeout(() => {

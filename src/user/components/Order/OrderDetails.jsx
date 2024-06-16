@@ -78,6 +78,7 @@ const OrderDetails = () => {
                   <p className="opacity-50 text-xs font-semibold space-x-5">
                     <span>Quantity: {item.quantity}</span>
                   </p>
+                  
                   <p>₹{item.discountedPrice}</p>
                 </div>
               </div>

@@ -55,6 +55,7 @@ export const login = (userData) => async (dispatch) => {
     }
     console.log("user: ", user);
     dispatch(loginSuccess(user.jwt));
+   
     console.log(user.role);
   } catch (error) {
     if (error.response && error.response.status === 401) {

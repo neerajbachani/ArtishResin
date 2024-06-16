@@ -50,6 +50,7 @@ export default function Product() {
   const searchParams = new URLSearchParams(decodedQueryString);
   const colorValue = searchParams.get("color");
   const varmalaPreservationValue = searchParams.get("varmalaPreservation");
+  const workshop = searchParams.get("workshop")
   const wallClockValue = searchParams.get("wallClock");
   const namePlateValue = searchParams.get("namePlate");
   const navkarMantraFrameValue = searchParams.get("navkarMantraFrame");
@@ -85,6 +86,7 @@ export default function Product() {
       // category: param.lavelThree,
       colors: colorValue || [],
       varmalaPreservation: varmalaPreservationValue || [],
+      workshop: workshop || [],
       wallClock: wallClockValue || [],
       namePlate: namePlateValue || [],
       navkarMantraFrame: navkarMantraFrameValue || [],
@@ -110,6 +112,7 @@ export default function Product() {
     
     colorValue,
     varmalaPreservationValue,
+    workshop,
     wallClockValue,
     namePlateValue,
     resinSpecialValue,

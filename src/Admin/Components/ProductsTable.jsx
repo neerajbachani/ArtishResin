@@ -62,6 +62,7 @@ const ProductsTable = () => {
 
       colors: [],
       varmalaPreservation: [],
+      workshop: [],
       wallClock: [],
       namePlate: [],
       navkarMantraFrame: [],

@@ -62,9 +62,11 @@ const OurProducts = () => {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-[#BDE0FE] p-4 ">
           {filteredProducts.map((product) => (
             <Link to={product.link}>
-            <DirectionAwareHover key={product.id} imageUrl={product.image}>
+            <DirectionAwareHover key={product.id} imageUrl={product.image} className='w-full h-full' >
+             
+
               <p className="mt-2 font-bold text-sm md:text-md">{product.title}</p>
-              <p className="mt-2 font-bold text-xl text-[#BDE0FE]">{product.price}₹</p>
+              {/* <p className="mt-2 font-bold text-xl text-[#BDE0FE]">{product.price}₹</p> */}
             </DirectionAwareHover>
             </Link>
           ))}

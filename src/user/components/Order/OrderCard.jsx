@@ -83,7 +83,7 @@ const OrderCard = ({ item, order }) => {
                 sx={{ fontSize: "2rem" }}
                 className="px-2 text-5xl"
               />
-              <span>Rate & Review Product</span>
+              {/* <span>Rate & Review Product</span> */}
             </div>
           )}
         </Grid>

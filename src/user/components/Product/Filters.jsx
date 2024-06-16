@@ -74,6 +74,13 @@ export const filters = [
       { value: "presonalizedMantraFrame", label: "Personalized Mantra Frame" },
     ],
   },
+  {
+    id: "workshop",
+    name: "Workshop",
+    options: [
+      { value: "bookWorkshop", label: "Book a Workshop" },
+    ],
+  },
  
 ];
 

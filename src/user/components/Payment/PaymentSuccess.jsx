@@ -67,11 +67,8 @@ const PaymentSuccess = () => {
                 />
                 <div className="ml-5 space-y-2">
                   <p className="">{item.product.name}</p>
-                  <p className="opacity-50 text-xs font-semibold space-x-5">
-                    <span>Color: pink</span>
-                    <span>Size: {item.size}</span>
-                  </p>
-                  <p>Seller: {item.product.brand}</p>
+                  
+                 
                   <p>₹{item.price}</p>
                 </div>
               </div>

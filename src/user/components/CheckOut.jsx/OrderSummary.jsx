@@ -69,7 +69,7 @@ console.log(order.order?.shippingAddress)
             {order.order?.orderItems.map((item) => (
               <div className=" relative" >
                 <CartItem item={item} showButton={false}  />
-                <p className=" absolute right-2 -bottom-1 " >{item.quantity}</p>
+
               </div>
             ))}
           </div>

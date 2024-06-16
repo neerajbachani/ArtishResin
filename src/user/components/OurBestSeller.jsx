@@ -40,12 +40,12 @@ const OurBestSeller = () => {
               className="lg:w-[20rem] lg:h-[25rem] md:w-[25rem] md:h-[20rem] sm:w-[20rem] sm:h-[15rem] w-[10rem] h-[10rem] object-cover"
               alt={product.title}
             />
-            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-4 font-poppins">
+            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-4 font-ovo ">
               {product.title}
             </p>
-            <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-1 font-poppins">
+            {/* <p className="text-center text-xs sm:text-sm md:text-md lg:text-xl mt-1 font-poppins">
               Rs. {product.price}
-            </p>
+            </p> */}
           </div>
           </Link>
        

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deepPurple } from "@mui/material/colors";
 import { getUser, logout } from "../../redux/Auth/Action";
 import { getCart } from "../../redux/Cart/Action";
+import SearchBar from '../SearchBar/SearchBar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -260,6 +261,16 @@ export default function Navigation() {
               </Popover.Group>
 
               <div className="ml-auto flex items-center mt-3">
+               
+
+                {/* Search */}
+                <div className="flex lg:ml-3 mb-4 ">
+                  <p className=" text-gray-400 hover:text-gray-500">
+                    <span className="sr-only">Search</span>
+                    <SearchBar/>
+                  </p>
+                </div>
+
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {auth.user ? (
                     <div>
@@ -306,17 +317,6 @@ export default function Navigation() {
                       Signin
                     </Button>
                   )}
-                </div>
-
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <p className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  </p>
                 </div>
 
                 {/* Cart */}
