@@ -1,0 +1,20 @@
+.testimonial-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    animation: scroll 30s linear infinite;
+  }
+  
+  .testimonial-card {
+    flex: 0 0 33.33%; /* Adjust this value based on the number of cards to display at a time */
+    padding: 0 15px;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  

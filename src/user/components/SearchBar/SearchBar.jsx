@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { api } from '../../../Config/ApiConfig';
@@ -18,6 +18,7 @@ import SearchIcon from '@mui/icons-material/Search';
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -26,18 +27,22 @@ const SearchBar = () => {
   const handleSearchChange = async (event) => {
     const query = event.target.value;
     setSearchQuery(query);
+
     try {
       const { data } = await api.get(`/api/products/search?query=${query}`);
       setSuggestions(data.suggestions);
+      setShowSuggestions(data.suggestions.length > 0);
     } catch (error) {
       console.error('Error fetching suggestions:', error);
       setSuggestions([]);
+      setShowSuggestions(false);
     }
   };
 
   const handleSuggestionClick = (suggestion) => {
     navigate(`/products/id/${suggestion._id}`);
     setIsModalOpen(false);
+    setShowSuggestions(false);
   };
 
   const handleModalOpen = () => {
@@ -47,6 +52,7 @@ const SearchBar = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     setSearchQuery('');
+    setShowSuggestions(false);
   };
 
   const trendingProducts = [
@@ -57,8 +63,23 @@ const SearchBar = () => {
     { id: 5, name: 'Product 5', _id: 'product5' },
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const searchBar = document.getElementById('search-bar');
+      if (searchBar && !searchBar.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <Box sx={{ position: 'relative', mt: 2 }}>
+    <Box sx={{ position: 'relative', mt: 2 }} id="search-bar">
       {isMobile ? (
         <>
           <IconButton onClick={handleModalOpen}>
@@ -79,7 +100,6 @@ const SearchBar = () => {
                 alignItems: 'center',
                 width: '100vw',
                 height: '100vh',
-                zIndex: '10',
               }}
             >
               <InputBase
@@ -149,7 +169,7 @@ const SearchBar = () => {
           />
         </Paper>
       )}
-      {!isMobile && suggestions.length > 0 && (
+      {!isMobile && showSuggestions && (
         <Paper
           sx={{
             position: 'absolute',
@@ -177,3 +197,4 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+
