@@ -79,6 +79,7 @@ const SearchBar = () => {
                 alignItems: 'center',
                 width: '100vw',
                 height: '100vh',
+                zIndex: '10',
               }}
             >
               <InputBase

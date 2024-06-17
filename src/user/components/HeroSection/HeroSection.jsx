@@ -7,8 +7,6 @@ import { Skeleton } from '@mui/material';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import LoadingBar from 'react-top-loading-bar';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const HeroSection = ({ isOpen }) => {
   const dispatch = useDispatch();
@@ -43,14 +41,15 @@ const HeroSection = ({ isOpen }) => {
       {loading ? (
         <Skeleton variant="rectangular" sx={{ minHeight: '80vh', width: '100%' }} />
       ) : (
-        <div className=' w-[100%]'>
+        <>
           <Link to={heroSection.heroSections[currentImage]?.link}>
-          <LazyLoadImage
-  className="bg-no-repeat lg:h-[90vh] w-full h-[70vh] object-cover relative"
-  src={heroSection.heroSections[currentImage]?.image}
-  alt={heroSection.heroSections[currentImage]?.title}
-  effect="blur"
-/>
+            <img
+            loading='lazy'
+
+              className="bg-no-repeat lg:h-[90vh] w-full h-[70vh] object-cover relative"
+              src={heroSection.heroSections[currentImage]?.image}
+              alt={heroSection.heroSections[currentImage]?.title}
+            />
             <div
     class="absolute inset-0 bg-white/25 sm:bg-transparent sm:from-white/60 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l "
   ></div>
@@ -83,7 +82,7 @@ const HeroSection = ({ isOpen }) => {
     </div>
   </div>
   </div>
-        </div>
+        </>
       )}
     </div>
   ];
@@ -117,7 +116,7 @@ const HeroSection = ({ isOpen }) => {
           controlsStrategy="alternate"
           infinite
           autoPlay
-          autoPlayInterval={5000}
+          autoPlayInterval={4000}
           disableButtonsControls
           disableDotsControls
           onSlideChanged= {nextImage}
