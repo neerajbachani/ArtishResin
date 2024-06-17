@@ -1,4 +1,5 @@
 .testimonial-slider {
+    overflow-x: hidden;
     display: flex;
     flex-wrap: nowrap;
     animation: scroll 30s linear infinite;
