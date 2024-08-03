@@ -10,21 +10,7 @@ export const color = [
 ];
 
 export const filters = [
-  // {
-  //   id: "color",
-  //   name: "Color",
-  //   options: [
-  //     { value: "red", label: "red" },
-  //     { value: "beige", label: "Beige" },
-  //     { value: "blue", label: "Blue" },
-  //     { value: "brown", label: "Brown" },
-  //     { value: "green", label: "Green" },
-  //     { value: "purple", label: "Purple" },
-  //     {value:"yellow",label:"Yellow"}
-  //   ],
-  // },
-
-
+ 
   {
     id: "varmalaPreservation",
     name: "Varmala Preservation",

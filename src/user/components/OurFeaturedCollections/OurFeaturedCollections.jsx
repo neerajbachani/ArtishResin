@@ -23,7 +23,7 @@ const OurFeaturedCollections = () => {
         Our Featured
       </h1>
       </div>
-        <div className='py-5 grid md:grid-cols-3 grid-cols-2 gap-5' data-aos='fade-up' >
+        <div className='py-5 grid md:grid-cols-3 grid-cols-2 gap-5' >
           <div className='flex flex-col gap-2'>
             {featuredProducts.length > 0 && (
               <DirectionAwareHover imageUrl={featuredProducts[0].image} className='w-full h-[16rem] object-cover'>

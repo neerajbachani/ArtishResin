@@ -11,7 +11,6 @@ import {
   useTheme,
   IconButton,
   Modal,
-  Divider,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -29,14 +28,26 @@ const SearchBar = () => {
     setSearchQuery(query);
 
     try {
-      const { data } = await api.get(`/api/products/search?query=${query}`);
-      setSuggestions(data.suggestions);
-      setShowSuggestions(data.suggestions.length > 0);
+      const response = await api.get(`/api/products?query=${query}`);
+      if (response.status === 200 && response.headers['content-type']?.includes('application/json')) {
+        setSuggestions(response.data.suggestions);
+        setShowSuggestions(response.data.suggestions.length > 0);
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+        console.error('Unexpected response format:', response);
+      }
     } catch (error) {
       console.error('Error fetching suggestions:', error);
       setSuggestions([]);
       setShowSuggestions(false);
     }
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/products?query=${encodeURIComponent(searchQuery)}`);
+    setShowSuggestions(false);
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -54,14 +65,6 @@ const SearchBar = () => {
     setSearchQuery('');
     setShowSuggestions(false);
   };
-
-  const trendingProducts = [
-    { id: 1, name: 'Product 1', _id: 'product1' },
-    { id: 2, name: 'Product 2', _id: 'product2' },
-    { id: 3, name: 'Product 3', _id: 'product3' },
-    { id: 4, name: 'Product 4', _id: 'product4' },
-    { id: 5, name: 'Product 5', _id: 'product5' },
-  ];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -110,31 +113,11 @@ const SearchBar = () => {
                 inputProps={{ 'aria-label': 'search products' }}
                 fullWidth
               />
-              {searchQuery.length === 0 && (
-                <>
-                  <Typography variant="h6" sx={{ mb: 1 }}>
-                    Trending Products
-                  </Typography>
-                  <Paper sx={{ maxHeight: 200, overflow: 'auto', width: '100%' }}>
-                    {trendingProducts.map((product) => (
-                      <Typography
-                        key={product.id}
-                        variant="body1"
-                        sx={{ p: 1, cursor: 'pointer', '&:hover': { bgcolor: theme.palette.grey[200] } }}
-                        onClick={() => handleSuggestionClick(product)}
-                      >
-                        {product.name}
-                      </Typography>
-                    ))}
-                  </Paper>
-                  <Divider sx={{ my: 2, width: '100%' }} />
-                </>
-              )}
-              {suggestions.length > 0 && (
+              {showSuggestions && (
                 <Paper sx={{ maxHeight: 200, overflow: 'auto', width: '100%' }}>
                   {suggestions.map((suggestion) => (
                     <Typography
-                      key={suggestion.id}
+                      key={suggestion._id}
                       variant="body1"
                       sx={{ p: 1, cursor: 'pointer', '&:hover': { bgcolor: theme.palette.grey[200] } }}
                       onClick={() => handleSuggestionClick(suggestion)}
@@ -150,6 +133,7 @@ const SearchBar = () => {
       ) : (
         <Paper
           component="form"
+          onSubmit={handleSearchSubmit}
           sx={{
             p: '2px 4px',
             display: 'flex',
@@ -167,6 +151,9 @@ const SearchBar = () => {
             onChange={handleSearchChange}
             inputProps={{ 'aria-label': 'search products' }}
           />
+          <IconButton type="submit">
+            <SearchIcon />
+          </IconButton>
         </Paper>
       )}
       {!isMobile && showSuggestions && (
@@ -182,7 +169,7 @@ const SearchBar = () => {
         >
           {suggestions.map((suggestion) => (
             <Typography
-              key={suggestion.id}
+              key={suggestion._id}
               variant="body1"
               sx={{ p: 1, cursor: 'pointer', '&:hover': { bgcolor: theme.palette.grey[200] } }}
               onClick={() => handleSuggestionClick(suggestion)}
@@ -197,4 +184,6 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+
+
 

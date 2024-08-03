@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
 
 const ProductCard = ({ product }) => {
- 
+
   const { name, brand, image, price, discountedPrice, color, discount } = product;
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const ProductCard = ({ product }) => {
                 className='h-full w-full object-cover absolute top-0 right-0 '
                 src={image}
                 alt=""
+                loading="lazy"
               />
             </div>
           </NavLink>
@@ -62,6 +63,8 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
+
+
 
 
 

@@ -26,8 +26,9 @@ const HomePage = () => {
         <OurBestSeller />
         <OurProducts />
         <Categories/>
-        <OurFeaturedCollections />
         <WorkshopPoster />
+        <OurFeaturedCollections />
+        
         <Review/>
         <AboutUs />
       </div>

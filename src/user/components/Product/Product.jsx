@@ -1,34 +1,31 @@
-import { Fragment, useRef, useState } from "react";
 import React from 'react'
+import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   FunnelIcon,
   MinusIcon,
   PlusIcon,
-  
 } from "@heroicons/react/20/solid";
-
 import Pagination from "@mui/material/Pagination";
-
 import { filters, sortOptions } from "./Filters";
 import ProductCard from "./ProductCard";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import {
   findProducts,
-  // findProductsByCategory,
+  // searchProducts,
 } from "../../redux/Product/Action";
+import LoadingBar from 'react-top-loading-bar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-import LoadingBar from 'react-top-loading-bar';
-
 export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [pageNumbers, setPageNumbers] = useState(1);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
@@ -36,34 +33,30 @@ export default function Product() {
   const { product } = useSelector((store) => store);
   console.log(product)
   const loadingBarRef = useRef(null);
-  // console.log(product)
   const location = useLocation();
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
+
 
   const handleLoderClose = () => {
     setIsLoaderOpen(false);
   };
-  
 
-  // const filter = decodeURIComponent(location.search);
   const decodedQueryString = decodeURIComponent(location.search);
   const searchParams = new URLSearchParams(decodedQueryString);
   const colorValue = searchParams.get("color");
   const varmalaPreservationValue = searchParams.get("varmalaPreservation");
-  const workshop = searchParams.get("workshop")
+  const workshop = searchParams.get("workshop");
   const wallClockValue = searchParams.get("wallClock");
   const namePlateValue = searchParams.get("namePlate");
   const navkarMantraFrameValue = searchParams.get("navkarMantraFrame");
   const geodeArtValue = searchParams.get("geodeArt");
   const resinSpecialValue = searchParams.get("resinSpecial");
   const sizeValue = searchParams.get("size");
-
   const discount = searchParams.get("discount");
   const sortValue = searchParams.get("sort");
   const pageNumber = searchParams.get("page") || 1;
   const stock = searchParams.get("stock");
-
-
+  const searchQuery = searchParams.get("query") || ""; // Note the change here
 
   const handleSortChange = (value) => {
     const searchParams = new URLSearchParams(location.search);
@@ -71,6 +64,7 @@ export default function Product() {
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
   };
+
   const handlePaginationChange = (event, value) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", value);
@@ -79,37 +73,35 @@ export default function Product() {
   };
 
   useEffect(() => {
-
     loadingBarRef.current.continuousStart(); 
-   
+  
     const data = {
-      // category: param.lavelThree,
-      colors: colorValue || [],
-      varmalaPreservation: varmalaPreservationValue || [],
-      workshop: workshop || [],
-      wallClock: wallClockValue || [],
-      namePlate: namePlateValue || [],
-      navkarMantraFrame: navkarMantraFrameValue || [],
-      geodeArt: geodeArtValue || [],
-      resinSpecial: resinSpecialValue || [],
-      sizes: sizeValue || [],
-      sort: sortValue || [],
+      colors: colorValue ? colorValue.split(',') : [],
+      varmalaPreservation: varmalaPreservationValue || '',
+      workshop: workshop || '',
+      wallClock: wallClockValue || '',
+      namePlate: namePlateValue || '',
+      navkarMantraFrame: navkarMantraFrameValue || '',
+      geodeArt: geodeArtValue || '',
+      resinSpecial: resinSpecialValue || '',
+      sizes: sizeValue ? sizeValue.split(',') : [],
+      sort: sortValue || '',
       minDiscount: discount || 0,
-   
-      pageNumber: pageNumber ,
+      pageNumber: pageNumber,
       pageSize: 12,
       stock: stock,
+      search: searchQuery,  // This is now integrated into the main data object
     };
+  
     dispatch(findProducts(data))
-    .then(() => {
-      loadingBarRef.current.complete(); // Complete the loading bar
-    })
-    .catch(() => {
-      loadingBarRef.current.complete(); // Complete the loading bar even if an error occurs
-    });
-  }, [
-    // param.lavelThree,
+      .then(() => {
+        loadingBarRef.current.complete();
+      })
+      .catch(() => {
+        loadingBarRef.current.complete();
+      });
     
+  }, [
     colorValue,
     varmalaPreservationValue,
     workshop,
@@ -123,11 +115,10 @@ export default function Product() {
     sortValue,
     pageNumber,
     stock,
+    searchQuery,
   ]);
-
   const handleFilter = (value, sectionId) => {
     const searchParams = new URLSearchParams(location.search);
-
     let filterValues = searchParams.getAll(sectionId);
 
     if (filterValues.length > 0 && filterValues[0].split(",").includes(value)) {
@@ -137,27 +128,27 @@ export default function Product() {
       if (filterValues.length === 0) {
         searchParams.delete(sectionId);
       }
-      console.log("includes");
     } else {
-      // Remove all values for the current section
-      // searchParams.delete(sectionId, value);
       filterValues.push(value);
     }
 
     if (filterValues.length > 0)
       searchParams.set(sectionId, filterValues.join(","));
 
-    // history.push({ search: searchParams.toString() });
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
   };
 
-  
+  const productList = product?.products?.content
+  const productPage =  product.products?.totalPages
+
+
   return (
     <div className="bg-[#fff] -z-20 ">
       <LoadingBar ref={loadingBarRef} />
       <div>
         {/* Mobile filter dialog */}
+        
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -348,9 +339,17 @@ export default function Product() {
             </h2>
 
             <div>
-              <h2 className="py-5 font-semibold opacity-60 text-xl hidden lg:block font-poppins text-secondary-dark-color">Filters</h2>
-              <div className="grid grid-cols-1 gap-x-3 gap-y-10 lg:grid-cols-5">
+              {/* <h2 className="py-5 font-semibold opacity-60 text-xl hidden lg:block font-poppins text-secondary-dark-color">Filters</h2> */}
+              <h2 className="py-5 font-semibold opacity-60 text-xl hidden lg:block font-poppins text-secondary-dark-color">
+    {searchQuery ? 'Search Results' : 'Filters'}
+  </h2>
+  
+  
+  <div className={`grid grid-cols-1 gap-x-3 gap-y-10 ${
+          searchQuery ? '' : 'lg:grid-cols-5'
+        }`}>
                 {/* Filters */}
+                {!searchQuery && (
                 <form className="hidden lg:block shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-md py-5 px-2 ">
                   {filters.map((section) => (
                     <Disclosure
@@ -415,11 +414,22 @@ export default function Product() {
                   ))}
                  
                 </form>
+                )}
 
                 {/* Product grid */}
                 <div className="lg:col-span-4 sm:w-full max-w-lg mx-auto sm:max-w-full sm:mx-0 px-0 ">
+                  {searchQuery && ( 
+                    <>
+                    <h1 className=' text-center font-poppins font-bold text-xl py-3' >Your Search results for "{searchQuery}"</h1>
+                    <p className=' text-center cursor-pointer font-poppins text-xl' ><span>Looking for something specific? </span><Link to='/products' className=' text-blue-500 font-semibold text-base underline' >Shop By Category</Link></p>
+                    </>
+                    
+                )}
+               
+                
+                
                   <div className="sm:flex sm:flex-wrap justify-center sm:space-x-5 gap-5 grid grid-cols-2 bg-white py-5  rounded-md ">
-                    {product?.products?.content?.map((item) => (
+                    {productList?.map((item) => (
                       <ProductCard product={item} key={item.id} />
                      
                     ))}
@@ -434,7 +444,7 @@ export default function Product() {
         <section className="w-full px-[3.6rem]">
           <div className="mx-auto px-4 py-5 flex justify-center shadow-lg border rounded-md">
             <Pagination
-              count={product.products?.totalPages}
+              count={productPage}
               color="primary"
               className=" "
               onChange={handlePaginationChange}
@@ -451,5 +461,6 @@ export default function Product() {
     </div>
   );
 }
+
 
 

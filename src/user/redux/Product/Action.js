@@ -1,8 +1,6 @@
-
-
-
 import axios from "axios";
 import { API_BASE_URL, api } from "../../../Config/ApiConfig";
+
 
 import {
   FIND_PRODUCTS_BY_CATEGORY_REQUEST,
@@ -20,14 +18,15 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILURE,
+  SEARCH_PRODUCTS_REQUEST,
+  SEARCH_PRODUCTS_SUCCESS,
+  SEARCH_PRODUCTS_FAILURE,
 } from "./ActionType";
 import { showErrorToast, showSuccessToast } from "../../components/toast";
-
 
 export const findProducts = (reqData) => async (dispatch) => {
   const {
     colors,
- 
     varmalaPreservation,
     workshop,
     wallClock,
@@ -43,24 +42,49 @@ export const findProducts = (reqData) => async (dispatch) => {
     sort,
     pageNumber,
     pageSize,
+    search,
   } = reqData;
 
   try {
     dispatch({ type: FIND_PRODUCTS_BY_CATEGORY_REQUEST });
-    console.log(wallClock)
-    console.log(varmalaPreservation)
 
-    const { data } = await api.get(
-      `/api/products?varmalaPreservation=${varmalaPreservation}&wallClock=${wallClock}&navkarMantraFrame=${navkarMantraFrame}&namePlate=${namePlate}&resinSpecial=${resinSpecial}&geodeArt=${geodeArt}&workshop=${workshop}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
-    );
+    // Construct the query parameters
+    const params = new URLSearchParams({
+      query: search || '',
+      varmalaPreservation: varmalaPreservation || '',
+      wallClock: wallClock || '',
+      navkarMantraFrame: navkarMantraFrame || '',
+      namePlate: namePlate || '',
+      resinSpecial: resinSpecial || '',
+      geodeArt: geodeArt || '',
+      workshop: workshop || '',
+      sort: sort || '',
+      pageNumber: pageNumber || '',
+      pageSize: pageSize || '',
+      minPrice: minPrice || '',
+      maxPrice: maxPrice || '',
+      minDiscount: minDiscount || '',
+      stock: stock || '',
+      sizes: sizes ? sizes.join(',') : ''
+    });
+
+    // Remove empty parameters
+    for (const [key, value] of params.entries()) {
+      if (!value) {
+        params.delete(key);
+      }
+    }
+
+    const apiUrl = `/api/products?${params.toString()}`;
+
+    const { data } = await api.get(apiUrl);
 
     console.log("Fetched data from API:", data);
-      dispatch({
-        type: FIND_PRODUCTS_BY_CATEGORY_SUCCESS,
-        payload: data
-      });
-   
-  }catch (error) {
+    dispatch({
+      type: FIND_PRODUCTS_BY_CATEGORY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
     dispatch({
       type: FIND_PRODUCTS_BY_CATEGORY_FAILURE,
       payload:
@@ -71,13 +95,64 @@ export const findProducts = (reqData) => async (dispatch) => {
   }
 };
 
+
+// export const searchProducts = (query , reqData) => async (dispatch) => {
+//   const {
+
+//     sort,
+//     pageNumber,
+//   } = reqData;
+//   console.log("reqdata",reqData)
+//   try {
+//     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
+
+//     const { data } = await api.get(`/api/products/search?query=${query}&page=${pageNumber}&sort=${sort}`);
+
+//     console.log("Fetched search results from API:", data);
+//     dispatch({
+//       type: SEARCH_PRODUCTS_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: SEARCH_PRODUCTS_FAILURE,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
+
+// export const searchProducts = (query) => async (dispatch) => {
+//   try {
+//     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
+
+//     const { data } = await api.get(`/api/products/search?query=${query}`);
+
+//     console.log("Search results from API:", data);
+//     dispatch({
+//       type: SEARCH_PRODUCTS_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: SEARCH_PRODUCTS_FAILURE,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
+
 export const findProductById = (reqData) => async (dispatch) => {
   try {
     dispatch({ type: FIND_PRODUCT_BY_ID_REQUEST });
 
     const { data } = await api.get(`/api/products/id/${reqData.productId}`);
 
-    console.log("products by  id : ", data);
+    console.log("products by id:", data);
     dispatch({
       type: FIND_PRODUCT_BY_ID_SUCCESS,
       payload: data,
@@ -92,6 +167,7 @@ export const findProductById = (reqData) => async (dispatch) => {
     });
   }
 };
+
 
 const jwt = localStorage.getItem("jwt")
 

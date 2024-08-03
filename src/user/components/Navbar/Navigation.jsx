@@ -4,7 +4,9 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
+  QuestionMarkCircleIcon,
   ShoppingBagIcon,
+  TruckIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
@@ -17,11 +19,36 @@ import { deepPurple } from "@mui/material/colors";
 import { getUser, logout } from "../../redux/Auth/Action";
 import { getCart } from "../../redux/Cart/Action";
 import SearchBar from '../SearchBar/SearchBar';
+import { Phone } from '@mui/icons-material';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+import { motion, AnimatePresence } from 'framer-motion';
+const MenuItems = ({ href, label, children }) => {
+  return (
+    <li className="group relative">
+      <a href={href} className="block py-2 px-4  text-gray-700 hover:text-blue-500 transition-colors duration-300">
+        {label}
+      </a>
+      {children && (
+        <div className="absolute left-0 w-48 bg-white shadow-lg rounded-md overflow-hidden hidden group-hover:block">
+          <ul className="py-2  ">
+            {children}
+          </ul>
+        </div>
+      )}
+    </li>
+  );
+};
 
+const SubMenuItem = ({ href, label }) => (
+  <li>
+    <a href={href} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-300">
+      {label}
+    </a>
+  </li>
+);
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -81,7 +108,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium"
+        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-xl "
       >
         <NavLink to="/" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Home</NavLink>
       </Typography>
@@ -89,7 +116,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium"
+        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
       >
         <NavLink to="/products" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>
           Products
@@ -99,7 +126,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium"
+        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
       >
         <NavLink to="/gallery" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Gallery</NavLink>
       </Typography>
@@ -107,7 +134,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium"
+        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
       >
         <NavLink to="/workshop" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Resin Workshop</NavLink>
       </Typography>
@@ -115,7 +142,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium"
+        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
       >
         <NavLink to="/about-us" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>About Us</NavLink>
       </Typography>
@@ -123,15 +150,18 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium"
+        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
       >
         <NavLink to="/contact-us" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Contact Us</NavLink>
       </Typography>
     </ul>
   );
-
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
+  
+  
+
     <div className="bg-white pb-0 ">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
@@ -339,8 +369,83 @@ export default function Navigation() {
             </div>
           </div>
         </nav>
+        
+
       </header>
+      <header className="bg-white shadow-md">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center py-4">
+          
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+              <path d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
+            </svg>
+          </button>
+          <nav className="hidden lg:block z-30 ">
+            <ul className="flex space-x-4 font-poppins text-lg ">
+           
+              <MenuItems href="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
+              <MenuItems href="/collections/wall-clock" label="Wall Clock">
+                <SubMenuItem href="/collections/roman-numeral-clock" label="Roman Numeral Clock" />
+                <SubMenuItem href="/collections/flower-design-wall-clock" label="Flower Design Wall Clock" />
+                <SubMenuItem href="/collections/modern-wall-clocks" label="Modern Wall Clocks" />
+                {/* Add more SubMenuItems as needed */}
+              </MenuItems>
+              <MenuItems href="/collections/wall-art" label="Metal Wall Art">
+                <SubMenuItem href="/collections/animal-wall-art" label="Animal Wall Art" />
+                <SubMenuItem href="/collections/bird-wall-art" label="Bird Wall Art" />
+                <SubMenuItem href="/collections/clip-wall-art" label="Clip Wall Art" />
+                {/* Add more SubMenuItems as needed */}
+              </MenuItems>
+              <MenuItems href="/collections/acrylic-wall-art" label="Acrylic Wall Art">
+                <SubMenuItem href="/collections/abstract-wall-art" label="Abstract Wall Art" />
+                <SubMenuItem href="/collections/vastu-wall-art" label="Vastu Wall Art" />
+                <SubMenuItem href="/collections/spiritual-acrylic-wall-art" label="Spiritual Wall Art" />
+                {/* Add more SubMenuItems as needed */}
+              </MenuItems>
+              <MenuItems href="/collections/resin-wall-art" label="Resin Wall Art" />
+              <MenuItems href="/collections/acrylic-frame" label="Acrylic Frame" />
+              <MenuItems href="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.nav
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white shadow-md"
+          >
+            <ul className="py-4">
+              <MenuItems href="/" label="Home" />
+              <MenuItems href="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
+              <MenuItems href="/collections/wall-clock" label="Wall Clock" />
+              <MenuItems href="/collections/wall-art" label="Metal Wall Art" />
+              <MenuItems href="/collections/acrylic-wall-art" label="Acrylic Wall Art" />
+              <MenuItems href="/collections/resin-wall-art" label="Resin Wall Art" />
+              <MenuItems href="/collections/acrylic-frame" label="Acrylic Frame" />
+              <MenuItems href="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
       {/* <AuthModal handleClose={handleClose} open={openAuthModal} /> */}
-    </div>
+       
+    
+  </div>
+    
   );
 }
+
+
+
+
+

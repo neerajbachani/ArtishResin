@@ -188,23 +188,23 @@ const HeroSection = ({ isOpen }) => {
   const widthClas = isOpen ? 'mx-0' : 'md:mx-4';
 
   const items = heroSection.heroSections.map((section, index) => (
-    <div key={index} className="item">
+    <div key={index} className="item px-16 ">
       {loading || !loadedImages.includes(section.image) ? (
-        <Skeleton variant="rectangular" sx={{ minHeight: '80vh', width: '100%' }} />
+        <Skeleton variant="rectangular" sx={{ minHeight: '70vh', width: '100%' }} />
       ) : (
         <>
           <Link to={section.link}>
             <img
-              className="bg-no-repeat lg:h-[90vh] w-full h-[70vh] object-cover relative"
+              className="bg-no-repeat lg:h-[70vh] w-[100vw] h-[70vh] object-cover relative"
               src={section.image}
               alt={section.title}
             />
-            <div className="absolute inset-0 bg-white/25 sm:bg-transparent sm:from-white/60 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"></div>
+            
           </Link>
           <div className='absolute top-0'>
-            <div className="relative mx-auto max-w-screen-xl px-8 pt-96 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
+            {/* <div className="relative mx-auto max-w-screen-xl px-8 pt-96 md:py-60 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
               <div className="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-                <h1 className="md:text-3xl text-xl text-[#fefae0] font-extrabold sm:text-5xl font-poppins">
+                <h1 className="md:text-4xl text-xl text-[#f1e388] font-extrabold sm:text-5xl font-poppins">
                   Where Art Meets Resin,
                   <strong className="block text-xl font-extrabold text-rose-400 font-poppins">
                     Creating Mesmerizing Masterpieces.
@@ -219,7 +219,7 @@ const HeroSection = ({ isOpen }) => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </>
       )}

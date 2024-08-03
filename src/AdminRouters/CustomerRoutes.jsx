@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 // import Navbar from '../user/components/Navbar/Navbar';
 import HomePage from '../user/pages/HomePage';
 import LoginPage from '../user/pages/LoginPage';
@@ -35,20 +35,26 @@ console.log(logo);
 
 const CustomerRoutes = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-  return (
-    <div className=' bg-slate-50'>
-  
-    <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-  
-      
-    
-    
-    <Routes>
+    const { pathname } = useLocation();
 
+// Automatically scrolls to top whenever pathname changes
+useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth"
+  });
+}, [pathname]);
+  return (
+    <div className=''>
+  
+    <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />    
+    <Routes>
     <Route path="/"  element={<HomePage/>}></Route>
       <Route path="/signin" element = {<LoginPage  setIsLoggedIn={setIsLoggedIn} />} />
       <Route path="/signup" element = {<SignUpPage  setIsLoggedIn={setIsLoggedIn} />} />
-      <Route path="/products" element={<ProductPage/>}></Route>
+      <Route path="/products" element={<ProductPage />} />
+      <Route path="/products/search" element={<ProductPage />} />
       <Route path="/about-us" element={<AboutUsPage/>}></Route>
       <Route path="/contact-us" element={<ContactUsPage/>}></Route>
       <Route path="/products/id/:productId" element={<ProductDetails/>} />

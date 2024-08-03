@@ -14,6 +14,9 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_FAILURE,
   DELETE_PRODUCT_SUCCESS,
+  SEARCH_PRODUCTS_REQUEST,
+  SEARCH_PRODUCTS_SUCCESS,
+  SEARCH_PRODUCTS_FAILURE,
 } from "./ActionType";
 
 const initialState = {
@@ -28,6 +31,23 @@ const customerProductReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIND_PRODUCTS_BY_CATEGORY_REQUEST:
       return { ...state, loading: true, error: null };
+      case SEARCH_PRODUCTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+      case SEARCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+      };
+      case SEARCH_PRODUCTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case FIND_PRODUCTS_BY_CATEGORY_SUCCESS:
       return { ...state, products: action.payload, loading: false };
     case FIND_PRODUCTS_BY_CATEGORY_FAILURE:

@@ -12,14 +12,14 @@ const AboutUs = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
-                      src="https://res.cloudinary.com/dkhsnhjrh/image/upload/v1710613895/Person-pouring-resin-art.jpg_rbx5nr.webp"
+                      src="https://res.cloudinary.com/ducutbdvu/image/upload/v1717996684/IMG-20240606-WA0010_oct0ll.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
                   </div>
                   <div className="py-3 sm:py-4">
                     <img
-                      src="https://res.cloudinary.com/dkhsnhjrh/image/upload/v1710614079/s254093505207171772_p406_i15_w4696_diinow.webp"
+                      src="https://res.cloudinary.com/ducutbdvu/image/upload/v1718534837/file_zvg2bw.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
@@ -28,7 +28,7 @@ const AboutUs = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="relative z-10 my-4">
                     <img
-                      src="https://res.cloudinary.com/dkhsnhjrh/image/upload/v1710614905/EP-GC-RESINART_p_-Emily-McSevich_1_w7mbtq.jpg"
+                      src="https://res.cloudinary.com/ducutbdvu/image/upload/v1718534837/file_rktbwo.jpg"
                       alt=""
                       className=" rounded-2xl"
                     />
@@ -633,6 +633,7 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+      
     </>
   );
 };
