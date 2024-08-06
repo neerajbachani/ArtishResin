@@ -8,11 +8,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'poppins': ['Poppins'],
-        'ovo': ['Ovo']
-     }
-   
+        'poppins': ['Gupter'],
+        // 'ovo': ['Ovo'],
+      },
     },
+
     // colors:{
     //   'primarycolor' : '#e63946',
     //   'secondarycolor' : '#e9edc9',

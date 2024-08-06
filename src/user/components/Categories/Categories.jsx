@@ -31,7 +31,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className='py-2 mt-[2rem]'>
+    <div className='py-2 md:mt-[7rem] mt-[4rem] '>
       <div className='flex items-center justify-center space-x-5'>
         <div className='bg-[#5baef7] w-1 h-7'></div>
         <h1 className="font-poppins font-semibold md:text-4xl lg:text-5xl text-2xl">Shop By Category</h1>
@@ -47,13 +47,13 @@ const Categories = () => {
               <Link className='flex flex-col gap-2' to={category.to}>
                 <div className='h-min overflow-hidden rounded-full'>
                   <img
-                    className='rounded-full md:h-40 md:w-40 w-28 h-28 hover:scale-125 transition-all duration-500 cursor-pointer'
+                    className='rounded-full md:h-40 md:w-40 sm:w-28 sm:h-28 w-24 h-24 hover:scale-125 transition-all duration-500 cursor-pointer'
                     loading='eager'
                     src={category.img}
                     alt={`Category ${index + 1}`}
                   />
                 </div>
-                <p className='text-xl font-ovo text-center'>{category.name}</p>
+                <p className='md:text-xl text-base font-poppins max-w-24 text-balance  text-center'>{category.name}</p>
               </Link>
             </div>
           ))

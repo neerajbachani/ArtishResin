@@ -80,27 +80,27 @@ const OurProducts = () => {
     //     </div>
     //   </div>
     // </div>
-    <div class="container mx-auto px-4 mt-[2rem] md:mt-[6rem] overflow-x-auto">
+    <div class="container mx-auto px-4 mt-[4rem] md:mt-[6rem] overflow-x-auto ">
   <div class="flex gap-8 md:gap-20 pb-4 md:pb-0">
-    <div class="w-64 md:w-full flex-shrink-0">
+    <div class="w-[21rem] md:w-full flex-shrink-0">
       <div class="image-content">
         <a href="https://the-next-decor.com/collections/wall-art">
           <img 
             src="https://res.cloudinary.com/dkhsnhjrh/image/upload/v1722341334/CUSTOMIZED_1_racbvw.png" 
             alt="Wall Art" 
-            class="w-full h-auto md:max-w-screen-lg rounded-lg shadow-md"
+            className="w-full h-[12rem] object-cover md:h-auto md:max-w-screen-lg rounded-lg shadow-md"
           />
         </a>
       </div>
     </div>
     
-    <div class="w-64 md:w-full flex-shrink-0">
+    <div class="w-[21rem] md:w-full flex-shrink-0">
       <div class="image-content">
         <a href="https://customize.the-next-decor.com/customize">
           <img 
             src="https://res.cloudinary.com/dkhsnhjrh/image/upload/v1722344013/download_13_jpk95k.png" 
             alt="Customized Acrylic" 
-            class="w-full md:max-w-screen-lg h-auto rounded-lg shadow-md"
+            class="w-full h-[12rem] object-cover md:h-auto md:max-w-screen-lg rounded-lg shadow-md"
           />
         </a>
       </div>

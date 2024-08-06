@@ -609,19 +609,19 @@ const AboutUs = () => {
 
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
               <div className="mt-10 lg:mt-0">
-                <span className="block mb-4 text-lg font-semibold text-primarycolor">
+                <span className="block mb-4 ml-2 text-lg font-semibold text-primarycolor">
                   Why Choose Us?
                 </span>
-                <h2 className="mb-5 md:text-3xl text-xl mx-4 md:mx-0  font-bold text-secondary-dark-color dark:text-white sm:text-[40px]/[48px]">
+                <h2 className="mb-5 md:text-3xl text-xl mx-2 md:mx-0  font-bold text-secondary-dark-color dark:text-white sm:text-[40px]/[48px]">
                   Make your customers happy by giving services.
                 </h2>
-                <p className="mb-5 md:text-base text-md mx-4 md:mx-0  text-secondary-dark-color">
+                <p className="mb-5 md:text-base text-md mx-2 md:mx-0  text-secondary-dark-color">
                 At Artish Resin, we take pride in offering an unparalleled selection of high-quality resin products paired with exceptional customer service. Our extensive range caters to diverse needs, whether you're a professional contractor, hobbyist, or DIY enthusiast. With years of expertise in the industry, our knowledgeable team provides valuable insights and tailored recommendations to ensure you find the perfect products for your requirements.
                 </p>
                 <p className="mb-8 md:text-base text-md mx-4 md:mx-0   text-secondary-dark-color">
                 We understand the importance of competitive pricing without compromising on quality. Our efficient operations and direct sourcing from trusted manufacturers allow us to pass on significant savings to our valued customers. Additionally, our user-friendly ecommerce platform, secure payment options, and efficient shipping ensure a convenient and hassle-free shopping experience from the comfort of your home or office.
                 </p>
-                <Link to='/about-us' className="  relative inline-flex items-center justify-center md:px-9 px-2 py-1  overflow-hidden font-medium font-poppins text-indigo-600 transition duration-300 border border-secondary-dark-color ease-out rounded-full shadow-md bg-black  group">
+                <Link to='/about-us' className=" ml-2 relative inline-flex items-center justify-center md:px-9 px-2 py-1  overflow-hidden font-medium font-poppins text-indigo-600 transition duration-300 border border-secondary-dark-color ease-out rounded-full shadow-md bg-black  group">
 <span className="absolute inset-0 flex items-center justify-center w-full h-full text-[#BDE0FE] duration-300 -translate-x-full bg-primarycolor group-hover:translate-x-0 ease">
 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
 </span>

@@ -188,7 +188,7 @@ const HeroSection = ({ isOpen }) => {
   const widthClas = isOpen ? 'mx-0' : 'md:mx-4';
 
   const items = heroSection.heroSections.map((section, index) => (
-    <div key={index} className="item px-16 ">
+    <div key={index} className="item lg:px-16 px-0 ">
       {loading || !loadedImages.includes(section.image) ? (
         <Skeleton variant="rectangular" sx={{ minHeight: '70vh', width: '100%' }} />
       ) : (

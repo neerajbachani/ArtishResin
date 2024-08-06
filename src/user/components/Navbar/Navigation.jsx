@@ -25,30 +25,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 import { motion, AnimatePresence } from 'framer-motion';
-const MenuItems = ({ href, label, children }) => {
-  return (
-    <li className="group relative">
-      <a href={href} className="block py-2 px-4  text-gray-700 hover:text-blue-500 transition-colors duration-300">
-        {label}
-      </a>
-      {children && (
-        <div className="absolute left-0 w-48 bg-white shadow-lg rounded-md overflow-hidden hidden group-hover:block">
-          <ul className="py-2  ">
-            {children}
-          </ul>
-        </div>
-      )}
-    </li>
-  );
-};
 
-const SubMenuItem = ({ href, label }) => (
-  <li>
-    <a href={href} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-300">
-      {label}
-    </a>
-  </li>
-);
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -59,6 +36,38 @@ export default function Navigation() {
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
   const location=useLocation();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  const MenuItems = ({ to,  label, children,  }) => {
+    return (
+      <li className="group relative">
+        <Link to={to} className="block py-2 px-4  text-gray-700 hover:text-blue-500 transition-colors duration-300">
+          {label}
+        </Link>
+        {children && (
+          <div className="absolute left-0 w-48 bg-white shadow-lg rounded-md overflow-hidden hidden group-hover:block">
+            <ul className="py-2  ">
+              {children}
+            </ul>
+          </div>
+        )}
+      </li>
+    );
+  };
+  
+  const SubMenuItem = ({ to, label }) => (
+    <li>
+      <Link to={to} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-300">
+        {label}
+      </Link>
+    </li>
+  );
+
 
   useEffect(() => {
     if (jwt) {
@@ -156,7 +165,7 @@ export default function Navigation() {
       </Typography>
     </ul>
   );
-  const [isOpen, setIsOpen] = useState(false);
+
 
   return (
   
@@ -262,17 +271,10 @@ export default function Navigation() {
         <nav aria-label="Top" className="mx-auto">
           <div className="">
             <div className="flex h-16 items-center px-4">
-              <button
-                type="button"
-                className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
-                onClick={() => setOpen(true)}
-              >
-                <span className="sr-only">Open menu</span>
-                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              </button>
+            
 
               {/* Logo */}
-              <div className="ml-4 flex lg:ml-0 ">
+              <div className=" flex lg:ml-0 ">
                 <Link to="/">
                  <img src='https://res.cloudinary.com/ducutbdvu/image/upload/v1714309586/Clock/Artish_kwozcv.png' className=' w-[8rem] h-[6rem] mt-4'/>
                 </Link>
@@ -388,32 +390,33 @@ export default function Navigation() {
           <nav className="hidden lg:block z-30 ">
             <ul className="flex space-x-4 font-poppins text-lg ">
            
-              <MenuItems href="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
-              <MenuItems href="/collections/wall-clock" label="Wall Clock">
-                <SubMenuItem href="/collections/roman-numeral-clock" label="Roman Numeral Clock" />
-                <SubMenuItem href="/collections/flower-design-wall-clock" label="Flower Design Wall Clock" />
-                <SubMenuItem href="/collections/modern-wall-clocks" label="Modern Wall Clocks" />
+              <MenuItems to="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
+              <MenuItems to="/collections/wall-clock" label="Wall Clock">
+                <SubMenuItem to="/collections/roman-numeral-clock" label="Roman Numeral Clock" />
+                <SubMenuItem to="/collections/flower-design-wall-clock" label="Flower Design Wall Clock" />
+                <SubMenuItem to="/collections/modern-wall-clocks" label="Modern Wall Clocks" />
                 {/* Add more SubMenuItems as needed */}
               </MenuItems>
-              <MenuItems href="/collections/wall-art" label="Metal Wall Art">
-                <SubMenuItem href="/collections/animal-wall-art" label="Animal Wall Art" />
-                <SubMenuItem href="/collections/bird-wall-art" label="Bird Wall Art" />
-                <SubMenuItem href="/collections/clip-wall-art" label="Clip Wall Art" />
+              <MenuItems to="/collections/wall-art" label="Metal Wall Art">
+                <SubMenuItem to="/collections/animal-wall-art" label="Animal Wall Art" />
+                <SubMenuItem to="/collections/bird-wall-art" label="Bird Wall Art" />
+                <SubMenuItem to="/collections/clip-wall-art" label="Clip Wall Art" />
                 {/* Add more SubMenuItems as needed */}
               </MenuItems>
-              <MenuItems href="/collections/acrylic-wall-art" label="Acrylic Wall Art">
-                <SubMenuItem href="/collections/abstract-wall-art" label="Abstract Wall Art" />
-                <SubMenuItem href="/collections/vastu-wall-art" label="Vastu Wall Art" />
-                <SubMenuItem href="/collections/spiritual-acrylic-wall-art" label="Spiritual Wall Art" />
+              <MenuItems to="/collections/acrylic-wall-art" label="Acrylic Wall Art">
+                <SubMenuItem to="/collections/abstract-wall-art" label="Abstract Wall Art" />
+                <SubMenuItem to="/collections/vastu-wall-art" label="Vastu Wall Art" />
+                <SubMenuItem to="/collections/spiritual-acrylic-wall-art" label="Spiritual Wall Art" />
                 {/* Add more SubMenuItems as needed */}
               </MenuItems>
-              <MenuItems href="/collections/resin-wall-art" label="Resin Wall Art" />
-              <MenuItems href="/collections/acrylic-frame" label="Acrylic Frame" />
-              <MenuItems href="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
+              <MenuItems to="/collections/resin-wall-art" label="Resin Wall Art" />
+              <MenuItems to="/collections/acrylic-frame" label="Acrylic Frame" />
+              <MenuItems to="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
             </ul>
           </nav>
         </div>
       </div>
+     
       <AnimatePresence>
         {isOpen && (
           <motion.nav
@@ -424,18 +427,70 @@ export default function Navigation() {
             className="lg:hidden bg-white shadow-md"
           >
             <ul className="py-4">
-              <MenuItems href="/" label="Home" />
-              <MenuItems href="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
-              <MenuItems href="/collections/wall-clock" label="Wall Clock" />
-              <MenuItems href="/collections/wall-art" label="Metal Wall Art" />
-              <MenuItems href="/collections/acrylic-wall-art" label="Acrylic Wall Art" />
-              <MenuItems href="/collections/resin-wall-art" label="Resin Wall Art" />
-              <MenuItems href="/collections/acrylic-frame" label="Acrylic Frame" />
-              <MenuItems href="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
+              <MenuItems to="/" label="Home" />
+              <MenuItems to="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
+              <MenuItems to="/collections/wall-clock" label="Wall Clock" />
+              <MenuItems to="/collections/wall-art" label="Metal Wall Art" />
+              <MenuItems to="/collections/acrylic-wall-art" label="Acrylic Wall Art" />
+              <MenuItems to="/collections/resin-wall-art" label="Resin Wall Art" />
+              <MenuItems to="/collections/acrylic-frame" label="Acrylic Frame" />
+              <MenuItems to="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
+              <MenuItems to="/products" label="All Products" />
+<MenuItems to="/workshops" label="Workshops" />
+<MenuItems to="/gallery" label="Gallery" />
+<MenuItems to="/about-us" label="About Us" />
+<MenuItems to="/contact" label="Contact" />
+
+              {auth.user ? (
+                    <div>
+                      <Avatar
+                        className="text-white"
+                        onClick={handleUserClick}
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        // onClick={handleUserClick}
+                        sx={{
+                          bgcolor: deepPurple[500],
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {auth.user?.firstName[0].toUpperCase()}
+                      </Avatar>
+                      
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={openUserMenu}
+                        onClose={handleCloseUserMenu}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button",
+                        }}
+                      >
+                        <MenuItem onClick={handleCloseUserMenu}>
+                          Profile
+                        </MenuItem>
+                        
+                        <MenuItem onClick={handleMyOrderClick}>
+                          My Orders
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                      </Menu>
+                    </div>
+                  ) : (
+                    <Button
+                      onClick={handleOpen}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Sign-in
+                    </Button>
+                  )}
             </ul>
           </motion.nav>
         )}
       </AnimatePresence>
+     
     </header>
       {/* <AuthModal handleClose={handleClose} open={openAuthModal} /> */}
        

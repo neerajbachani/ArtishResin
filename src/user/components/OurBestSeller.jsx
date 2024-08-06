@@ -38,7 +38,7 @@ const OurBestSeller = () => {
           <div class="h-min overflow-hidden rounded-md">
             <img
               src={product.image}
-              className="lg:w-[13rem] hover:scale-125 transition-all duration-500 cursor-pointer lg:h-[15rem] md:w-[25rem] md:h-[20rem] sm:w-[20rem] sm:h-[15rem] w-[10rem] h-[10rem] object-cover"
+              className="lg:w-[13rem] hover:scale-125 transition-all duration-500 cursor-pointer lg:h-[15rem] md:w-[25rem] md:h-[20rem] sm:w-[20rem] sm:h-[15rem] w-[10rem] h-[12rem] object-cover"
               alt={product.title}
             />
             </div>

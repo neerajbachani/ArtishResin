@@ -114,7 +114,7 @@ const ReviewStory = ({ image, review }) => {
   return (
     <>
       <div className="cursor-pointer" onClick={toggleFullScreen}>
-        <div className="w-24 h-24 rounded-full p-0.5 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
+        <div className="md:w-24 md:h-24 h-20 w-20 rounded-full p-0.5 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
           <img
             src={image}
             alt="Review"
@@ -181,7 +181,7 @@ const Review = () => {
         ))}
       </div>
       <div className="flex gap-5 items-center justify-center mt-4">
-        <FcGoogle size={80} />
+        <FcGoogle className=' w-12 h-12 md:w-20 md:h-20  ' />
         <div className='flex flex-col'>
         <div className=' flex items-center gap-2'>
           <p className=' font-medium text-lg'>4.9</p>
