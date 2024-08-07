@@ -142,6 +142,25 @@ export default function Product() {
   const productList = product?.products?.content
   const productPage =  product.products?.totalPages
 
+  // const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  // const navigate = useNavigate();
+
+  // ... other state and functions
+
+  const handleShopByCategory = () => {
+    setFiltersOpen(true);
+    setMobileFiltersOpen(true)
+    navigate('/products');
+  };
+
+
+  // useEffect(() => {
+  //   if (filtersOpen) {
+  //     setMobileFiltersOpen(true);
+  //   }
+  // }, [filtersOpen]);
+
 
   return (
     <div className="bg-[#fff] -z-20 ">
@@ -149,11 +168,12 @@ export default function Product() {
       <div>
         {/* Mobile filter dialog */}
         
-        <Transition.Root show={mobileFiltersOpen} as={Fragment}>
+        <Transition.Root show={mobileFiltersOpen || filtersOpen} as={Fragment}>
           <Dialog
             as="div"
             className="relative z-40 lg:hidden "
             onClose={setMobileFiltersOpen}
+            // onClose={handleCloseFilters}
           >
             <Transition.Child
               as={Fragment}
@@ -185,7 +205,7 @@ export default function Product() {
                     <button
                       type="button"
                       className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
-                      onClick={() => setMobileFiltersOpen(false)}
+                      onClick={() => setMobileFiltersOpen(false) || setFiltersOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
                       <XMarkIcon className="h-6 w-6 text-secondary-dark-color" aria-hidden="true" />
@@ -272,7 +292,7 @@ export default function Product() {
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 m-2 ">
                     Sort
                     <ChevronDownIcon
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -315,16 +335,10 @@ export default function Product() {
                 </Transition>
               </Menu>
 
+           
               <button
                 type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              >
-                <span className="sr-only">View grid</span>
-                {/* <Squares2X2Icon className="h-5 w-5" aria-hidden="true" /> */}
-              </button>
-              <button
-                type="button"
-                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                className=" text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                 onClick={() => setMobileFiltersOpen(true)}
               >
                 <span className="sr-only text-xl ">Filters</span>
@@ -417,14 +431,25 @@ export default function Product() {
                 )}
 
                 {/* Product grid */}
-                <div className="lg:col-span-4 sm:w-full max-w-lg mx-auto sm:max-w-full sm:mx-0 px-0 ">
-                  {searchQuery && ( 
-                    <>
-                    <h1 className=' text-center font-poppins font-bold text-xl py-3' >Your Search results for "{searchQuery}"</h1>
-                    <p className=' text-center cursor-pointer font-poppins text-xl' ><span>Looking for something specific? </span><Link to='/products' className=' text-blue-500 font-semibold text-base underline' >Shop By Category</Link></p>
-                    </>
-                    
-                )}
+                <div className="lg:col-span-4 sm:w-full mx-auto sm:max-w-full sm:mx-0 px-0 ">
+                {searchQuery && (
+          <>
+            <h1 className='text-center font-poppins font-bold text-xl py-3'>
+              Your Search results for "{searchQuery}"
+            </h1>
+            <p className='text-center cursor-pointer font-poppins text-xl'>
+              <span>Looking for something specific? </span>
+              <Link
+                to='/products'
+                className='text-blue-500 font-semibold text-base underline'
+                onClick={handleShopByCategory}
+              >
+                Shop By Category
+              </Link>
+            </p>
+          </>
+        )}
+
                
                 
                 

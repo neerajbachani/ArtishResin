@@ -117,7 +117,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-xl "
+        className="flex items-center gap-x-2 font-medium font-poppins lg:text-md xl:text-xl  "
       >
         <NavLink to="/" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Home</NavLink>
       </Typography>
@@ -125,7 +125,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
+        className="flex items-center gap-x-2 font-medium font-poppins lg:text-md xl:text-xl"
       >
         <NavLink to="/products" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>
           Products
@@ -135,7 +135,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
+        className="flex items-center gap-x-2  font-medium font-poppins lg:text-md xl:text-xl"
       >
         <NavLink to="/gallery" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Gallery</NavLink>
       </Typography>
@@ -143,7 +143,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
+        className="flex items-center gap-x-2  font-medium font-poppins lg:text-md xl:text-xl"
       >
         <NavLink to="/workshop" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Resin Workshop</NavLink>
       </Typography>
@@ -151,7 +151,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
+        className="flex items-center gap-x-2  font-medium font-poppins lg:text-md xl:text-xl"
       >
         <NavLink to="/about-us" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>About Us</NavLink>
       </Typography>
@@ -159,7 +159,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 p-1 font-medium font-poppins text-lg"
+        className="flex items-center gap-x-2  font-medium font-poppins lg:text-md xl:text-xl"
       >
         <NavLink to="/contact-us" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Contact Us</NavLink>
       </Typography>
