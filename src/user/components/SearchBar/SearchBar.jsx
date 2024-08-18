@@ -260,7 +260,7 @@ const SearchBar = () => {
         <Paper
           sx={{
             position: 'absolute',
-            zIndex: 10,
+            zIndex: 50,
             mt: 1,
             width: 250,
             maxHeight: 300,
@@ -288,6 +288,7 @@ const SearchBar = () => {
       bgcolor: index === selectedSuggestionIndex ? theme.palette.grey[200] : 'inherit',
     }}
     onClick={() => handleSuggestionClick(suggestion)}
+    className=' text-gray-700 hover:text-indigo-700 transition-colors duration-300'
   >
     {suggestion.name}
   </Typography>

@@ -27,13 +27,13 @@ const OurFeaturedCollections = () => {
           <div className='flex flex-col gap-2'>
             {featuredProducts.length > 0 && (
               <DirectionAwareHover imageUrl={featuredProducts[0].image} className='w-full h-[16rem] object-cover'>
-                <p>{featuredProducts[0].title}</p>
+                <p className='font-poppins' >{featuredProducts[0].title}</p>
               </DirectionAwareHover>
             )}
             {featuredProducts.length > 1 && (
               <DirectionAwareHover imageUrl={featuredProducts[1].image} className='w-full h-[16rem] object-cover'>
                 
-                <p>{featuredProducts[1].title}</p>
+                <p className='font-poppins'>{featuredProducts[1].title}</p>
               </DirectionAwareHover>
             )}
           </div>
@@ -41,19 +41,19 @@ const OurFeaturedCollections = () => {
             {featuredProducts.length > 2 && (
               <DirectionAwareHover imageUrl={featuredProducts[2].image} className='w-full h-[32.5rem] object-cover'>
               
-                <p>{featuredProducts[2].title}</p>
+                <p className='font-poppins'>{featuredProducts[2].title}</p>
               </DirectionAwareHover>
             )}
           </div>
           <div className='grid grid-flow-col md:flex md:flex-col col-span-2 md:col-span-1 md:gap-2 gap-5'>
             {featuredProducts.length > 3 && (
               <DirectionAwareHover imageUrl={featuredProducts[3].image} className='w-full h-[16rem] object-cover'>
-                <p>{featuredProducts[3].title}</p>
+                <p className='font-poppins'>{featuredProducts[3].title}</p>
               </DirectionAwareHover>
             )}
             {featuredProducts.length > 4 && (
               <DirectionAwareHover imageUrl={featuredProducts[4].image}  className='w-full h-[16rem] object-cover'>
-                <p>{featuredProducts[4].title}</p>
+                <p className='font-poppins'>{featuredProducts[4].title}</p>
               </DirectionAwareHover>
             )}
           </div>

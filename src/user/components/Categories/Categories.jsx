@@ -53,7 +53,7 @@ const Categories = () => {
                     alt={`Category ${index + 1}`}
                   />
                 </div>
-                <p className='md:text-xl text-base font-poppins max-w-24 text-balance  text-center'>{category.name}</p>
+                <p className='md:text-xl text-sm font-poppins text-balance  text-center'>{category.name}</p>
               </Link>
             </div>
           ))

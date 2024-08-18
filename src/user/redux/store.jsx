@@ -19,6 +19,7 @@ import ourBestSellerProductReducer from './OurBestSeller/Reducer';
 import ourFeaturedProductReducer from './OurFeaturedProduct/Reducer';
 import ourProductReducer from './OurProduct/Reducer';
 
+
 const rootReducers = combineReducers({
   auth: authReducer,
   product: customerProductReducer,
@@ -31,7 +32,8 @@ const rootReducers = combineReducers({
   contact: contactReducer,
   ourBestSellerProduct: ourBestSellerProductReducer,
   ourFeaturedProduct: ourFeaturedProductReducer,
-  ourProduct: ourProductReducer
+  ourProduct: ourProductReducer,
+
 });
 
 export const store = legacy_createStore(rootReducers, applyMiddleware(thunk));

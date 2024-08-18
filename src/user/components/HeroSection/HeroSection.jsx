@@ -195,7 +195,7 @@ const HeroSection = ({ isOpen }) => {
         <>
           <Link to={section.link}>
             <img
-              className="bg-no-repeat lg:h-[70vh] w-[100vw] h-[70vh] object-cover relative"
+              className="bg-no-repeat lg:h-[70vh] w-[100vw] h-[35vh] object-cover relative"
               src={section.image}
               alt={section.title}
             />

@@ -46,7 +46,12 @@ export default function Navigation() {
   const MenuItems = ({ to,  label, children,  }) => {
     return (
       <li className="group relative">
-        <Link to={to} className="block py-2 px-4  text-gray-700 hover:text-blue-500 transition-colors duration-300">
+        <Link to={to} className="block py-2 px-4  text-gray-700 hover:text-indigo-700 transition-colors duration-300
+        relative text-[--color-text-header] no-underline
+             after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px]
+             after:bg-current after:origin-bottom-right after:scale-x-0
+             hover:after:origin-bottom-left hover:after:scale-x-100
+             after:transition-transform after:duration-300 after:ease-in-out">
           {label}
         </Link>
         {children && (
@@ -117,7 +122,7 @@ export default function Navigation() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="flex items-center gap-x-2 font-medium font-poppins lg:text-md xl:text-xl  "
+        className="flex items-center gap-x-2 font-medium font-poppins lg:text-md xl:text-xl"  
       >
         <NavLink to="/" className={({ isActive }) => (isActive ? "text-[#e63946]" : "")}>Home</NavLink>
       </Typography>
@@ -390,27 +395,19 @@ export default function Navigation() {
           <nav className="hidden lg:block z-30 ">
             <ul className="flex space-x-4 font-poppins text-lg ">
            
-              <MenuItems to="/collections/premium-acrylic-wall-art" label="Premium Acrylic Wall Art" />
-              <MenuItems to="/collections/wall-clock" label="Wall Clock">
-                <SubMenuItem to="/collections/roman-numeral-clock" label="Roman Numeral Clock" />
-                <SubMenuItem to="/collections/flower-design-wall-clock" label="Flower Design Wall Clock" />
-                <SubMenuItem to="/collections/modern-wall-clocks" label="Modern Wall Clocks" />
-                {/* Add more SubMenuItems as needed */}
+              <MenuItems to="/collections/premium-acrylic-wall-art" label="Resin Wall Clock" />
+              <MenuItems to="/collections/wall-clock" label="Varmala Preservation">
+                <SubMenuItem to="/collections/roman-numeral-clock" label="Planter" />
+                <SubMenuItem to="/collections/flower-design-wall-clock" label="10' Uneven Round" />
+                <SubMenuItem to="/collections/flower-design-wall-clock" label="12' Square" />
+                <SubMenuItem to="/collections/flower-design-wall-clock" label="12' Clock" />
+                <SubMenuItem to="/collections/flower-design-wall-clock" label="12' Round" />
               </MenuItems>
-              <MenuItems to="/collections/wall-art" label="Metal Wall Art">
-                <SubMenuItem to="/collections/animal-wall-art" label="Animal Wall Art" />
-                <SubMenuItem to="/collections/bird-wall-art" label="Bird Wall Art" />
-                <SubMenuItem to="/collections/clip-wall-art" label="Clip Wall Art" />
+              <MenuItems to="/collections/wall-art" label="Customized Name Plate"/>
                 {/* Add more SubMenuItems as needed */}
-              </MenuItems>
-              <MenuItems to="/collections/acrylic-wall-art" label="Acrylic Wall Art">
-                <SubMenuItem to="/collections/abstract-wall-art" label="Abstract Wall Art" />
-                <SubMenuItem to="/collections/vastu-wall-art" label="Vastu Wall Art" />
-                <SubMenuItem to="/collections/spiritual-acrylic-wall-art" label="Spiritual Wall Art" />
-                {/* Add more SubMenuItems as needed */}
-              </MenuItems>
-              <MenuItems to="/collections/resin-wall-art" label="Resin Wall Art" />
-              <MenuItems to="/collections/acrylic-frame" label="Acrylic Frame" />
+              <MenuItems to="/collections/resin-wall-art" label="Mantra Frame" />
+              <MenuItems to="/collections/acrylic-frame" label="Geode Art" />
+              <MenuItems to="/collections/resin-wall-art" label="Our Signature Style" />
               <MenuItems to="https://customize.the-next-decor.com/customize" label="Customize Your Photo" />
             </ul>
           </nav>

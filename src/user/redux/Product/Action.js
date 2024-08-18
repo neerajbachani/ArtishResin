@@ -96,55 +96,7 @@ export const findProducts = (reqData) => async (dispatch) => {
 };
 
 
-// export const searchProducts = (query , reqData) => async (dispatch) => {
-//   const {
 
-//     sort,
-//     pageNumber,
-//   } = reqData;
-//   console.log("reqdata",reqData)
-//   try {
-//     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
-
-//     const { data } = await api.get(`/api/products/search?query=${query}&page=${pageNumber}&sort=${sort}`);
-
-//     console.log("Fetched search results from API:", data);
-//     dispatch({
-//       type: SEARCH_PRODUCTS_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: SEARCH_PRODUCTS_FAILURE,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
-
-// export const searchProducts = (query) => async (dispatch) => {
-//   try {
-//     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
-
-//     const { data } = await api.get(`/api/products/search?query=${query}`);
-
-//     console.log("Search results from API:", data);
-//     dispatch({
-//       type: SEARCH_PRODUCTS_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: SEARCH_PRODUCTS_FAILURE,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
 
 export const findProductById = (reqData) => async (dispatch) => {
   try {

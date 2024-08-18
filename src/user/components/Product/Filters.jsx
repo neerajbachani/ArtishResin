@@ -1,13 +1,3 @@
-export const color = [
-  "red",
-  "Black",
-  "Red",
-  "marun",
-  "Being",
-  "Pink",
-  "Green",
-  "Yellow",
-];
 
 export const filters = [
  

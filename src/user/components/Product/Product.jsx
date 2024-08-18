@@ -36,11 +36,6 @@ export default function Product() {
   const location = useLocation();
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
 
-
-  const handleLoderClose = () => {
-    setIsLoaderOpen(false);
-  };
-
   const decodedQueryString = decodeURIComponent(location.search);
   const searchParams = new URLSearchParams(decodedQueryString);
   const colorValue = searchParams.get("color");

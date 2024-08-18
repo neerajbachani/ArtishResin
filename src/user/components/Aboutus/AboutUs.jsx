@@ -628,6 +628,7 @@ const AboutUs = () => {
 <span className="absolute flex items-center justify-center w-full h-full text-[#BDE0FE] transition-all duration-300 transform group-hover:translate-x-full ease md:text-2xl text-lg text-primarycolor">About Us</span>
 <span className="relative invisible">About Us</span>
 </Link>
+
               </div>
             </div>
           </div>
