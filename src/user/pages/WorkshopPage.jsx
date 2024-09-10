@@ -1,11 +1,27 @@
-import React from 'react'
-import WorkshopPoster from '../components/WorkshopPoster/WorkshopPoster'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import LatestArrival from '../components/LatestArrival/LatestArrival';
+import { getOurProduct } from '../redux/OurProduct/Action';
 
 const WorkshopPage = () => {
+  const dispatch = useDispatch();
+  const { ourProduct } = useSelector((store) => store);
+  const topProducts = ourProduct?.ourProducts?.filter(product => product.type === "Workshop") || [];
+  
+  useEffect(() => {
+    dispatch(getOurProduct());
+  }, [dispatch]);
+
   return (
     <>
-    <WorkshopPoster/>
-    <div className="bg-gray-100 py-12">
+    <div className="flex items-center justify-center md:mt-7 mb-8">
+        <div className="bg-gradient-to-r from-blue-500 to-black w-1 h-7 mr-4"></div>
+        <h2 className="font-poppins font-semibold md:text-3xl lg:text-4xl text-2xl bg-gradient-to-r from-blue-500 to-black text-transparent bg-clip-text">
+          Book A Workshop
+        </h2>
+      </div>
+    <LatestArrival products={topProducts} />
+      <div className="bg-gray-100 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
           <h2 className="text-3xl font-extrabold font-ovo text-gray-900 sm:text-4xl">
@@ -182,12 +198,11 @@ const WorkshopPage = () => {
           </dl>
         </div>
       </div>
-    </div>
-    <div className=' text-center font-poppins lg:text-4xl mt-7 md:text-2xl sm:text-lg '>Workshop Gallery
-    <div className="container md:max-w-[100rem] lg:max-w-[120rem] 2xl:max-w-[140rem] mx-auto flex flex-wrap md:flex-nowrap  px-5 py-2 lg:px-20 lg:pt-4 gap-2 md:gap-8 ">
-
-
-<div className="-m-1 flex flex-wrap md:-m-2">
+      </div>
+      <div className='text-center font-poppins lg:text-4xl mt-7 md:text-2xl sm:text-lg'>
+        Workshop Gallery
+        <div className="container md:max-w-[100rem] lg:max-w-[120rem] 2xl:max-w-[140rem] mx-auto flex flex-wrap md:flex-nowrap px-5 py-2 lg:px-20 lg:pt-4 gap-2 md:gap-8">
+        <div className="-m-1 flex flex-wrap md:-m-2">
   <div className="flex w-1/2 flex-wrap">
     <div className="w-1/2 p-1 md:p-2">
       <img
@@ -273,13 +288,11 @@ const WorkshopPage = () => {
     </div>
   </div>
 </div>
+        </div>
+      </div>
+      
+    </>
+  );
+};
 
-</div>
-    </div>
-              </>
-          
-            
-  )
-}
-
-export default WorkshopPage
+export default WorkshopPage;

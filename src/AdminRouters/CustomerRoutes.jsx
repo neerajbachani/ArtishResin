@@ -15,7 +15,6 @@ import PaymentSuccess from '../user/components/Payment/PaymentSuccess';
 import Navbar from '../user/components/Navbar/Navigation';
 import MyOrdersPage from '../user/pages/MyOrdersPage';
 import RateAndReview from '../user/components/RateAndReview/RateAndReview';
-import DeptAndSearch from '../user/components/DepartmentAndSearch/DeptAndSearch';
 import Gallery from '../user/components/Gallery/Gallery';
 import ForgotPassword from '../user/components/ForgotPassword/ForgotPassword';
 import OTPVerification from '../user/components/ForgotPassword/OTPVerification';
@@ -24,12 +23,19 @@ import WorkshopPage from '../user/pages/WorkshopPage';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import logo from './logo.png';
 import UnAuthorizedPage from './UnAuthorizedPage';
+import PrivacyPolicy from '../user/components/Policy/PrivacyPolicy';
+import TermsAndConditions from '../user/components/Policy/TermsAndConditions';
+import ShippingPolicy from '../user/components/Policy/ShippingPolicy';
+import Profile from '../user/components/Profile/Profile';
+
+import { useDispatch } from 'react-redux'
+import { isTokenExpired, logout, setupTokenExpirationTimer } from '../user/redux/Auth/Action';
 
 const CustomerRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
-  // Automatically scrolls to top whenever pathname changes
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -38,14 +44,28 @@ const CustomerRoutes = () => {
     });
   }, [pathname]);
 
-  // Check if JWT token is present
-  const isJWTPresent = () => {
-    // Implement your own logic to check if the JWT token is present
-    // You can use localStorage, cookies, or any other method to store and retrieve the JWT token
-    console.log(localStorage)
-    return localStorage.getItem('jwt') !== null;
-    
-  };
+  useEffect(() => {
+    const checkTokenAndSetup = () => {
+      if (isTokenExpired()) {
+        dispatch(logout());
+        setIsLoggedIn(false);
+      } else {
+        setupTokenExpirationTimer(dispatch);
+        setIsLoggedIn(true);
+      }
+    };
+
+    checkTokenAndSetup();
+  }, [dispatch]);
+
+    // Check if JWT token is present
+    const isJWTPresent = () => {
+      // Implement your own logic to check if the JWT token is present
+      // You can use localStorage, cookies, or any other method to store and retrieve the JWT token
+      console.log(localStorage)
+      return localStorage.getItem('jwt') !== null;
+      
+    };
 
   return (
     <div className="">
@@ -65,7 +85,11 @@ const CustomerRoutes = () => {
         <Route path="/account/order/:orderId" element={isJWTPresent() ? <OrderDetails /> : <Navigate to="/unauthorized" />}></Route>
         <Route path="/payment/:orderId" element={isJWTPresent() ? <PaymentSuccess /> : <Navigate to="/unauthorized" />}></Route>
         <Route path="/account/rate/:productId" element={isJWTPresent() ? <RateAndReview /> : <Navigate to="/unauthorized" />}></Route>
+        <Route path="/account/profile" element={isJWTPresent() ? <Profile /> : <Navigate to="/unauthorized" />}></Route>
         <Route path="/gallery" element={<Gallery />}></Route>
+        <Route path="/privacy-policy" element={<PrivacyPolicy />}></Route>
+        <Route path="/terms&conditions" element={<TermsAndConditions />}></Route>
+        <Route path="/shipping-policy" element={<ShippingPolicy />}></Route>
         <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
         <Route path="/workshop" element={<WorkshopPage />}></Route>
         <Route path="/otpVerification/email/:emailId" element={<OTPVerification />}></Route>

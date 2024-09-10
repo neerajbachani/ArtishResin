@@ -1,111 +1,112 @@
-import React from "react";
-import { Badge, Button } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import CartItem from "../Cart/CartItem";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getOrderById } from "../../redux/Order/Action";
-import AddressCard from "../Address/AddressCard";
-import { createPayment } from "../../redux/Payment/Action";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@mui/material';
 import LoadingBar from 'react-top-loading-bar';
-import { useState } from 'react';
+import { getOrderById } from '../../redux/Order/Action';
+import { createPayment } from '../../redux/Payment/Action';
+import AddressCard from '../Address/AddressCard';
+import CartItem from '../Cart/CartItem';
 
 const OrderSummary = () => {
   const [progress, setProgress] = useState(0);
-
-  const navigate = useNavigate();
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-const orderId = searchParams.get("order_id");
-const dispatch=useDispatch();
-  const jwt=localStorage.getItem("jwt");
-  const {order}=useSelector(state=>state)
+  const dispatch = useDispatch();
+  const { order } = useSelector((state) => state);
 
-console.log("orderId ", order)
+  const orderId = new URLSearchParams(location.search).get('order_id');
 
-useEffect(() => {
-  setProgress(50); // Set loading progress to 50%
-  dispatch(getOrderById(orderId))
-    .then(() => {
-      setProgress(100); // Set loading progress to 100%
-      setTimeout(() => {
-        setProgress(0); // Reset loading progress after a short delay
-      }, 500);
-    })
-    .catch(() => {
-      setProgress(0); // Reset loading progress if there's an error
-    });
-}, [orderId]);
+  useEffect(() => {
+    setProgress(50);
+    dispatch(getOrderById(orderId))
+      .then(() => {
+        setProgress(100);
+        setTimeout(() => setProgress(0), 500);
+      })
+      .catch(() => setProgress(0));
+  }, [orderId, dispatch]);
 
-const handleCreatePayment = () => {
-  setProgress(50); // Set loading progress to 50%
-  dispatch(createPayment(order.order?._id))
-    .then(() => {
-      setProgress(100); // Set loading progress to 100%
-      setTimeout(() => {
-        setProgress(0); // Reset loading progress after a short delay
-      }, 500);
-    })
-    .catch(() => {
-      setProgress(0); // Reset loading progress if there's an error
-    });
-};
-  
-console.log(order.order?.shippingAddress)
+  const handleCreatePayment = () => {
+    setProgress(50);
+    dispatch(createPayment(order.order?._id))
+      .then(() => {
+        setProgress(100);
+        setTimeout(() => setProgress(0), 500);
+      })
+      .catch(() => {
+        setProgress(0);
+      });
+  };
+
+  if (!order.order) return null;
 
   return (
-    <div className="space-y-5">
-       <LoadingBar
-      color="#e63946"
-      progress={progress}
-      onLoaderFinished={() => setProgress(0)}
-    />
-        <div className="p-5 shadow-lg rounded-md border ">
-            <AddressCard address={order.order?.shippingAddress}/>
-        </div>
-      <div className="lg:grid grid-cols-3 relative justify-between">
-        <div className="lg:col-span-2 ">
-          <div className=" space-y-3">
-            {order.order?.orderItems.map((item) => (
-              <div className=" relative" >
-                <CartItem item={item} showButton={false}  />
+    <div className="container mx-auto px-4 py-8 bg-gray-50">
+      <LoadingBar color="#60A5FA" progress={progress} onLoaderFinished={() => setProgress(0)} />
+      
+      <h1 className="text-3xl font-bold mb-8 text-black">Order Summary</h1>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-6">
+          <AddressCard address={order.order.shippingAddress} />
+          
+          <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+            <h2 className="text-xl font-semibold mb-4 text-black">Order Items</h2>
+            <div className="space-y-4">
+              {order.order.orderItems.map((item) => (
+                <CartItem key={item._id} item={item} showButton={false} />
+              ))}
+            </div>
+          </div>
 
-              </div>
-            ))}
+          <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+            <h2 className="text-xl font-semibold mb-4 text-black">Order Details</h2>
+            <div className="space-y-2 text-gray-700">
+              <p><span className="font-semibold">Order ID:</span> {order.order._id}</p>
+              <p><span className="font-semibold">Order Date:</span> {new Date(order.order.orderDate).toLocaleString()}</p>
+              <p><span className="font-semibold">Order Status:</span> <span className="text-blue-400 font-semibold">{order.order.orderStatus}</span></p>
+              <p><span className="font-semibold">Payment Status:</span> <span className="text-blue-400 font-semibold">{order.order.paymentDetails.paymentStatus}</span></p>
+            </div>
           </div>
         </div>
-        <div className="sticky top-0 h-[100vh] mt-5 lg:mt-0 ml-5">
-          <div className="border p-5 bg-white shadow-lg rounded-md">
-            <p className="font-bold opacity-60 pb-4 font-poppins text-lg">PRICE DETAILS</p>
-            <hr />
-
-            <div className="space-y-3 font-semibold">
-              <div className="flex justify-between pt-3 text-black text-lg font-poppins ">
-                <span>Price ({order.order?.totalItem} item)</span>
-                <span>₹{order.order?.totalPrice}</span>
+        
+        <div className="lg:col-span-1">
+          <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 sticky top-4">
+            <h2 className="text-xl font-semibold mb-4 text-black">Price Details</h2>
+            <div className="space-y-3 text-gray-700">
+              <div className="flex justify-between">
+                <span>Price ({order.order.totalItem} items)</span>
+                <span>₹{order.order.totalPrice.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-lg font-poppins">
+              <div className="flex justify-between">
                 <span>Discount</span>
-                <span className="text-green-700">-₹{order.order?.discount}</span>
+                <span className="text-green-600">-₹{order.order.discount.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-lg font-poppins">
+              <div className="flex justify-between">
                 <span>Delivery Charges</span>
-                <span className="text-green-700">Free</span>
+                <span className="text-green-600">Free</span>
               </div>
-              <hr />
-              <div className="flex justify-between font-bold text-lg font-poppins">
-                <span>Total Amount</span>
-                <span className="text-green-700">₹{order.order?.totalDiscountedPrice}</span>
+              <div className="border-t pt-3 mt-3">
+                <div className="flex justify-between font-semibold text-lg text-black">
+                  <span>Total Amount</span>
+                  <span>₹{order.order.totalDiscountedPrice.toFixed(2)}</span>
+                </div>
               </div>
             </div>
-
             <Button
               onClick={handleCreatePayment}
               variant="contained"
-              type="submit"
-              sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" , backgroundColor: "#e63946" , fontFamily: "poppins", fontSize: "1.2rem" }}
+              fullWidth
+              sx={{
+                marginTop: '1.5rem',
+                backgroundColor: '#60A5FA',
+                '&:hover': { backgroundColor: '#3B82F6' },
+                fontFamily: 'Poppins, sans-serif',
+                fontWeight: 'bold',
+                textTransform: 'none',
+              }}
             >
-              Payment
+              Proceed to Payment
             </Button>
           </div>
         </div>

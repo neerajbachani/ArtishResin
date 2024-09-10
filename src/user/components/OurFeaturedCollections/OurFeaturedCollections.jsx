@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOurFeaturedProduct } from '../../redux/OurFeaturedProduct/Action';
 import  DirectionAwareHover  from '../DirectionAwareHover';
+import { Link } from 'react-router-dom';
 
 const OurFeaturedCollections = () => {
   const dispatch = useDispatch();
@@ -52,9 +53,12 @@ const OurFeaturedCollections = () => {
               </DirectionAwareHover>
             )}
             {featuredProducts.length > 4 && (
-              <DirectionAwareHover imageUrl={featuredProducts[4].image}  className='w-full h-[16rem] object-cover'>
+              <Link to={featuredProducts[4].link} className=' cursor-pointer'>
+                <DirectionAwareHover imageUrl={featuredProducts[4].image}  className='w-full h-[16rem] object-cover'>
                 <p className='font-poppins'>{featuredProducts[4].title}</p>
               </DirectionAwareHover>
+              </Link>
+            
             )}
           </div>
         </div>

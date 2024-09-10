@@ -16,7 +16,7 @@ export const register = (userData) => async (dispatch) => {
     const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
     const user = response.data;
     if (user.jwt) {
-      localStorage.setItem("jwt", user.jwt);
+      storeToken(user.jwt);
     }
     console.log("user ", user);
     dispatch(registerSuccess(user.jwt));
@@ -51,7 +51,7 @@ export const login = (userData) => async (dispatch) => {
     const response = await api.post(`/auth/signin`, userData);
     const user = response.data;
     if (user.jwt) {
-      localStorage.setItem("jwt", user.jwt);
+      storeToken(user.jwt);
     }
     console.log("user: ", user);
     dispatch(loginSuccess(user.jwt));
@@ -109,7 +109,70 @@ export const getAllUsers = () => {
   };
 }
 
-export const logout = (dispatch) => {
-    dispatch({type: LOGOUT, payload: null})
-    localStorage.clear()
-}
+export const updateProfile = (userData) => async (dispatch) => {
+  try {
+    const response = await api.put('/api/users/profile', userData);
+    dispatch({ type: 'UPDATE_PROFILE_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({ type: 'UPDATE_PROFILE_FAILURE', payload: error.message });
+  }
+};
+
+export const addAddress = (addressData) => async (dispatch) => {
+  try {
+    const response = await api.post('/api/users/address', addressData);
+    dispatch({ type: 'ADD_ADDRESS_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({ type: 'ADD_ADDRESS_FAILURE', payload: error.message });
+  }
+};
+
+export const updateAddress = (addressId, addressData) => async (dispatch) => {
+  try {
+    const response = await api.put(`/api/users/address/${addressId}`, addressData);
+    dispatch({ type: 'UPDATE_ADDRESS_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({ type: 'UPDATE_ADDRESS_FAILURE', payload: error.message });
+  }
+};
+
+export const deleteAddress = (addressId) => async (dispatch) => {
+  try {
+    const response = await api.delete(`/api/users/address/${addressId}`);
+    dispatch({ type: 'DELETE_ADDRESS_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({ type: 'DELETE_ADDRESS_FAILURE', payload: error.message });
+  }
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({type: LOGOUT, payload: null});
+  localStorage.clear();
+};
+
+// Add these functions at the end of your userActions.js file
+
+export const storeToken = (token) => {
+  const now = new Date();
+  const expirationTime = now.getTime() + 48 * 60 * 60 * 1000; // 48 hours
+  localStorage.setItem('jwt', token);
+  localStorage.setItem('tokenExpiration', expirationTime);
+};
+
+export const isTokenExpired = () => {
+  const expiration = localStorage.getItem('tokenExpiration');
+  if (!expiration) return true;
+  return new Date().getTime() > parseInt(expiration);
+};
+
+export const setupTokenExpirationTimer = (dispatch) => {
+  const expiration = localStorage.getItem('tokenExpiration');
+  if (!expiration) return;
+
+  const timeUntilExpiration = parseInt(expiration) - new Date().getTime();
+  if (timeUntilExpiration <= 0) {
+    dispatch(logout());
+  } else {
+    setTimeout(() => dispatch(logout()), timeUntilExpiration);
+  }
+};

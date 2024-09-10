@@ -1,235 +1,225 @@
-import { useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  Typography,
   Grid,
-  TextField,
   Button,
+  Box,
+  Card,
+  CardHeader,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Avatar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  CircularProgress,
+  IconButton,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { Delete } from '@mui/icons-material';
+import toast, { Toaster } from 'react-hot-toast';
 import {
-    Avatar,
-    Box, 
-    Card,
-    CardHeader,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
- 
-  } from "@mui/material";
-  
-  import React from "react";
-  import { useLocation, useNavigate } from "react-router-dom";
-  import { useEffect } from "react";
-  import {  useSelector } from "react-redux";
-import { createOurFeaturedProduct, deleteOurFeaturedProduct, getOurFeaturedProduct } from "../../user/redux/OurFeaturedProduct/Action";
-
-
-
+  createOurFeaturedProduct,
+  deleteOurFeaturedProduct,
+  getOurFeaturedProduct,
+} from "../../user/redux/OurFeaturedProduct/Action";
+import { findProducts } from "../../user/redux/Product/Action";
 
 const ManageFeaturedProduct = () => {
-  
-  const [ ourFeaturedProductData , setOurFeaturedProductData ] = useState({
-    image: "",
-    title: "",
-    link: "",
-    price: "",
-    discountedPrice: "",
-  });
-const dispatch=useDispatch();
-const jwt=localStorage.getItem("jwt")
+  const dispatch = useDispatch();
+  const { ourFeaturedProduct, product, loading, error } = useSelector((store) => ({
+    ourFeaturedProduct: store.ourFeaturedProduct,
+    product: store.product,
+    loading: store.loading,
+    error: store.error,
+  }));
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setOurFeaturedProductData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createOurFeaturedProduct(ourFeaturedProductData))
-    // dispatch(createProduct(productData))
-    console.log(ourFeaturedProductData);
-  };
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  
-  const { ourFeaturedProduct } = useSelector((store) => store);
-  console.log(ourFeaturedProduct?.ourFeaturedProducts)
-console.log("1")
+  const [selectedProduct, setSelectedProduct] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    
-    dispatch(getOurFeaturedProduct())
-  }, [ourFeaturedProduct.deleteOurFeaturedProduct]);
+    dispatch(getOurFeaturedProduct());
+    dispatch(findProducts({ pageNumber: 1, pageSize: 100 }));
+  }, [dispatch , ourFeaturedProduct.createOurFeaturedProduct, ourFeaturedProduct.deleteOurFeaturedProduct ]);
 
+  const handleProductSelect = useCallback((event) => {
+    setSelectedProduct(event.target.value);
+  }, []);
 
-  const handleDeleteOurFeaturedProduct=(ourFeaturedProductId)=>{
-    console.log("delete our featured product ", ourFeaturedProductId)
+  const handleAddFeaturedProduct = useCallback(() => {
+    const selectedProductData = product.products.content.find(p => p._id === selectedProduct);
+    if (selectedProductData) {
+      const featuredProductData = {
+        image: selectedProductData.image,
+        title: selectedProductData.name,
+        link: `/products/id/${selectedProductData._id}`,
+        price: selectedProductData.price,
+        discountedPrice: selectedProductData.discountedPrice,
+      };
+      dispatch(createOurFeaturedProduct(featuredProductData))
+        .then(() => {
+          toast.success('Product added to featured successfully!');
+          setSelectedProduct("");
+        })
+        .catch(() => {
+          toast.error('Failed to add product to featured. Please try again.');
+        });
+    }
+  }, [dispatch, product.products, selectedProduct]);
+
+  const handleDeleteOurFeaturedProduct = useCallback((ourFeaturedProductId) => {
     dispatch(deleteOurFeaturedProduct(ourFeaturedProductId))
-  }
-console.log("2")
+      .then(() => {
+        toast.success('Featured product deleted successfully!');
+      })
+      .catch(() => {
+        toast.error('Failed to delete featured product. Please try again.');
+      });
+  }, [dispatch]);
 
+  const filteredProducts = product.products?.content?.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <Typography color="error">{error}</Typography>
+      </Box>
+    );
+  }
 
   return (
-    <div className=" bg-[#1b1b1b]">
-      <Typography
-        variant="h3"
-        sx={{ textAlign: "center" }}
-        className="py-10 text-center "
-      >
-        Add New Product Top - Featured - MaxDisc
+    <Box className="bg-gray-900 text-white min-h-screen p-8">
+      <Toaster position="top-right" />
+      <Typography variant="h3" align="center" className="py-10">
+        Manage Featured Products
       </Typography>
-      <form
-        onSubmit={handleSubmit}
-        className=" min-h-[17rem]"
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Image URL"
-              name="image"
-              value={ourFeaturedProductData.image}
-              onChange={handleChange}
-            />
-          </Grid>
-            
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Title"
-              name="title"
-              value={ourFeaturedProductData.title}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Product Price"
-              name="price"
-              value={ourFeaturedProductData.price}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Product Original or Discounted Price"
-              name="discountedPrice"
-              value={ourFeaturedProductData.discountedPrice}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Product Link"
-              name="link"
-              value={ourFeaturedProductData.link}
-              onChange={handleChange}
-            />
-          </Grid>
-           
-          <Grid item xs={12} >
-            <Button
-              variant="contained"
-              sx={{ p: 1.8 }}
-              className="py-20"
-              size="large"
-              type="submit"
-            >
-              Add Product
-            </Button>
-         
-          </Grid>
+
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Search Products"
+            variant="outlined"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{ style: { color: "white" } }}
+            InputLabelProps={{ style: { color: "white" } }}
+          />
         </Grid>
-      </form>
-      <div className="">
-      <Box width={"100%"}>
-      
-      <Card className="mt-2">
-        <CardHeader
-          title="All Products"
-          sx={{
-            pt: 2,
-            alignItems: "center",
-            "& .MuiCardHeader-action": { mt: 0.6 },
-          }}
-        />
-        <TableContainer>
-          <Table sx={{ minWidth: 800 }} aria-label="table in dashboard">
-            <TableHead>
-              <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell>Title</TableCell>
-                {/* <TableCell sx={{ textAlign: "center" }}>Category</TableCell> */}
-                <TableCell sx={{ textAlign: "center" }}>Original price</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>price</TableCell>
-
-
-                <TableCell sx={{ textAlign: "center" }}>Link</TableCell>
-               
-                <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {ourFeaturedProduct?.ourFeaturedProducts?.map((item) => (
-                <TableRow
-                  hover
-                  key={item.title}
-                  sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }}
-                  
-                >
-                  <TableCell>
-                    {" "}
-                    <Avatar alt={item.title} src={item.image} />{" "}
-                  </TableCell>
-
-                  <TableCell
-                    sx={{ py: (theme) => `${theme.spacing(0.5)} !important` }}
-                  >
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <Typography
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: "0.875rem !important",
-                        }}
-                      >
-                        {item.title}
-                      </Typography>
-                    
-                    </Box>
-                  </TableCell>
-                  {/* <TableCell sx={{ textAlign: "center" }}>{item.category.name}</TableCell> */}
-                  <TableCell sx={{ textAlign: "center" }}>{item.price}</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>{item.discountedPrice}</TableCell>
-
-                   <TableCell sx={{ textAlign: "center" }}>{item.link}</TableCell>
-                   
-              
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Button variant="text" 
-                    onClick={()=>handleDeleteOurFeaturedProduct(item._id)}
-                    >Delete</Button>
-                  </TableCell>
-                </TableRow>
+        <Grid item xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="product-select-label" style={{ color: "white" }}>
+              Select Product
+            </InputLabel>
+            <Select
+              labelId="product-select-label"
+              id="product-select"
+              value={selectedProduct}
+              label="Select Product"
+              onChange={handleProductSelect}
+              sx={{ color: "white" }}
+            >
+              {filteredProducts?.map((item) => (
+                <MenuItem key={item._id} value={item._id}>
+                  <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+                    <Typography>{item.name}</Typography>
+                    <Avatar src={item.image} alt={item.name} sx={{ width: 40, height: 40 }} />
+                  </Box>
+                </MenuItem>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Card>
-      
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            sx={{ p: 1.8, backgroundColor: '#2563EB', '&:hover': { backgroundColor: '#1E40AF' } }}
+            size="large"
+            onClick={handleAddFeaturedProduct}
+            disabled={!selectedProduct}
+            fullWidth
+          >
+            Add to Featured Products
+          </Button>
+        </Grid>
+      </Grid>
+
+      <FeaturedProductsTable
+        featuredProducts={ourFeaturedProduct?.ourFeaturedProducts}
+        onDelete={handleDeleteOurFeaturedProduct}
+      />
     </Box>
-      </div>
-    </div>
   );
 };
 
+const FeaturedProductsTable = React.memo(({ featuredProducts, onDelete }) => (
+  <Box width="100%" mt={4}>
+    <Card sx={{ backgroundColor: '#2D3748', color: 'white' }}>
+      <CardHeader
+        title="Featured Products"
+        sx={{
+          pt: 2,
+          backgroundColor: '#2563EB',
+          color: 'white',
+          alignItems: "center",
+          "& .MuiCardHeader-action": { mt: 0.6 },
+        }}
+      />
+      <TableContainer>
+        <Table sx={{ minWidth: 800 }} aria-label="featured products table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Image</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell align="center">Original price</TableCell>
+              <TableCell align="center">Discounted price</TableCell>
+              <TableCell align="center">Link</TableCell>
+              <TableCell align="center">Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {featuredProducts?.map((item) => (
+              <TableRow key={item._id} hover>
+                <TableCell>
+                  <Avatar alt={item.title} src={item.image} sx={{ width: 50, height: 50 }} />
+                </TableCell>
+                <TableCell>{item.title}</TableCell>
+                <TableCell align="center">{item.price}</TableCell>
+                <TableCell align="center">{item.discountedPrice}</TableCell>
+                <TableCell align="center">
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">
+                    View Product
+                  </a>
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton color="error" onClick={() => onDelete(item._id)}>
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Card>
+  </Box>
+));
+
 export default ManageFeaturedProduct;
+

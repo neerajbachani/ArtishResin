@@ -61,6 +61,27 @@ export const authReducer = (state = initialState, action) => {
                   users: [],
                   error: action.payload,
                 };
+                case 'UPDATE_PROFILE_SUCCESS':
+                    case 'ADD_ADDRESS_SUCCESS':
+                    case 'UPDATE_ADDRESS_SUCCESS':
+                    case 'DELETE_ADDRESS_SUCCESS':
+                      return {
+                        ...state,
+                        user: action.payload,
+                        loading: false,
+                        error: null
+                      };
+                    
+                    case 'UPDATE_PROFILE_FAILURE':
+                    case 'ADD_ADDRESS_FAILURE':
+                    case 'UPDATE_ADDRESS_FAILURE':
+                    case 'DELETE_ADDRESS_FAILURE':
+                      return {
+                        ...state,
+                        loading: false,
+                        error: action.payload
+                      };
+                       
         case LOGOUT:
             return {...initialState}
         default:

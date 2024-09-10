@@ -47,6 +47,7 @@ const ourBestSellerProductReducer = (state = initialState, action) => {
               case CREATE_OURBESTSELLER_SUCCESS:
                 return {
                   ...state,
+                  createOurBestSellerProducts: action.payload,
                   loading: false,
                   
                 };
@@ -67,7 +68,7 @@ const ourBestSellerProductReducer = (state = initialState, action) => {
                     return {
                       ...state,
                       loading: false,
-                      deleteOurBestSellerProduct:action.payload
+                      deleteOurBestSellerProducts:action.payload
                       
                       
                     };

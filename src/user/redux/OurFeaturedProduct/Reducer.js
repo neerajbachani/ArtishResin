@@ -47,6 +47,7 @@ const ourFeaturedProductReducer = (state = initialState, action) => {
               case CREATE_OURFEATUREDPRODUCT_SUCCESS:
                 return {
                   ...state,
+                  createOurFeaturedProduct: action.payload,
                   loading: false,
                   
                 };

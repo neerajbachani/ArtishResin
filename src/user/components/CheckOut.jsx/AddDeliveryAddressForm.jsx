@@ -69,7 +69,7 @@ export default function AddDeliveryAddressForm({ handleNext }) {
       onLoaderFinished={() => setProgress(0)}
     />
       <Grid item xs={12} lg={5}>
-        <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
+        <Box className="border rounded-md shadow-md lg:h-[30.5rem] sm:h-[15rem] h-[12rem] overflow-y-scroll ">
           {auth.user?.address.map((item) => (
             <div
               onClick={() => setSelectedAdress(item)}

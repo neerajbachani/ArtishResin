@@ -47,6 +47,7 @@ const ourProductReducer = (state = initialState, action) => {
               case CREATE_OURPRODUCT_SUCCESS:
                 return {
                   ...state,
+                  createOurProducts: action.payload,
                   loading: false,
                   
                 };
@@ -67,7 +68,7 @@ const ourProductReducer = (state = initialState, action) => {
                     return {
                       ...state,
                       loading: false,
-                      deleteOurProduct:action.payload
+                      deleteOurProducts:action.payload
                       
                       
                     };

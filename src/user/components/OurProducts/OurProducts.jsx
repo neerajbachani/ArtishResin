@@ -30,11 +30,11 @@ const OurProducts = () => {
   <div class="flex gap-8 md:gap-20 pb-4 md:pb-0">
     <div class="w-[21rem] md:w-2/3 flex-shrink-0">
       <div class="image-content">
-        <Link to=''>
+        <Link to='/products'>
           <img 
             src="https://res.cloudinary.com/dkhsnhjrh/image/upload/v1722341334/CUSTOMIZED_1_racbvw.png" 
             alt="Wall Art" 
-            className="w-full h-[12rem] object-cover md:h-[20rem] lg:h-[25rem] md:max-w-screen-lg rounded-lg shadow-md"
+            className="w-full h-[12rem] object-cover md:h-[20rem] lg:h-[25rem] cursor-pointer md:max-w-screen-lg rounded-lg shadow-md"
           />
           </Link>
      

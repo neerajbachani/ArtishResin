@@ -39,6 +39,7 @@ const galleryPhotoReducer = (state = initialState, action) => {
                 return {
                   ...state,
                   loading: false,
+                  createGalleryPhoto:action.payload
                   
                 };
               case CREATE_GALLERY_FAILURE:

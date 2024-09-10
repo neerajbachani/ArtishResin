@@ -1,20 +1,23 @@
-import React from "react";
+import React from 'react';
+import { MapPin, Phone } from 'lucide-react';
 
-const AddressCard = ({address}) => {
-  console.log(address)
+const AddressCard = ({ address }) => {
+  if (!address) return null;
+
   return (
-    <div>
-      {/* <h1 className="text-lg font-semibold py-4">Delivery Adress</h1> */}
+    <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+      <h2 className="text-xl font-semibold mb-4 text-black">Delivery Address</h2>
       <div className="space-y-3">
-        <p className="font-semibold font-poppins text-xl ">{`${address?.firstName} ${address?.lastName}`}</p>
-
-        <p className="font-poppins" >
-          {`${address?.streetAddress}, ${address?.city}, ${address?.state}, ${address?.pincode}`}
-        </p>
-
-        <div className="space-y-1">
-          <p className="font-semibold font-poppins">Phone Number </p>
-          <p>{address?.mobile}</p>
+        <p className="font-semibold text-lg text-black">{`${address.firstName} ${address.lastName}`}</p>
+        <div className="flex items-start space-x-2">
+          <MapPin className="w-5 h-5 text-blue-400 mt-1" />
+          <p className="text-gray-700">
+            {`${address.streetAddress}, ${address.city}, ${address.state}, ${address.pincode}`}
+          </p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Phone className="w-5 h-5 text-blue-400" />
+          <p className="text-gray-700">{address.mobile}</p>
         </div>
       </div>
     </div>

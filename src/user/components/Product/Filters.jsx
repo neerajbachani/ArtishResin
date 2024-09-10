@@ -30,6 +30,24 @@ export const filters = [
     ],
   }, 
   {
+    id: "pichwaiArt",
+    name: "Pichwai Art",
+    link: "/products?resinSpecial=pichwaiArt",
+    options: []
+  },
+  {
+    id: "opalArt",
+    name: "Opal Art",
+    link: "/products?resinSpecial=opalArt",
+    options: []
+  },
+  {
+    id: "wallArt",
+    name: "Wall Art",
+    link: "/products?resinSpecial=wallArt",
+    options: []
+  },
+  {
     id: "geodeArt",
     name: "Geode Art",
     options: [

@@ -31,10 +31,12 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className='py-2 md:mt-[7rem] mt-[4rem] '>
-      <div className='flex items-center justify-center space-x-5'>
-        <div className='bg-[#5baef7] w-1 h-7'></div>
-        <h1 className="font-poppins font-semibold md:text-4xl lg:text-5xl text-2xl">Shop By Category</h1>
+    <div className='py-2 mt-[2rem] '>
+        <div className="flex items-center justify-center md:mt-16 mb-8">
+        <div className="bg-gradient-to-r from-blue-500 to-black w-1 h-7 mr-4"></div>
+        <h2 className="font-poppins font-semibold md:text-3xl lg:text-4xl text-2xl bg-gradient-to-r from-blue-500 to-black text-transparent bg-clip-text">
+          Shop By Category
+        </h2>
       </div>
       <div className='horizontal-scroll-container flex mt-[2rem] gap-10 mx-4'>
         {loading ? (
