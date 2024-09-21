@@ -1,24 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { getUser, register } from '../../redux/Auth/Action';
 import LoadingBar from 'react-top-loading-bar';
-import { Toaster, toast } from 'react-hot-toast'; // Import from react-hot-toast
+import { Toaster, toast } from 'react-hot-toast';
+
+const InputField = ({ label, type, name, value, onChange, placeholder, icon: Icon }) => (
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={name}>
+      {label}<sup className="text-red-500">*</sup>
+    </label>
+    <div className="relative">
+      <input
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id={name}
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required
+      />
+      {Icon && (
+        <span className="absolute right-0 top-0 mt-2 mr-3 text-gray-500">
+          <Icon onClick={() => onChange({ target: { name, value: !value } })} />
+        </span>
+      )}
+    </div>
+  </div>
+);
 
 const SignUpForm = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
-  const jwt = localStorage.getItem("jwt");
   const { auth } = useSelector((store) => store);
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (jwt) {
-      dispatch(getUser(jwt));
-    }
-  }, [jwt, auth.jwt]);
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -26,142 +43,112 @@ const SignUpForm = ({ setIsLoggedIn }) => {
     email: "",
     password: "",
     confirmPassword: "",
+    showPassword: false,
+    showConfirmPassword: false,
   });
 
-  const [showPassword1, setShowPassword1] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
-
-  function changeHandler(event) {
-    setUserData((prevData) => ({
-      ...prevData,
-      [event.target.name]: event.target.value,
-    }));
-  }
-
-  function submitHandler(event) {
-    try {
-      event.preventDefault();
-      if (userData.password !== userData.confirmPassword) {
-        toast.error('Passwords do not match'); // Display error toast
-        return;
-      }
-
-      // Show loading bar
-      setProgress(100);
-      dispatch(
-        register(userData, () => {
-          setProgress(0); // Reset progress after register action is completed
-          setIsLoggedIn(true);
-          const accountData = { ...userData };
-          console.log("printing account data ");
-          console.log(accountData);
-
-          toast.success('Account created successfully'); // Display success toast
-
-          // Navigate to the previous page (-1)
-          navigate(-1, { replace: true });
-
-          // Reload the website
-          window.location.reload();
-        })
-      );
-    } catch (error) {
-      console.error('Submit handler error:', error);
-      toast.error('An error occurred. Please try again.'); // Display error toast
-      setProgress(0); // Reset progress if an error occurs
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      dispatch(getUser(jwt));
     }
-  }
+  }, [dispatch, auth.jwt]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (userData.password !== userData.confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
+    setProgress(100);
+    try {
+      await dispatch(register(userData));
+      setProgress(0);
+      setIsLoggedIn(true);
+      toast.success('Account created successfully');
+      
+      // Check the previous page
+      const previousPage = document.referrer;
+      if (previousPage.includes('/unauthorized')) {
+        navigate('/'); // or navigate to a default page
+      } else {
+        navigate(-1, { replace: true });
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      toast.error('An error occurred. Please try again.');
+      setProgress(0);
+    }
+  };
 
   return (
-    <div>
-      <Toaster /> {/* Render the Toaster component */}
-      <LoadingBar color="#f11946" progress={progress} />
-      <form onSubmit={submitHandler}>
-        {/* first name and lastName */}
-        <div className=' my-3 flex flex-col gap-5'>
-          <label>
-            <p className=' font-poppins text-xl'>First Name<sup>*</sup></p>
-            <input
-              required
-              type="text"
-              name="firstName"
-              onChange={changeHandler}
-              placeholder="Enter First Name"
-              value={userData.firstName}
-              className='border border-light-bg-color w-60 pl-2 py-3 rounded-2xl text-xl'
-            />
-          </label>
-
-          <label>
-            <p className=' font-poppins text-xl'>Last Name<sup>*</sup></p>
-            <input
-              required
-              type="text"
-              name="lastName"
-              onChange={changeHandler}
-              placeholder="Enter Last Name"
-              value={userData.lastName}
-              className='border border-light-bg-color w-60 pl-2 py-3 rounded-2xl text-xl'
-            />
-          </label>
-        </div>
-        {/* email Add */}
-        <label>
-          <p className=' font-poppins text-xl '>Email Address<sup>*</sup></p>
-          <input
-            required
-            type="email"
-            name="email"
-            onChange={changeHandler}
-            placeholder="Enter Email Address "
-            value={userData.email}
-            className='border border-light-bg-color w-60 pl-2 py-3 rounded-2xl text-xl'
+    <div className="max-w-md mx-auto mt-10 bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
+      <Toaster />
+      <LoadingBar color="#4F46E5" progress={progress} />
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="flex space-x-4">
+          <InputField
+            label="First Name"
+            type="text"
+            name="firstName"
+            value={userData.firstName}
+            onChange={handleChange}
+            placeholder="Enter First Name"
           />
-        </label>
-
-        {/* createPassword and Confirm Password */}
-        <div className='flex flex-col gap-5 mt-5'>
-          <div className='relative'>
-            <label>
-              <p className='font-poppins text-xl'>Create Password<sup>*</sup></p>
-              <input
-                required
-                type={showPassword1 ? ('text') : ('password')}
-                name='password'
-                onChange={changeHandler}
-                placeholder='Enter Password'
-                value={userData.password}
-                className='border border-light-bg-color w-60 pl-2 py-3 rounded-2xl text-xl'
-              />
-              <span className='eye-icon absolute bottom-5 text-2xl ml-5 ' onClick={() => setShowPassword1((prev) => !prev)}>
-                {showPassword1 ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-              </span>
-            </label>
-          </div>
-
-          <div className='relative'>
-            <label>
-              <p className='font-poppins text-xl'>Confirm Password<sup>*</sup></p>
-              <input
-                required
-                type={showPassword2 ? ('text') : ('password')}
-                name='confirmPassword'
-                onChange={changeHandler}
-                placeholder='Confirm Password'
-                value={userData.confirmPassword}
-                className='border border-light-bg-color w-60 pl-2 py-3 rounded-2xl text-xl'
-              />
-              <span className='eye-icon absolute bottom-5 text-2xl ml-5' onClick={() => setShowPassword2((prev) => !prev)}>
-                {showPassword2 ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-              </span>
-            </label>
-          </div>
+          <InputField
+            label="Last Name"
+            type="text"
+            name="lastName"
+            value={userData.lastName}
+            onChange={handleChange}
+            placeholder="Enter Last Name"
+          />
         </div>
-        <button className=' mt-10 rounded-2xl text-whitecolor bg-secondary-dark-color hover:bg-primarycolor transition-all transition-500ms font-poppins text-xl px-7 py-3 w-full '>
+        <InputField
+          label="Email Address"
+          type="email"
+          name="email"
+          value={userData.email}
+          onChange={handleChange}
+          placeholder="Enter Email Address"
+        />
+        <InputField
+          label="Create Password"
+          type={userData.showPassword ? 'text' : 'password'}
+          name="password"
+          value={userData.password}
+          onChange={handleChange}
+          placeholder="Enter Password"
+          icon={userData.showPassword ? AiOutlineEye : AiOutlineEyeInvisible}
+        />
+        <InputField
+          label="Confirm Password"
+          type={userData.showConfirmPassword ? 'text' : 'password'}
+          name="confirmPassword"
+          value={userData.confirmPassword}
+          onChange={handleChange}
+          placeholder="Confirm Password"
+          icon={userData.showConfirmPassword ? AiOutlineEye : AiOutlineEyeInvisible}
+        />
+        <button
+          type="submit"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+        >
           Create Account
         </button>
       </form>
-      <Link className='  text-xl text-[#BDE0FE]' to='/signin'>Already have and Account? <span>Login</span></Link>
+      <p className="mt-4 text-center text-gray-600">
+        Already have an account?{' '}
+        <Link to="/signin" className="text-indigo-600 hover:text-indigo-800">
+          Login
+        </Link>
+      </p>
     </div>
   );
 };

@@ -43,9 +43,9 @@ const HomePage = () => {
         </h2>
       </div>
         <LatestArrival products = {latestProducts}/>
-        <OurProducts />
+
         <WorkshopPoster />
-        <OurFeaturedCollections />
+
         
         <Review/>
         <AboutUs />

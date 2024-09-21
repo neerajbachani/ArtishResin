@@ -54,15 +54,13 @@ const CustomerRoutes = () => {
         setIsLoggedIn(true);
       }
     };
-
+  
     checkTokenAndSetup();
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]); // Add isLoggedIn to the dependency array
 
     // Check if JWT token is present
     const isJWTPresent = () => {
-      // Implement your own logic to check if the JWT token is present
-      // You can use localStorage, cookies, or any other method to store and retrieve the JWT token
-      console.log(localStorage)
+     
       return localStorage.getItem('jwt') !== null;
       
     };

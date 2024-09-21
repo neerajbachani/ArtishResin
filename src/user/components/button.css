@@ -15,10 +15,10 @@
 
 #nav-part2 h4 {
   
-    border: 1px solid #0000003c;
+    border: 1.1px solid #000000;
     border-radius: 50px;
     font-weight: 500;
-    color: #000000bb;
+    color: #000000;
     transition: all ease 0.4s;
     position: relative;
   

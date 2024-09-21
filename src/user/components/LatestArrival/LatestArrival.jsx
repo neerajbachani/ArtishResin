@@ -51,7 +51,7 @@ const LatestArrival = ({products}) => {
   return (
     <>
     
-    <div className="shop-the-look p-5">
+    <div className="shop-the-look p-2 sm:p-5 ">
         
         <div className="left-column">
           <img

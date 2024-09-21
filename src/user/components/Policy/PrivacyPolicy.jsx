@@ -31,10 +31,7 @@ const policyItems = [
     title: "Return Policy",
     content: "Returns are not accepted for customized products. However, returns may be considered for non-customized items. Please note that refunds cannot be issued for customized products."
   },
-  {
-    title: "Floral Work Policy",
-    content: "If you provide us with your own rose or gajra, please be aware that each rose or petal color may vary. The images we show are of the flowers sent to us by clients, which may differ from those we purchase due to variations in natural drying processes. Complaints about color differences, such as the gajra not being as red as shown in our videos, will not be addressed as the examples shown are client-provided. We appreciate your understanding and encourage you to send your own materials if preferred."
-  },
+ 
   {
     title: "Dried Packet Flower Work",
     content: "When using dried packet flowers for our resin products, it is acceptable to receive items similar to those in our articles but with different flowers and leaves of the same theme. Stock availability can vary, and restocking can take up to a month due to the personal importation of these materials. Minor variations are expected and acceptable in resin art."
@@ -45,7 +42,7 @@ const policyItems = [
   },
   {
     title: "Parcel Delivery",
-    content: "Delivery usually takes 3-5 working days. For urgent delivery, we can arrange overnight service at the customer's expense. If a customer requests urgent delivery but does not cover the additional charges, we are not responsible for any resulting delays."
+    content: "Delivery usually takes 5-7 working days. For urgent delivery, we can arrange overnight service at the customer's expense. If a customer requests urgent delivery but does not cover the additional charges, we are not responsible for any resulting delays."
   },
   {
     title: "Cookies and Tracking Technologies",

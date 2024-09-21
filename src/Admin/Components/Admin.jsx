@@ -50,7 +50,7 @@ const menu = [
   {name: "Manage Herosection", path:"/admin/manageHeroSection"},
   {name: "Gallery", path:"/admin/gallery"},
   {name: "Manage Best Seller Product", path:"/admin/ourBestSeller"},
-  {name: "Manage Our Product Top - Featured - MaxDiscount", path:"/admin/ourProduct"},
+  {name: "Manage Our Product Top - Featured - Workshop", path:"/admin/ourProduct"},
   {name: "Manage Featured Product", path:"/admin/ourFeaturedProduct"},
 
 

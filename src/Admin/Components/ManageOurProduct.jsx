@@ -116,7 +116,7 @@ const ManageOurProduct = () => {
   return (
     <Box sx={{ backgroundColor: "#121212", minHeight: "100vh", padding: "2rem" }}>
       <Typography variant="h4" align="center" sx={{ color: "#90caf9", marginBottom: "2rem" }}>
-        Add New Product (Top - Featured - MaxDisc)
+        Add New Product (Top - Featured - Workshop)
       </Typography>
 
       <form onSubmit={handleSubmit} className="min-h-[17rem]">

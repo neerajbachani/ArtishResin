@@ -9,10 +9,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import { FaWhatsapp } from 'react-icons/fa6';
 
 const ProductCard = ({ product }) => {
-    console.log(product);
+
+  const jwt = localStorage.getItem('jwt');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const jwt = localStorage.getItem("jwt");
+    
     const [progress, setProgress] = useState(0);
     const loadingBarRef = useRef(null);
   
@@ -23,7 +24,9 @@ const ProductCard = ({ product }) => {
       const text = encodeURIComponent(`I'm interested in this product. Can you provide more details? ${window.location.origin}${productLink}`);
       window.open(`https://wa.me/9429350252?text=${text}`, '_blank');
     };
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
+      console.log("jwt", jwt);
+    
       if (!jwt) {
         toast.error('Please sign up or log in to add items to your cart.', {
           duration: 3000,
@@ -31,43 +34,61 @@ const ProductCard = ({ product }) => {
         });
         return;
       }
-
+    
+      // Check if the JWT is valid
+      try {
+        const decodedJwt = JSON.parse(atob(jwt.split('.')[1]));
+        const currentTime = Date.now() / 1000;
+        if (decodedJwt.exp < currentTime) {
+          toast.error('Your session has expired. Please log in again.', {
+            duration: 3000,
+            position: 'bottom-center',
+          });
+          // Optionally, you can dispatch a logout action here
+          return;
+        }
+      } catch (error) {
+        console.error('Error decoding JWT:', error);
+        toast.error('There was an issue with your login. Please try logging in again.', {
+          duration: 3000,
+          position: 'bottom-center',
+        });
+        return;
+      }
+    
       if (!product || !product.link) {
         console.error('Product link is missing');
         toast.error('Unable to add product to cart. Please try again later.');
         return;
       }
-      
+    
       // Extract productId from the link
       const productId = product.link.split('/').pop();
-      
+    
       if (!productId) {
         console.error('Unable to extract product ID from link');
         toast.error('Unable to add product to cart. Please try again later.');
         return;
       }
-
+    
       setProgress(20);
       const formData = new FormData();
       formData.append('productId', productId);
-  
-      dispatch(addItemToCart({ formData, jwt }))
-        .then(() => {
-          setProgress(100);
-          toast.success('Product added to cart!');
-          navigate('/cart');
-        })
-        .catch((error) => {
-          console.error('Error in handleAddToCart:', error);
-          setProgress(100);
-          toast.error('Failed to add product to cart. Please try again.');
-        })
-        .finally(() => {
-          setTimeout(() => {
-            setProgress(0);
-            loadingBarRef.current.complete();
-          }, 500);
-        });
+    
+      try {
+        await dispatch(addItemToCart(formData, jwt));
+        setProgress(100);
+        toast.success('Product added to cart!');
+        navigate('/cart');
+      } catch (error) {
+        console.error('Error in handleAddToCart:', error);
+        setProgress(100);
+        toast.error('Failed to add product to cart. Please try again.');
+      } finally {
+        setTimeout(() => {
+          setProgress(0);
+        }, 500);
+      }
     };
 
   return (

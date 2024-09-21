@@ -21,7 +21,7 @@ const ShippingPolicy = () => {
 const shippingItems = [
   {
     title: "Standard Shipping",
-    content: "Orders are typically shipped within 2-4 working days after confirmation. You will receive a notification via SMS or email once your order has been shipped."
+    content: "Orders are typically shipped within 5-7 working days after confirmation. You will receive a notification via SMS or email once your order has been shipped."
   },
   {
     title: "Custom Product Shipping",

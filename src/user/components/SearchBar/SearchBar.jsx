@@ -165,7 +165,7 @@ const SearchBar = () => {
       {isMobile ? (
         <>
         <IconButton onClick={handleModalOpen}>
-          <SearchIcon />
+          <SearchIcon className=' text-black font-bold ' />
         </IconButton>
         <Modal 
           open={isModalOpen} 
@@ -239,12 +239,24 @@ const SearchBar = () => {
     alignItems: 'center',
     width: 180,
     boxShadow: 'none',
-    border: '1px solid #ccc',
+    border: '1px solid #000',
     borderRadius: 2,
   }}
 >
   <InputBase
-    sx={{ ml: 1, flex: 1, fontSize: 12 }}
+    sx={{
+      ml: 1,
+      flex: 1,
+      fontSize: 12,
+      '& input::placeholder': {
+        color: 'black',
+        opacity: 1,
+        fontFamily: 'Poppins, sans-serif',
+      },
+      '& input': {
+        fontFamily: 'Poppins, sans-serif',
+      },
+    }}
     placeholder="Search products..."
     value={searchQuery}
     onChange={handleSearchChange}
@@ -252,7 +264,7 @@ const SearchBar = () => {
     inputProps={{ 'aria-label': 'search products' }}
   />
   <IconButton type="submit" onClick={handleSearchSubmit}>
-    <SearchIcon />
+    <SearchIcon className='text-black font-bold ' />
   </IconButton>
 </Paper>
       )}
@@ -267,16 +279,7 @@ const SearchBar = () => {
             overflow: 'auto',
           }}
         >
-          {/* {suggestions.map((suggestion) => (
-            <Typography
-              key={suggestion._id}
-              variant="body1"
-              sx={{ p: 1, cursor: 'pointer', '&:hover': { bgcolor: theme.palette.grey[200] } }}
-              onClick={() => handleSuggestionClick(suggestion)}
-            >
-              {suggestion.name}
-            </Typography>
-          ))} */}
+      
           {suggestions.map((suggestion, index) => (
   <Typography
     key={suggestion._id}

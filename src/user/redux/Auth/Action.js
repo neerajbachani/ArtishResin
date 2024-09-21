@@ -145,12 +145,16 @@ export const deleteAddress = (addressId) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = (isManualLogout = false) => (dispatch) => {
   dispatch({type: LOGOUT, payload: null});
   localStorage.clear();
+  if (isManualLogout) {
+    // Force token expiration
+    localStorage.setItem('tokenExpiration', '0');
+  }
 };
 
-// Add these functions at the end of your userActions.js file
+
 
 export const storeToken = (token) => {
   const now = new Date();

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import { IoCartOutline } from "react-icons/io5";
 import {
   Bars3Icon,
   ChevronDownIcon,
@@ -21,10 +22,6 @@ import { getUser, logout } from "../../redux/Auth/Action";
 import { getCart } from "../../redux/Cart/Action";
 import SearchBar from '../SearchBar/SearchBar';
 import "../button.css"
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navigation() {
@@ -47,7 +44,7 @@ export default function Navigation() {
   const MenuItems = ({ to,  label, children,  }) => {
     return (
       <li className="group relative">
-        <Link to={to} className="block py-2 lg:pr-4 xl:px-4  text-gray-700 hover:text-blue-400 transition-colors duration-300
+        <Link to={to} className="block px-2 py-2 lg:pr-4 xl:px-4 font-poppins  text-gray-700 hover:text-blue-400 transition-colors duration-300
         relative text-[--color-text-header] no-underline
              after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px]
              after:bg-current after:origin-bottom-right after:scale-x-0
@@ -111,7 +108,7 @@ export default function Navigation() {
 
   const handleLogout = () => {
     handleCloseUserMenu();
-    logout(dispatch)
+    dispatch(logout(true)); // true indicates manual logout
   };
   const handleMyOrderClick=()=>{
     handleCloseUserMenu()
@@ -204,6 +201,7 @@ export default function Navigation() {
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <NavItem to="/">Home</NavItem>
       <NavItem to="/products">Products</NavItem>
+      <NavItem to="/workshop">Workshops</NavItem>
       <NavItem to="/gallery">Gallery</NavItem>
       <NavItem to="/about-us">About Us</NavItem>
       <NavItem to="/contact-us">Contact Us</NavItem>
@@ -319,13 +317,13 @@ export default function Navigation() {
       <header className="relative max-w-screen-2xl mx-auto bg-[white]">
         <nav aria-label="Top" className="mx-auto">
           <div className="">
-            <div className="flex h-16 items-center px-4">
+            <div className="flex h-16 items-center sm:px-4 px-1">
             
 
               {/* Logo */}
               <div className=" flex lg:ml-0 ">
                 <Link to="/">
-                 <img src='https://res.cloudinary.com/ducutbdvu/image/upload/v1714309586/Clock/Artish_kwozcv.png' className=' w-[8rem] h-[6rem] mt-4'/>
+                 <img src='https://res.cloudinary.com/ducutbdvu/image/upload/v1714309586/Clock/Artish_kwozcv.png' className=' sm:w-[8rem] sm:h-[6rem] w-[6rem] h-[5rem] mt-4'/>
                 </Link>
               </div>
 
@@ -403,8 +401,8 @@ export default function Navigation() {
                     onClick={() => navigate("/cart")}
                     className="group -m-2 flex items-center p-2"
                   >
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                    <IoCartOutline
+                      className="h-6 w-6 flex-shrink-0 text-black font-poppins font-bold group-hover:text-gray-500"
                       aria-hidden="true"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
@@ -421,8 +419,8 @@ export default function Navigation() {
 
       </header>
       <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center  py-4">
+      <div className="container mx-auto sm:px-4">
+        <div className="flex justify-between items-center px-2  py-4">
           
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -488,6 +486,7 @@ export default function Navigation() {
                 <SubMenuItem to="/products?varmalaPreservation=round12" label="12' Round" />
                 <SubMenuItem to="/products?varmalaPreservation=round18" label="18' Round" />
               </MenuItems>
+
               <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate"/>
               <MenuItems to="/products?navkarMantraFrame=presonalizedMantraFrame" label="Mantra Frame" />
               <MenuItems to="/products?geodeArt=geodeartedition" label="Geode Art" />
