@@ -6,7 +6,7 @@ import { getUser, register } from '../../redux/Auth/Action';
 import LoadingBar from 'react-top-loading-bar';
 import { Toaster, toast } from 'react-hot-toast';
 
-const InputField = ({ label, type, name, value, onChange, placeholder, icon: Icon }) => (
+const InputField = ({ label, type, name, value, onChange, placeholder, icon: Icon, onIconClick }) => (
   <div className="mb-4">
     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={name}>
       {label}<sup className="text-red-500">*</sup>
@@ -23,8 +23,8 @@ const InputField = ({ label, type, name, value, onChange, placeholder, icon: Ico
         required
       />
       {Icon && (
-        <span className="absolute right-0 top-0 mt-2 mr-3 text-gray-500">
-          <Icon onClick={() => onChange({ target: { name, value: !value } })} />
+        <span className="absolute right-0 top-0 mt-2 mr-3 text-gray-500 cursor-pointer">
+          <Icon onClick={onIconClick} />
         </span>
       )}
     </div>
@@ -36,6 +36,8 @@ const SignUpForm = ({ setIsLoggedIn }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
   const [progress, setProgress] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -43,8 +45,6 @@ const SignUpForm = ({ setIsLoggedIn }) => {
     email: "",
     password: "",
     confirmPassword: "",
-    showPassword: false,
-    showConfirmPassword: false,
   });
 
   useEffect(() => {
@@ -72,10 +72,9 @@ const SignUpForm = ({ setIsLoggedIn }) => {
       setIsLoggedIn(true);
       toast.success('Account created successfully');
       
-      // Check the previous page
       const previousPage = document.referrer;
       if (previousPage.includes('/unauthorized')) {
-        navigate('/'); // or navigate to a default page
+        navigate('/');
       } else {
         navigate(-1, { replace: true });
       }
@@ -120,21 +119,23 @@ const SignUpForm = ({ setIsLoggedIn }) => {
         />
         <InputField
           label="Create Password"
-          type={userData.showPassword ? 'text' : 'password'}
+          type={showPassword ? 'text' : 'password'}
           name="password"
           value={userData.password}
           onChange={handleChange}
           placeholder="Enter Password"
-          icon={userData.showPassword ? AiOutlineEye : AiOutlineEyeInvisible}
+          icon={showPassword ? AiOutlineEye : AiOutlineEyeInvisible}
+          onIconClick={() => setShowPassword(!showPassword)}
         />
         <InputField
           label="Confirm Password"
-          type={userData.showConfirmPassword ? 'text' : 'password'}
+          type={showConfirmPassword ? 'text' : 'password'}
           name="confirmPassword"
           value={userData.confirmPassword}
           onChange={handleChange}
           placeholder="Confirm Password"
-          icon={userData.showConfirmPassword ? AiOutlineEye : AiOutlineEyeInvisible}
+          icon={showConfirmPassword ? AiOutlineEye : AiOutlineEyeInvisible}
+          onIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
         />
         <button
           type="submit"
