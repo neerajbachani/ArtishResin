@@ -95,13 +95,20 @@ export const getUser = ( jwt ) => async (dispatch) => {
 };
 
 export const getAllUsers = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const currentUsers = getState().auth.users;
+    
     dispatch({type: GET_ALL_USER_REQUEST});
     try {
-     
       const response = await api.get(`/api/users/`);
       console.log("Get All Users ", response.data);
-      dispatch({type: GET_ALL_USER_SUCCESS, payload: response.data});
+      
+      // Only update if the data has changed
+      if (JSON.stringify(currentUsers) !== JSON.stringify(response.data)) {
+        dispatch({type: GET_ALL_USER_SUCCESS, payload: response.data});
+      } else {
+        dispatch({type: GET_ALL_USER_SUCCESS, payload: currentUsers});
+      }
     } catch (error) {
       console.log("catch error ", error);
       dispatch({type: GET_ALL_USER_FAILURE, payload: error.message });

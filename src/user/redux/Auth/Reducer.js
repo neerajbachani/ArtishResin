@@ -3,6 +3,7 @@ import { GET_ALL_USER_FAILURE, GET_ALL_USER_REQUEST, GET_ALL_USER_SUCCESS, GET_U
 
 const initialState = {
     user: null,
+    users:[],
     isLoading: false,
     error: null,
     jwt: null,
@@ -49,12 +50,17 @@ export const authReducer = (state = initialState, action) => {
                   ...state,
                   loading: true,
                 };
-              case GET_ALL_USER_SUCCESS:
-                return {
-                  loading: false,
-                  orders: action.payload,
-                  error: "",
-                };
+                case GET_ALL_USER_SUCCESS:
+                  // Only update if the data has actually changed
+                  if (JSON.stringify(state.allUsers) !== JSON.stringify(action.payload)) {
+                      return {
+                          ...state,
+                          isLoading: false,
+                          allUsers: action.payload,
+                          error: null,
+                      };
+                  }
+                  return state; 
               case GET_ALL_USER_FAILURE:
                 return {
                   loading: false,
