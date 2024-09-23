@@ -154,7 +154,7 @@ export default function Navigation() {
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
-        if (timeoutId) clearTimeout(timeoutId);  // Clear timeout on unmount
+        if (timeoutId) clearTimeout(timeoutId); // Clear timeout on unmount
       };
     }, []);
   
@@ -167,14 +167,19 @@ export default function Navigation() {
       timeoutId = setTimeout(() => setIsOpen(false), 200);
     };
   
+    const handleToggleDropdown = () => {
+      setIsOpen((prevState) => !prevState); // Toggle dropdown on click
+    };
+  
     return (
-      <div 
+      <div
         className="relative group z-40"
         ref={dropdownRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <button
+          onClick={handleToggleDropdown}
           className="flex items-center gap-1 font-medium font-poppins lg:text-md xl:text-xl"
         >
           {title}
@@ -186,7 +191,7 @@ export default function Navigation() {
               <NavLink
                 key={index}
                 to={item.to}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="block px-7 py-2 text-[0.7rem] text-gray-700 hover:bg-gray-100"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
@@ -197,20 +202,24 @@ export default function Navigation() {
       </div>
     );
   };
+  
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <NavItem to="/">Home</NavItem>
       <NavItem to="/products">Products</NavItem>
       <NavItem to="/workshop">Workshops</NavItem>
       <NavItem to="/gallery">Gallery</NavItem>
-      <NavItem to="/about-us">About Us</NavItem>
-      <NavItem to="/contact-us">Contact Us</NavItem>
+      {/* <NavItem to="/about-us">About Us</NavItem>
+      <NavItem to="/contact-us">Contact Us</NavItem> */}
       <Dropdown
         title="Queries"
         items={[
+          { label: 'About Us', to: '/about-us' },
+          { label: 'Contact Us', to: '/contact-us' },
           { label: 'Privacy Policy', to: '/privacy-policy' },
           { label: 'Terms and Conditions', to: '/terms&conditions' },
           { label: 'Shipping Policy', to: '/shipping-policy' },
+          { label: 'Refund And Cancellation Policy', to: '/refund&cancellation' },
         ]}
       />
     </ul>
@@ -475,7 +484,7 @@ export default function Navigation() {
                   )}
 
           <nav className="hidden lg:block z-30 ">
-            <ul className="flex space-x-4 font-poppins lg:text-[0.9rem] xl:text-[1.1rem] 2xl:text-[1.3rem] ">
+            <ul className="flex space-x-4 font-poppins lg:text-[0.8rem] xl:text-[1.05rem] 2xl:text-[1.3rem] ">
            
               <MenuItems to="/products?wallClock=resinWallClock" label="Resin Wall Clock" />
               <MenuItems to="/products?query=Varmala%20Preservation" label="Varmala Preservation">
@@ -493,8 +502,10 @@ export default function Navigation() {
               <MenuItems to="/products?resinSpecial=ourSignatureStyle" label="Our Signature Style" />
               <MenuItems to="/products?resinSpecial=pichwaiArt" label="Pichwai Art" />
               <MenuItems to="/products?resinSpecial=wallArt" label="Wall Art" />
+            
 
             </ul>
+           
           </nav>
         </div>
       </div>
@@ -510,6 +521,7 @@ export default function Navigation() {
           >
             <ul className="py-4">
               <MenuItems to="/" label="Home" />
+              <MenuItems to="/products" label="All Products" />
               <MenuItems to="/products?wallClock=resinWallClock" label="Resin Wall Clock" />
               <MenuItems to="/products?query=Varmala%20Preservation" label="Varmala Preservation"/>
               <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate"/>
@@ -518,14 +530,18 @@ export default function Navigation() {
               <MenuItems to="/products?resinSpecial=ourSignatureStyle" label="Our Signature Style" />
               <MenuItems to="/products?resinSpecial=pichwaiArt" label="Pichwai Art" />
               <MenuItems to="/products?resinSpecial=wallArt" label="Wall Art" />
-              <MenuItems to="/products" label="All Products" />
-              <MenuItems to='/privacy-policy' label="Queries">
-                <SubMenuItem to="/privacy-policy" label="Privacy Policy" />
-                <SubMenuItem to="/terms&conditions" label="Terms & Conditions" />
-                <SubMenuItem to="/shipping-policy" label="Shipping Policy" />
-              </MenuItems>
-            
-
+              
+              <div className="block px-2"><Dropdown
+        title="Queries"
+        items={[
+          { label: 'About Us', to: '/about-us' },
+          { label: 'Contact Us', to: '/contact-us' },
+          { label: 'Privacy Policy', to: '/privacy-policy' },
+          { label: 'Terms and Conditions', to: '/terms&conditions' },
+          { label: 'Shipping Policy', to: '/shipping-policy' },
+          { label: 'Refund And Cancellation Policy', to: '/refund&cancellation' },
+        ]}
+      /></div>
 
             </ul>
           </motion.nav>

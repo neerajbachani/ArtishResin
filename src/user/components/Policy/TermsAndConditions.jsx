@@ -1,13 +1,25 @@
 import React from 'react';
 
 const TermsAndConditions = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-100 to-blue-100">
+  return(
+  <div className="min-h-screen bg-gradient-to-br from-teal-100 to-blue-100">
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-center text-teal-800 mb-8">Terms & Conditions</h1>
+        
+        {/* Quick link to Pricing section */}
+        <div className="mb-6 text-center">
+          <a href="#pricing" className="bg-teal-500 text-white px-4 py-2 rounded-full hover:bg-teal-600 transition-colors">
+            Jump to Pricing Information
+          </a>
+        </div>
+
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
           {termsItems.map((item, index) => (
-            <div key={index} className="p-6 border-b border-gray-200 last:border-b-0">
+            <div 
+              key={index} 
+              id={item.id} 
+              className={`p-6 border-b border-gray-200 last:border-b-0 ${item.highlight ? 'bg-yellow-50' : ''}`}
+            >
               <h2 className="text-2xl font-semibold text-teal-700 mb-4">{item.title}</h2>
               <p className="text-gray-700 leading-relaxed">{item.content}</p>
             </div>
@@ -16,9 +28,16 @@ const TermsAndConditions = () => {
       </div>
     </div>
   );
+
 };
 
 const termsItems = [
+  {
+    id: "pricing",
+    title: "Pricing and Payment",
+    content: "The prices for resin art products are listed on the Company's website or communicated to the Customer before purchase. Prices may be changed at any time without prior notice. The Customer is required to pay the total amount, which includes the product price, applicable taxes, and any shipping or handling fees, as specified during the order process. We utilize Razorpay for processing payments. Neither we nor Razorpay store your card information on their servers. During payment processing, your data is encrypted according to the Payment Card Industry Data Security Standard (PCI-DSS). Your purchase transaction data is only retained for as long as needed to complete the transaction, after which it is not saved. Our payment gateway complies with PCI-DSS standards, which are managed by the PCI Security Standards Council—a collaborative effort involving brands like Visa, MasterCard, American Express, and Discover. These PCI-DSS requirements ensure the secure handling of credit card information by our store and its service providers. For further details, you may also review Razorpay's terms and conditions at https://razorpay.com.",
+    highlight: true
+  },
   {
     title: "Product Description and Orders",
     content: "The Company provides a variety of resin art products, including varmala preservation, resin items, Gepde Art, Pitchwai Art, Wall Art, Opal Art. Product descriptions, including dimensions, materials, and images, are given for reference. Minor variations in color and texture may occur due to the distinctive characteristics of resin art. Orders can be placed through the Company's website or via WhatsApp, with customers responsible for ensuring all details are accurate and complete. The Company reserves the right to accept or reject any order and may cancel or modify orders as necessary."

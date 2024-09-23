@@ -40,6 +40,28 @@ const Footer = () => {
             <p className="text-gray-400 mb-2">Phone: 94293 50252</p>
             <p className="text-gray-400">Email: artishisha1@gmail.com</p>
           </div>
+
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold mb-4">Policies</h3>
+            <ul>
+  {[
+    { name: 'Privacy Policy', link: '/privacy-policy' }, 
+    { name: 'Terms & Conditions', link: '/terms&conditions' }, 
+    { name: 'Shipping Policy', link: '/shipping-policy' },
+    { name: 'Return & Cancellation', link: '/refund&cancellation' },
+
+   
+  ].map((item) => (
+    <li key={item.name} className="mb-2">
+      <Link to={item.link} className="text-gray-400 hover:text-blue-400 transition-colors duration-300 relative group">
+        {item.name}
+        <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+      </Link>
+    </li>
+  ))}
+</ul>
+
+          </div>
           
           <div className="mb-8">
     <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
@@ -58,9 +80,7 @@ const Footer = () => {
 
         </div>
         
-        <div className="border-t border-gray-800 pt-8 mt-8 text-center">
-          <p className="text-gray-400">&copy; {new Date().getFullYear()} Websome. All rights reserved.</p>
-        </div>
+    
       </div>
     </footer>
   );

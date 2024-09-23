@@ -26,7 +26,7 @@ const AdminContactComponent = () => {
   };
 
   return (
-    <Box>
+    <Box >
       <Typography variant="h4" component="h2" gutterBottom>
         Admin Contact Component
       </Typography>

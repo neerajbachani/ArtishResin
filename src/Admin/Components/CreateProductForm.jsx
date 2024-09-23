@@ -218,6 +218,8 @@ const jwt=localStorage.getItem("jwt")
                 <MenuItem value="ourSignatureStyle">Our Signature Style</MenuItem>
                 <MenuItem value="wallArt">Wall Art</MenuItem>
                 <MenuItem value="opalArt">Opal Art</MenuItem>
+                <MenuItem value="pichwaiArt">Pichwai Art</MenuItem>
+
 
               </Select>
             </FormControl>

@@ -300,7 +300,7 @@ const ProductDetails = () => {
             <span className="text-2xl font-semibold text-indigo-600">₹{product.product.discountedPrice}</span>
             <span className="text-lg text-gray-500 line-through">₹{product.product.price}</span>
             {product.product.discount && (
-              <span className="text-sm font-medium text-green-500">{product.product.discount}% off</span>
+              <span className="text-sm font-medium text-green-500">{product.product.discount.toFixed(2)}% off</span>
             )}
           </div>
           <div className="prose max-w-none">

@@ -36,7 +36,7 @@ const menu = [
   { name: "Gallery", path: "/admin/gallery" },
   { name: "Manage Best Seller Product", path: "/admin/ourBestSeller" },
   { name: "Manage Our Product Top - Featured - Workshop", path: "/admin/ourProduct" },
-  { name: "Manage Featured Product", path: "/admin/ourFeaturedProduct" },
+  { name: "Contact", path: "/admin/contact" },
 ];
 
 export default function AdminPannel() {
@@ -46,11 +46,6 @@ export default function AdminPannel() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
 
   const jwt = localStorage.getItem("jwt");
 
@@ -77,17 +72,6 @@ export default function AdminPannel() {
         ))}
       </List>
 
-      <List sx={{ position: "absolute", bottom: 0, width: "100%" }}>
-        <Divider />
-        <ListItem disablePadding onClick={handleLogout}>
-          <ListItemButton>
-            <Avatar sx={{ bgcolor: deepPurple[500], color: "white", cursor: "pointer" }}>
-              {auth.user?.firstName[0].toUpperCase()}
-            </Avatar>
-            <ListItemText primary={"Logout"} sx={{ ml: 2 }} />
-          </ListItemButton>
-        </ListItem>
-      </List>
     </Box>
   );
 

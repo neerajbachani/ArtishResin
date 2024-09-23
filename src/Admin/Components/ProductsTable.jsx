@@ -1,65 +1,43 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProduct, findProducts } from '../../user/redux/Product/Action';
+import { Toaster } from 'react-hot-toast';
 import {
-  Avatar,
   Box,
-  Button,
   Card,
   CardHeader,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
   Table,
-  TableBody,
-  TableCell,
   TableContainer,
   TableHead,
+  TableBody,
   TableRow,
+  TableCell,
   Typography,
-} from "@mui/material";
-
-import React from "react";
-// import { dressPage1 } from "../../../Data/dress/page1";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, findProducts } from "../../user/redux/Product/Action";
-import { Toaster } from "react-hot-toast";
-
+  TextField,
+  Button,
+  Avatar,
+  Pagination,
+  CircularProgress
+} from '@mui/material';
+import debounce from 'lodash/debounce';
 
 const ProductsTable = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { product } = useSelector((store) => store);
-  const [filterValue, setFilterValue] = useState({
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-    availability: "",
-    sort: "",
-
-  });
-
-  // query 
   const searchParams = new URLSearchParams(location.search);
   const availability = searchParams.get("availability");
-
   const sort = searchParams.get("sort");
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") || 1;
 
-
-  const handlePaginationChange = (event, value) => {
-    searchParams.set("page", value-1);
-    const query = searchParams.toString();
-    navigate({ search: `?${query}` });
-  };
-
-  useEffect(() => {
-    setFilterValue({ availability, sort });
+  const fetchProducts = useCallback((searchValue = "") => {
+    setIsLoading(true);
     const data = {
-     
-
       colors: [],
       varmalaPreservation: [],
       workshop: [],
@@ -74,123 +52,144 @@ const ProductsTable = () => {
       maxPrice: 100000,
       minDiscount: 0,
       sort: sort || "price_low",
-      pageNumber:page || 1,
+      pageNumber: page,
       pageSize: 10,
       stock: availability,
+      search: searchValue,
     };
-    dispatch(findProducts(data))
-  }, [availability, sort,page,product.deleteProduct]);
+    dispatch(findProducts(data)).then(() => setIsLoading(false));
+  }, [dispatch, availability, sort, page]);
 
-  const handleFilterChange = (e, sectionId) => {
-    console.log(e.target.value, sectionId);
-    setFilterValue((values) => ({ ...values, [sectionId]: e.target.value }));
-    searchParams.set(sectionId, e.target.value);
+  const debouncedFetchProducts = useCallback(
+    debounce((searchValue) => fetchProducts(searchValue), 300),
+    [fetchProducts]
+  );
+
+  useEffect(() => {
+    fetchProducts(searchTerm);
+  }, [fetchProducts, searchTerm]);
+
+  const handlePaginationChange = (event, value) => {
+    searchParams.set("page", value);
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
   };
 
-  const handleDeleteProduct=(productId)=>{
-    console.log("delete product ",productId)
-    dispatch(deleteProduct(productId))
-  }
-  const handleUpdateProduct=(productId)=>{
-    navigate(`/admin/product/update/${productId}`)
-  }
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    searchParams.set("search", value);
+    searchParams.set("page", "1");  // Reset to first page on new search
+    const query = searchParams.toString();
+    navigate({ search: `?${query}` });
+    debouncedFetchProducts(value);
+  };
 
+  const handleDeleteProduct = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
 
+  const handleUpdateProduct = (productId) => {
+    navigate(`/admin/product/update/${productId}`);
+  };
 
   return (
     <>
-    <Toaster/>
-    <Box width={"100%"}>
-      <Card className="mt-2">
-        <CardHeader
-          title="All Products"
-          sx={{
-            pt: 2,
-            alignItems: "center",
-            "& .MuiCardHeader-action": { mt: 0.6 },
-          }}
-        />
-        <TableContainer>
-          <Table sx={{ minWidth: 800 }} aria-label="table in dashboard">
-            <TableHead>
-              <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell>Title</TableCell>
-                {/* <TableCell sx={{ textAlign: "center" }}>Category</TableCell> */}
-                <TableCell sx={{ textAlign: "center" }}>Discounted/Original Price</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Discount</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Update</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {product?.products?.content?.map((item) => (
-                <TableRow
-                  hover
-                  key={item.name}
-                  sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }}
-                  
-                >
-                  <TableCell>
-                    {" "}
-                    <Avatar alt={item.name} src={item.image} />{" "}
-                  </TableCell>
-
-                  <TableCell
-                    sx={{ py: (theme) => `${theme.spacing(0.5)} !important` }}
-                  >
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <Typography
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: "0.875rem !important",
-                        }}
-                      >
-                        {item.title}
-                      </Typography>
-                      <Typography variant="caption">{item.name}</Typography>
-                    </Box>
-                  </TableCell>
-                  {/* <TableCell sx={{ textAlign: "center" }}>{item.category.name}</TableCell> */}
-                   <TableCell sx={{ textAlign: "center" }}>{item.discountedPrice}</TableCell>
-                   <TableCell sx={{ textAlign: "center" }}>{item.price}</TableCell>
-                   <TableCell sx={{ textAlign: "center" }}>{item.discount}</TableCell>
-
-                
-                   
-                   <TableCell sx={{ textAlign: "center" }}>
-                    <Button variant="text" 
-                    onClick={()=>handleUpdateProduct(item._id)}
-                    >Update</Button>
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    <Button variant="text" 
-                    onClick={()=>handleDeleteProduct(item._id)}
-                    >Delete</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Card>
-      <Card className="mt-2 border">
-      
-
-        <div className="mx-auto px-4 py-5 flex justify-center shadow-lg rounded-md">
-          <Pagination
-            count={product.products?.totalPages}
-            color="primary"
-            className=""
-            onChange={handlePaginationChange}
-            // value={page}
+      <Toaster />
+      <Box width={"100%"}>
+        <Card className="mt-2">
+          <CardHeader
+            title="All Products"
+            sx={{
+              pt: 2,
+              alignItems: "center",
+              "& .MuiCardHeader-action": { mt: 0.6 },
+            }}
           />
-        </div>
-      </Card>
-    </Box>
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end', px: 2 }}>
+            <TextField
+              label="Search products"
+              variant="outlined"
+              size="small"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </Box>
+          {isLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 3 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <>
+              <TableContainer>
+                <Table sx={{ minWidth: 800 }} aria-label="table in dashboard">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Image</TableCell>
+                      <TableCell>Title</TableCell>
+                      <TableCell sx={{ textAlign: "center" }}>Discounted/Original Price</TableCell>
+                      <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
+                      <TableCell sx={{ textAlign: "center" }}>Discount</TableCell>
+                      <TableCell sx={{ textAlign: "center" }}>Update</TableCell>
+                      <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {product?.products?.content?.map((item) => (
+                      <TableRow
+                        hover
+                        key={item._id}
+                        sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }}
+                      >
+                        <TableCell>
+                          <Avatar alt={item.title} src={item.image} />
+                        </TableCell>
+                        <TableCell sx={{ py: (theme) => `${theme.spacing(0.5)} !important` }}>
+                          <Box sx={{ display: "flex", flexDirection: "column" }}>
+                            <Typography sx={{ fontWeight: 500, fontSize: "0.875rem !important" }}>
+                              {item.title}
+                            </Typography>
+                            <Typography variant="caption">{item.name}</Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>{item.discountedPrice}</TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>{item.price}</TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>{item.discount}</TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          <Button variant="text" onClick={() => handleUpdateProduct(item._id)}>
+                            Update
+                          </Button>
+                        </TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          <Button variant="text" onClick={() => handleDeleteProduct(item._id)}>
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {product?.products?.content?.length === 0 && (
+                <Typography sx={{ textAlign: 'center', my: 3 }}>
+                  No products found.
+                </Typography>
+              )}
+            </>
+          )}
+        </Card>
+        <Card className="mt-2 border">
+          <div className="mx-auto px-4 py-5 flex justify-center shadow-lg rounded-md">
+            <Pagination
+              count={product.products?.totalPages}
+              page={parseInt(page)}
+              color="primary"
+              className=""
+              onChange={handlePaginationChange}
+            />
+          </div>
+        </Card>
+      </Box>
     </>
   );
 };

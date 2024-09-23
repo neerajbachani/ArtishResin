@@ -30,6 +30,7 @@ import Profile from '../user/components/Profile/Profile';
 
 import { useDispatch } from 'react-redux'
 import { isTokenExpired, logout, setupTokenExpirationTimer } from '../user/redux/Auth/Action';
+import RefundAndCancellation from '../user/components/Policy/RefundAndCancellation';
 
 const CustomerRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -87,6 +88,7 @@ const CustomerRoutes = () => {
         <Route path="/gallery" element={<Gallery />}></Route>
         <Route path="/privacy-policy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms&conditions" element={<TermsAndConditions />}></Route>
+        <Route path="/refund&cancellation" element={<RefundAndCancellation />}></Route>
         <Route path="/shipping-policy" element={<ShippingPolicy />}></Route>
         <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
         <Route path="/workshop" element={<WorkshopPage />}></Route>

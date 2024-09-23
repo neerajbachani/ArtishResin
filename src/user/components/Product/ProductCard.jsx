@@ -68,8 +68,9 @@ const ProductCard = ({ product }) => {
             <span className="ml-2 text-sm text-gray-500 line-through">₹{price}</span>
           </div>
           <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800">
-            {discount}% off
-          </span>
+  {discount?.toFixed(2)}% off
+</span>
+
         </div>
       </div>
     </div>
