@@ -228,29 +228,7 @@ export const updateProduct = (product, productId) => async (dispatch) => {
   }
 };
 
-// export const updateProduct = (product, productId) => async (dispatch) => {
-//   try {
-//     dispatch({ type: UPDATE_PRODUCT_REQUEST });
-//     const { data } = await api.put(`/api/admin/products/${productId}`, product);
-//     console.log('update product ', data);
-//     dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data });
-//     // showSuccessToast('Product updated successfully');
-//   } catch (error) {
-//     dispatch({
-//       type: UPDATE_PRODUCT_FAILURE,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//     if (error.response && error.response.status === 400) {
-//       // Validation error
-//       showErrorToast('Please fill in all required fields');
-//     } else {
-//       console.log(error)
-//     }
-//   }
-// };
+
 
 
 export const deleteProduct = (productId) => async (dispatch) => {

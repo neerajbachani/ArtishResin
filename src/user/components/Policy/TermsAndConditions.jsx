@@ -40,7 +40,7 @@ const termsItems = [
   },
   {
     title: "Product Description and Orders",
-    content: "The Company provides a variety of resin art products, including varmala preservation, resin items, Gepde Art, Pitchwai Art, Wall Art, Opal Art. Product descriptions, including dimensions, materials, and images, are given for reference. Minor variations in color and texture may occur due to the distinctive characteristics of resin art. Orders can be placed through the Company's website or via WhatsApp, with customers responsible for ensuring all details are accurate and complete. The Company reserves the right to accept or reject any order and may cancel or modify orders as necessary."
+    content: "The Company provides a variety of resin art products, including varmala preservation, resin items, Geode Art, Pichwai Art, Wall Art, Opal Art. Product descriptions, including dimensions, materials, and images, are given for reference. Minor variations in color and texture may occur due to the distinctive characteristics of resin art. Orders can be placed through the Company's website or via WhatsApp, with customers responsible for ensuring all details are accurate and complete. The Company reserves the right to accept or reject any order and may cancel or modify orders as necessary."
   },
   {
     title: "Pricing and Payment",

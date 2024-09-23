@@ -41,8 +41,14 @@ const UpdateProductForm = () => {
     description1: "",
     description2: "",
     description3: "",
-
     details: "",
+    varmalaPreservation: "",
+    workshop: "",
+    wallClock: "",
+    namePlate: "",
+    navkarMantraFrame: "",
+    resinSpecial: "",
+    geodeArt: "",
 
   });
   const dispatch = useDispatch();

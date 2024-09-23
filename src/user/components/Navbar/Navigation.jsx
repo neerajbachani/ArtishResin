@@ -332,7 +332,7 @@ export default function Navigation() {
               {/* Logo */}
               <div className=" flex lg:ml-0 ">
                 <Link to="/">
-                 <img src='https://res.cloudinary.com/ducutbdvu/image/upload/v1714309586/Clock/Artish_kwozcv.png' className=' sm:w-[8rem] sm:h-[6rem] w-[6rem] h-[5rem] mt-4'/>
+                 <img src='https://res.cloudinary.com/ducutbdvu/image/upload/v1727099653/WhatsApp_Image_2024-09-22_at_17.59.30_zpbvle.jpg' className=' sm:w-[8rem] sm:h-[8rem]  w-[7rem] h-[7rem] mt-4'/>
                 </Link>
               </div>
 
