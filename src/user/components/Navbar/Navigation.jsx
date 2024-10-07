@@ -41,10 +41,19 @@ export default function Navigation() {
     setIsOpen(false);
   };
 
-  const MenuItems = ({ to,  label, children,  }) => {
+  const MenuItems = ({ to,  label, children,  closeMenu }) => {
+    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+
+  const handleClick = () => {
+    if (children) {
+      setIsSubMenuOpen(!isSubMenuOpen);
+    } else {
+      closeMenu();
+    }
+  };
     return (
       <li className="group relative">
-        <Link to={to} className="block px-2 py-2 lg:pr-4 xl:px-4 font-poppins  text-gray-700 hover:text-blue-400 transition-colors duration-300
+        <Link to={to} onClick={handleClick} className="block px-2 py-2 lg:pr-4 xl:px-4 font-poppins  text-gray-700 hover:text-blue-400 transition-colors duration-300
         relative text-[--color-text-header] no-underline
              after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px]
              after:bg-current after:origin-bottom-right after:scale-x-0
@@ -59,13 +68,20 @@ export default function Navigation() {
             </ul>
           </div>
         )}
+         {/* {children && isSubMenuOpen && (
+        <ul className="pl-4">
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child, { closeMenu })
+          )}
+        </ul>
+      )} */}
       </li>
     );
   };
   
-  const SubMenuItem = ({ to, label }) => (
+  const SubMenuItem = ({ to, label, closeMenu }) => (
     <li>
-      <Link to={to} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-300">
+      <Link to={to} onClick={closeMenu} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-300">
         {label}
       </Link>
     </li>
@@ -78,6 +94,9 @@ export default function Navigation() {
       dispatch(getCart(jwt));
     }
   }, [jwt]);
+  useEffect(() => {
+    closeMenu();
+  }, [location]);
   
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -86,10 +105,6 @@ export default function Navigation() {
     setAnchorEl(null);
   };
 
-  const handleOpen = () => {
-    setOpenAuthModal(true);
-    navigate('/signup')
-  };
   const handleClose = () => {
     setOpenAuthModal(false);
    
@@ -429,8 +444,7 @@ export default function Navigation() {
       </header>
       <header className="bg-white shadow-md">
       <div className="container mx-auto sm:px-4">
-        <div className="flex justify-between items-center px-2  py-4">
-          
+        <div className="flex justify-between items-center px-2 py-4">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden focus:outline-none"
@@ -440,72 +454,62 @@ export default function Navigation() {
               <path d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
             </svg>
           </button>
-          {auth.user ? (
-                    <div className=' md:hidden'>
-                      <Avatar
-                        className="text-white"
-                        onClick={handleUserClick}
-                        aria-controls={open ? "basic-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                        // onClick={handleUserClick}
-                        sx={{
-                          bgcolor: deepPurple[500],
-                          color: "white",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {/* {auth.user?.firstName[0].toUpperCase()} */}
-                      </Avatar>
-                      
-                      <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={openUserMenu}
-                        onClose={handleCloseUserMenu}
-                        MenuListProps={{
-                          "aria-labelledby": "basic-button",
-                        }}
-                      >
-                        <MenuItem onClick={handleProfileClick}>
-                          Profile
-                        </MenuItem>
-                        
-                        <MenuItem onClick={handleMyOrderClick}>
-                          My Orders
-                        </MenuItem>
-                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                      </Menu>
-                    </div>
-                  ) : (
-                    <div id="nav-part2" className=' md:hidden flex justify-center items-center text-center text-sm ' >
-                    <Link to='/signup'><h4 className=' px-[12px] py-[6px] ' ><a className='text-sm' href="/signup">Sign In</a></h4></Link>
-                </div>
-                  )}
 
-          <nav className="hidden lg:block z-30 ">
-            <ul className="flex space-x-4 font-poppins lg:text-[0.8rem] xl:text-[1.05rem] 2xl:text-[1.3rem] ">
-           
-              <MenuItems to="/products?wallClock=resinWallClock" label="Resin Wall Clock" />
+          {auth.user ? (
+            <div className='md:hidden'>
+              <Avatar
+                className="text-white"
+                onClick={handleUserClick}
+                aria-controls={openUserMenu ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openUserMenu ? "true" : undefined}
+                sx={{
+                  bgcolor: deepPurple[500],
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              >
+                {auth.user?.firstName[0].toUpperCase()}
+              </Avatar>
+              
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openUserMenu}
+                onClose={handleCloseUserMenu}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+                <MenuItem onClick={handleMyOrderClick}>My Orders</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <div id="nav-part2" className='md:hidden flex justify-center items-center text-center text-sm'>
+              <Link to='/signup' onClick={closeMenu}><h4 className='px-[12px] py-[6px]'><a className='text-sm' href="/signup">Sign In</a></h4></Link>
+            </div>
+          )}
+
+          <nav className="hidden lg:block z-30">
+            <ul className="flex space-x-4 font-poppins lg:text-[0.8rem] xl:text-[1.05rem] 2xl:text-[1.3rem]">
+              <MenuItems to="/products?wallClock=resinWallClock" label="Resin Wall Clock" closeMenu={closeMenu} />
               <MenuItems to="/products?query=Varmala%20Preservation" label="Varmala Preservation">
                 <SubMenuItem to="/products?varmalaPreservation=planter" label="Planter" />
-                <SubMenuItem to="/products?varmalaPreservation=unevenRound" label="10' Uneven Round" />
+                <SubMenuItem to="/products?varmalaPreservation=unevenRound" label="10' Uneven Round"  />
                 <SubMenuItem to="/products?varmalaPreservation=square12" label="12' Square" />
-                <SubMenuItem to="/products?varmalaPreservation=clock12" label="12' Clock" />
-                <SubMenuItem to="/products?varmalaPreservation=round12" label="12' Round" />
-                <SubMenuItem to="/products?varmalaPreservation=round18" label="18' Round" />
+                <SubMenuItem to="/products?varmalaPreservation=clock12" label="12' Clock"  />
+                <SubMenuItem to="/products?varmalaPreservation=round12" label="12' Round"  />
+                <SubMenuItem to="/products?varmalaPreservation=round18" label="18' Round"  />
               </MenuItems>
-
-              <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate"/>
-              <MenuItems to="/products?navkarMantraFrame=presonalizedMantraFrame" label="Mantra Frame" />
-              <MenuItems to="/products?geodeArt=geodeartedition" label="Geode Art" />
-              <MenuItems to="/products?resinSpecial=ourSignatureStyle" label="Our Signature Style" />
-              <MenuItems to="/products?resinSpecial=pichwaiArt" label="Pichwai Art" />
-              <MenuItems to="/products?resinSpecial=wallArt" label="Wall Art" />
-            
-
+              <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate" closeMenu={closeMenu} />
+              <MenuItems to="/products?navkarMantraFrame=presonalizedMantraFrame" label="Mantra Frame" closeMenu={closeMenu} />
+              <MenuItems to="/products?geodeArt=geodeartedition" label="Geode Art" closeMenu={closeMenu} />
+              <MenuItems to="/products?resinSpecial=ourSignatureStyle" label="Our Signature Style" closeMenu={closeMenu} />
+              <MenuItems to="/products?resinSpecial=pichwaiArt" label="Pichwai Art" closeMenu={closeMenu} />
+              <MenuItems to="/products?resinSpecial=wallArt" label="Wall Art" closeMenu={closeMenu} />
             </ul>
-           
           </nav>
         </div>
       </div>
@@ -520,34 +524,35 @@ export default function Navigation() {
             className="lg:hidden bg-white shadow-md"
           >
             <ul className="py-4">
-              <MenuItems to="/" label="Home" />
-              <MenuItems to="/products" label="All Products" />
-              <MenuItems to="/products?wallClock=resinWallClock" label="Resin Wall Clock" />
-              <MenuItems to="/products?query=Varmala%20Preservation" label="Varmala Preservation"/>
-              <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate"/>
-              <MenuItems to="/products?navkarMantraFrame=presonalizedMantraFrame" label="Mantra Frame" />
-              <MenuItems to="/products?geodeArt=geodeartedition" label="Geode Art" />
-              <MenuItems to="/products?resinSpecial=ourSignatureStyle" label="Our Signature Style" />
-              <MenuItems to="/products?resinSpecial=pichwaiArt" label="Pichwai Art" />
-              <MenuItems to="/products?resinSpecial=wallArt" label="Wall Art" />
+              <MenuItems to="/" label="Home" closeMenu={closeMenu} />
+              <MenuItems to="/products" label="All Products" closeMenu={closeMenu} />
+              <MenuItems to="/products?wallClock=resinWallClock" label="Resin Wall Clock" closeMenu={closeMenu} />
+              <MenuItems to="/products?query=Varmala%20Preservation" label="Varmala Preservation" closeMenu={closeMenu} />
+              <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate" closeMenu={closeMenu} />
+              <MenuItems to="/products?navkarMantraFrame=presonalizedMantraFrame" label="Mantra Frame" closeMenu={closeMenu} />
+              <MenuItems to="/products?geodeArt=geodeartedition" label="Geode Art" closeMenu={closeMenu} />
+              <MenuItems to="/products?resinSpecial=ourSignatureStyle" label="Our Signature Style" closeMenu={closeMenu} />
+              <MenuItems to="/products?resinSpecial=pichwaiArt" label="Pichwai Art" closeMenu={closeMenu} />
+              <MenuItems to="/products?resinSpecial=wallArt" label="Wall Art" closeMenu={closeMenu} />
               
-              <div className="block px-2"><Dropdown
-        title="Queries"
-        items={[
-          { label: 'About Us', to: '/about-us' },
-          { label: 'Contact Us', to: '/contact-us' },
-          { label: 'Privacy Policy', to: '/privacy-policy' },
-          { label: 'Terms and Conditions', to: '/terms&conditions' },
-          { label: 'Shipping Policy', to: '/shipping-policy' },
-          { label: 'Refund And Cancellation Policy', to: '/refund&cancellation' },
-        ]}
-      /></div>
-
+              <div className="block px-2">
+                <Dropdown
+                  title="Queries"
+                  items={[
+                    { label: 'About Us', to: '/about-us' },
+                    { label: 'Contact Us', to: '/contact-us' },
+                    { label: 'Privacy Policy', to: '/privacy-policy' },
+                    { label: 'Terms and Conditions', to: '/terms&conditions' },
+                    { label: 'Shipping Policy', to: '/shipping-policy' },
+                    { label: 'Refund And Cancellation Policy', to: '/refund&cancellation' },
+                  ]}
+                  closeMenu={closeMenu}
+                />
+              </div>
             </ul>
           </motion.nav>
         )}
       </AnimatePresence>
-     
     </header>
       {/* <AuthModal handleClose={handleClose} open={openAuthModal} /> */}
        
