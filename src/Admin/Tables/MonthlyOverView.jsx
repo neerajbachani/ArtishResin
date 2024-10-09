@@ -20,7 +20,6 @@ const useOverviewData = () => {
   const dispatch = useDispatch();
   const { adminOrder, auth, product } = useSelector((store) => store);
   const [overviewData, setOverviewData] = useState(null);
-
   const fetchData = useCallback(() => {
     dispatch(getAllUsers());
     dispatch(findProducts({}));
@@ -39,7 +38,7 @@ const useOverviewData = () => {
     
     const totalSales = completedOrders.reduce((sum, order) => sum + order.totalPrice, 0);
     const customerCount = auth.users?.length || 0;
-    const productCount = product.products?.content?.length || 0;
+    const productCount = product.products.totalProducts || 0;
 
     setOverviewData({
       totalSales,

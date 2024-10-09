@@ -1,4 +1,5 @@
-import { api } from '../../../Config/ApiConfig';
+import axios from 'axios';
+import { api, API_BASE_URL } from '../../../Config/ApiConfig';
 import {
     CREATE_PAYMENT_REQUEST,
     CREATE_PAYMENT_SUCCESS,
@@ -12,13 +13,19 @@ import {
   
   export const createPayment = (orderId) => async (dispatch) => {
     // console.log("create payment reqData ",reqData)
-    
+    const jwt = localStorage.getItem("jwt")
     try {
       dispatch({
         type: CREATE_PAYMENT_REQUEST,
       });
+      const config = {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      };
 
-      const { data } = await api.post(`/api/payments/${orderId}`,{});
+      const { data } = await axios.post(`${API_BASE_URL}/api/payments/${orderId}`,{}, config);
   console.log("data",data)
   if(data.payment_link_url){
     window.location.href=data.payment_link_url;

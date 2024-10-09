@@ -15,8 +15,49 @@ const ManageGallery = () => {
     dispatch(getGalleryPhotos());
   }, [dispatch, gallery.deleteGalleryPhoto, gallery.createGalleryPhoto]);
 
-  const handleFileChange = (e) => {
-    setSelectedFiles([...e.target.files]);
+  const resizeImage = (file, maxWidth, maxHeight) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height *= maxWidth / width;
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width *= maxHeight / height;
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob((blob) => {
+            resolve(new File([blob], file.name, { type: 'image/jpeg', lastModified: Date.now() }));
+          }, 'image/jpeg', 0.7);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileChange = async (e) => {
+    const files = Array.from(e.target.files);
+    const resizedFiles = await Promise.all(
+      files.map(file => resizeImage(file, 1920, 1080))
+    );
+    setSelectedFiles(resizedFiles);
   };
 
   const handleSubmit = (e) => {
@@ -29,14 +70,7 @@ const ManageGallery = () => {
 
     setLoading(true);
 
-    const uploadPromises = selectedFiles.map(file => {
-      const formData = new FormData();
-      formData.append('image', file);
-
-      return dispatch(createGalleryPhoto(formData));
-    });
-
-    Promise.all(uploadPromises)
+    dispatch(createGalleryPhoto(selectedFiles))
       .then(() => {
         setSelectedFiles([]);
         setLoading(false);
@@ -59,7 +93,6 @@ const ManageGallery = () => {
         toast.error('Failed to delete photo. Please try again.');
       });
   };
-  
 
   return (
     <div className="bg-gray-100 min-h-screen p-8">

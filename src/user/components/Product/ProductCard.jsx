@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Eye, MessageCircle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Eye } from 'lucide-react';
 import { Skeleton } from '@mui/material';
-
 
 const ProductCard = ({ product }) => {
   const { name, brand, image, price, discountedPrice, color, discount, _id } = product;
@@ -25,15 +24,15 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="group overflow-hidden rounded-lg bg-gray-50 shadow-md transition-all duration-300 hover:shadow-xl">
+    <div className="group w-full max-w-sm overflow-hidden rounded-lg bg-gray-50 shadow-md transition-all duration-300 hover:shadow-xl">
       <div className="relative overflow-hidden">
         <Link to={`/products/id/${_id}`}>
-          <div className="relative h-64 w-full">
+          <div className="relative aspect-square w-full">
             {!imageLoaded && (
-              <Skeleton className="h-full w-full" />
+              <Skeleton className="absolute inset-0" />
             )}
             <img
-              className={`h-full w-full object-cover transition-all duration-300 group-hover:scale-110 ${
+              className={`absolute inset-0 h-full w-full object-cover transition-all duration-300 group-hover:scale-110 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               src={image}
@@ -61,16 +60,15 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       <div className="p-4">
-        <h3 className="mb-2 text-lg font-semibold text-gray-800">{name}</h3>
+        <h3 className="mb-2 text-lg font-semibold text-gray-800 line-clamp-2">{name}</h3>
         <div className="flex items-center justify-between">
           <div>
             <span className="text-xl font-bold text-blue-600">₹{discountedPrice}</span>
             <span className="ml-2 text-sm text-gray-500 line-through">₹{price}</span>
           </div>
           <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800">
-  {discount?.toFixed(2)}% off
-</span>
-
+            {discount?.toFixed(2)}% off
+          </span>
         </div>
       </div>
     </div>

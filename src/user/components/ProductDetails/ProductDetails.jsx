@@ -251,6 +251,12 @@ const ProductDetails = () => {
     window.open(`https://wa.me/9429350252?text=${text}`, '_blank');
   };
 
+  const convertToBulletPoints = (text) => {
+    return text?.split(': ').filter(item => item.trim() !== '').map(item => item.trim());
+  };
+
+  const descriptionPoints = convertToBulletPoints(product.product?.description1);
+
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -304,7 +310,11 @@ const ProductDetails = () => {
             )}
           </div>
           <div className="prose max-w-none">
-            <p>{product.product.description1}</p>
+          <ul className="list-disc pl-5 font-poppins">
+              {descriptionPoints.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
             {product.product.description2 && <p>{product.product.description2}</p>}
             {product.product.description3 && <p>{product.product.description3}</p>}
             {product.product.details && (

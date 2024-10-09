@@ -129,6 +129,7 @@ const apii = axios.create({
     "Authorization": `Bearer ${jwt}`,
     'Content-Type': 'multipart/form-data',
   },
+  timeout: 60000,
 });
 
 export const createProduct = (product) => async (dispatch) => {
@@ -156,30 +157,52 @@ export const createProduct = (product) => async (dispatch) => {
     formData.append('description2', product.description2);
     formData.append('description3', product.description3);
 
-    const { data } = await apii.post(`/api/admin/products/`, formData);
+    const { data } = await api.post(`/api/admin/products/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        console.log(`Upload progress: ${percentCompleted}%`);
+      },
+    });
 
     dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data });
     console.log('created product ', data);
     showSuccessToast('Product created successfully');
   } catch (error) {
+    console.error('Error creating product:', error);
+
+    let errorMessage = 'Failed to create product. Please try again.';
+
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+      
+      if (error.response.status === 400) {
+        errorMessage = 'Please fill in all required fields';
+      } else if (error.response.status === 413) {
+        errorMessage = 'The image file is too large. Please use a smaller image.';
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('Error request:', error.request);
+      errorMessage = 'No response received from the server. Please check your internet connection.';
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Error message:', error.message);
+    }
+
     dispatch({
       type: CREATE_PRODUCT_FAILURE,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: errorMessage,
     });
-    if (error.response && error.response.status === 400) {
-      // Validation error
-      showErrorToast('Please fill in all required fields');
-    } else {
-      console.log(error.response);
-      console.log(error);
-      showErrorToast('Failed to create product. Please try again.');
-    }
+
+    showErrorToast(errorMessage);
   }
 };
-
 export const updateProduct = (product, productId) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });

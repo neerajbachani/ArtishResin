@@ -47,7 +47,7 @@ export const getGalleryPhotos = () => {
 // };
 const jwt = localStorage.getItem("jwt")
 
-export const createGalleryPhoto = (galleryPhoto) => async (dispatch) => {
+export const createGalleryPhoto = (galleryPhotos) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -55,18 +55,15 @@ export const createGalleryPhoto = (galleryPhoto) => async (dispatch) => {
         'Content-Type': 'multipart/form-data',
       },
     };
-    dispatch({ type: CREATE_GALLERY_FAILURE });
-
+    dispatch({ type: CREATE_GALLERY_REQUEST });
     const formData = new FormData();
-    galleryPhoto.forEach(photo => {
+    galleryPhotos.forEach(photo => {
       formData.append('images', photo);
     });
-
     const { data } = await axios.post(`${API_BASE_URL}/api/admin/manageGallery/`, formData, config);
-
     dispatch({ type: CREATE_GALLERY_SUCCESS, payload: data });
-    console.log('Created gallery image:', data);
-    showSuccessToast('Image created in Gallery successfully');
+    console.log('Created gallery images:', data);
+    showSuccessToast('Images created in Gallery successfully');
   } catch (error) {
     dispatch({
       type: CREATE_GALLERY_FAILURE,
@@ -75,10 +72,12 @@ export const createGalleryPhoto = (galleryPhoto) => async (dispatch) => {
     if (error.response && error.response.status === 400) {
       // Validation error
       showErrorToast('Please fill in all required fields');
+    } else if (error.response && error.response.status === 413) {
+      showErrorToast('The image file(s) are too large. Please try again with smaller images.');
     } else {
       console.log(error.response);
       console.log(error);
-      showErrorToast('Failed to create Image in gallery. Please try again.');
+      showErrorToast('Failed to create Images in gallery. Please try again.');
     }
   }
 };

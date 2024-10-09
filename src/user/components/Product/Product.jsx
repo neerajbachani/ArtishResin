@@ -507,12 +507,13 @@ export default function Product() {
                
                 
                 
-                  <div className="sm:flex sm:flex-wrap justify-center sm:space-x-5 gap-5 grid grid-cols-2 bg-white py-5  rounded-md ">
-                    {productList?.map((item) => (
-                      <ProductCard product={item} key={item.id} />
-                     
-                    ))}
-                  </div>
+<div className="bg-white py-5 rounded-md">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+        {productList?.map((item) => (
+          <ProductCard product={item} key={item.id} />
+        ))}
+      </div>
+    </div>
                 </div>
               </div>
             </div>
