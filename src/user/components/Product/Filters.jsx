@@ -47,6 +47,12 @@ export const filters = [
     options: []
   },
   {
+    id: "resinTable",
+    name: "Resin Table",
+    link: "/products?resinSpecial=resinTable",
+    options: []
+  },
+  {
     id: "opalArt",
     name: "Opal Art",
     link: "/products?resinSpecial=opalArt",
@@ -54,7 +60,7 @@ export const filters = [
   },
   {
     id: "resinSpecial",
-    name: "Resi Special",
+    name: "Resin Special",
     link: "/products?resinSpecial=resinSpecial",
     options: []
   },
