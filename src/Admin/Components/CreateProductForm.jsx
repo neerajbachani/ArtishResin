@@ -215,10 +215,14 @@ const jwt=localStorage.getItem("jwt")
               >
                 <MenuItem value="planter">Planter</MenuItem>
                 <MenuItem value="unevenRound">10' Uneven Round</MenuItem>
+                <MenuItem value="square8">8' Square</MenuItem>
                 <MenuItem value="square12">12' Square</MenuItem>
+                <MenuItem value="square18">18' Square</MenuItem>
                 <MenuItem value="clock12">12' Clock</MenuItem>
                 <MenuItem value="round12">12' Round</MenuItem>
                 <MenuItem value="round18">18' Round</MenuItem>
+                <MenuItem value="otherVarmalaStyles">Other Varmala Styles</MenuItem>
+
 
 
 
@@ -261,6 +265,7 @@ const jwt=localStorage.getItem("jwt")
                 label="Resin Special"
               >
                 <MenuItem value="ourSignatureStyle">Our Signature Style</MenuItem>
+                <MenuItem value="resinSpecial">Resin Special</MenuItem>
                 <MenuItem value="wallArt">Wall Art</MenuItem>
                 <MenuItem value="opalArt">Opal Art</MenuItem>
                 <MenuItem value="pichwaiArt">Pichwai Art</MenuItem>

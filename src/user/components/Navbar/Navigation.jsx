@@ -498,10 +498,14 @@ export default function Navigation() {
               <MenuItems to="/products?query=Varmala%20Preservation" label="Varmala Preservation">
                 <SubMenuItem to="/products?varmalaPreservation=planter" label="Planter" />
                 <SubMenuItem to="/products?varmalaPreservation=unevenRound" label="10' Uneven Round"  />
+                <SubMenuItem to="/products?varmalaPreservation=square8" label="8' Square" />
                 <SubMenuItem to="/products?varmalaPreservation=square12" label="12' Square" />
+                <SubMenuItem to="/products?varmalaPreservation=square18" label="18' Square" />
                 <SubMenuItem to="/products?varmalaPreservation=clock12" label="12' Clock"  />
                 <SubMenuItem to="/products?varmalaPreservation=round12" label="12' Round"  />
                 <SubMenuItem to="/products?varmalaPreservation=round18" label="18' Round"  />
+                <SubMenuItem to="/products?varmalaPreservation=rectangle18*12" label="Rectangle 18*12" />
+                <SubMenuItem to="/products?varmalaPreservation=otherVarmalaStyles" label="Other Varmala Styles" />
               </MenuItems>
               <MenuItems to="/products?namePlate=customizedNamePlate" label="Customized Name Plate" closeMenu={closeMenu} />
               <MenuItems to="/products?navkarMantraFrame=presonalizedMantraFrame" label="Mantra Frame" closeMenu={closeMenu} />

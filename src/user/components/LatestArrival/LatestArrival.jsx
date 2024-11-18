@@ -55,7 +55,7 @@ const LatestArrival = ({products}) => {
         
         <div className="left-column">
           <img
-            src="https://res.cloudinary.com/ducutbdvu/image/upload/c_crop,ar_3:4/v1725006140/Unique_Design_eml1ip.png"
+            src="https://res.cloudinary.com/ducutbdvu/image/upload/v1731903051/1000042331-logo.jpg_ltvhjn.png"
             alt="Shop the look"
             className="main-image"
           />

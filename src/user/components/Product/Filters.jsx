@@ -7,10 +7,14 @@ export const filters = [
     options: [
       { value: "planter", label: "Planter" },
       { value: "unevenRound", label: "10' Uneven Round" },
+      { value: "square8", label: "8' Square" },
       { value: "square12", label: "12' Square" },
+      { value: "square18", label: "18' Square" },
       { value: "clock12", label: "12' Clock" },
       { value: "round12", label: "12' Round" },
       { value: "round18", label: "18' Round" },
+      { value: "rectangle18*12", label: "18*12 rectangular" },
+      { value: "otherVarmalaStyles", label: "Other Varmala Styles" },
     ],
   },
   {
@@ -25,10 +29,17 @@ export const filters = [
     name: "Resin Art Special",
     options: [
       { value: "ourSignatureStyle", label: "Our Signature Style" },
-      { value: "wallArt", label: "Wall Art" },
+      { value: "resinSpecial", label: "Resin Special" },
+      // { value: "wallArt", label: "Wall Art" },
       { value: "opalArt", label: "Opal Art" },
     ],
   }, 
+  {
+    id: "wallArt",
+    name: "Wall Art",
+    link: "/products?resinSpecial=wallArt",
+    options: []
+  },
   {
     id: "pichwaiArt",
     name: "Pichwai Art",
@@ -42,9 +53,9 @@ export const filters = [
     options: []
   },
   {
-    id: "wallArt",
-    name: "Wall Art",
-    link: "/products?resinSpecial=wallArt",
+    id: "resinSpecial",
+    name: "Resi Special",
+    link: "/products?resinSpecial=resinSpecial",
     options: []
   },
   {
