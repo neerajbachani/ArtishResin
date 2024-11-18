@@ -98,7 +98,7 @@ const CustomerRoutes = () => {
       </Routes>
       <FloatingWhatsApp
         phoneNumber="9429350252"
-        accountName="ArtIsh Resin"
+        accountName="Artish Isha"
         avatar={logo}
         allowEsc
         allowClickAway

@@ -617,7 +617,7 @@ const AboutUs = () => {
                   We make our customers happy by giving services.
                 </h2>
                 <p className="mb-5 md:text-base text-md mx-2 md:mx-0 font-poppins  text-secondary-dark-color">
-                At Artish Resin, we take pride in offering an unparalleled selection of high-quality resin products paired with exceptional customer service. Our extensive range caters to diverse needs, whether you're a professional contractor, hobbyist, or DIY enthusiast. With years of expertise in the industry, our knowledgeable team provides valuable insights and tailored recommendations to ensure you find the perfect products for your requirements.
+                At Artish Isha, we take pride in offering an unparalleled selection of high-quality resin products paired with exceptional customer service. Our extensive range caters to diverse needs, whether you're a professional contractor, hobbyist, or DIY enthusiast. With years of expertise in the industry, our knowledgeable team provides valuable insights and tailored recommendations to ensure you find the perfect products for your requirements.
                 </p>
                 <p className="mb-8 md:text-base text-md mx-2 font-poppins md:mx-0   text-secondary-dark-color">
                 We understand the importance of competitive pricing without compromising on quality. Our efficient operations and direct sourcing from trusted manufacturers allow us to pass on significant savings to our valued customers. Additionally, our user-friendly ecommerce platform, secure payment options, and efficient shipping ensure a convenient and hassle-free shopping experience from the comfort of your home or office.

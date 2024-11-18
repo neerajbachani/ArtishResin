@@ -36,7 +36,7 @@ const Achivement = () => {
        <Card sx={{ position: 'relative' }}>
       <CardContent>
       <Typography variant='h6' sx={{ letterSpacing: '0.25px' }}>
-        Artish Resin
+        Artish Isha
         </Typography>
        
         <Link to='/' className='mt-5 mx-auto' >
