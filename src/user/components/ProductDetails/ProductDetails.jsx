@@ -25,138 +25,6 @@ import LoadingBar from 'react-top-loading-bar';
 import { Eye, Heading4, Share2, ShoppingCart } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 
-// const ProductDetails = () => {
-//   const [isLoading, setIsLoading] = useState(true);
-//   const [openLightbox, setOpenLightbox] = useState(false);
-//   const [customizationNote, setCustomizationNote] = useState('');
-//   const [customizationImage, setCustomizationImage] = useState(null);
-
-//   const { productId } = useParams();
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-//   const { product } = useSelector((store) => store);
-//   const jwt = localStorage.getItem("jwt");
-//   const { cart } = useSelector((store) => store);
-//   console.log(product)
-
-//   useEffect(() => {
-//     const data = { productId: productId, jwt };
-//     setIsLoading(true);
-//     dispatch(findProductById(data))
-//     .then(() => setIsLoading(false))
-//     .catch(() => setIsLoading(false));
-//       dispatch(getCart(jwt))
-//   }, [productId, dispatch, jwt]);
-
-//   const handleAddToCart = () => {
-//     const formData = new FormData();
-//     formData.append('productId', productId);
-//     formData.append('customizationNote', customizationNote);
-//     if (customizationImage) {
-//       formData.append('customizationImage', customizationImage);
-//     }
-//     dispatch(addItemToCart({ formData, jwt }));
-//     navigate('/cart');
-//   };
-
-//   const handleImageUpload = (event) => {
-//     setCustomizationImage(event.target.files[0]);
-//   };
-
-//   const handleShare = () => {
-//     if (navigator.share) {
-//       navigator.share({
-//         title: product.product.name,
-//         text: product.product.description1,
-//         url: window.location.href,
-//       }).then(() => console.log('Successful share'))
-//         .catch((error) => console.log('Error sharing', error));
-//     } else {
-//       console.log('Web Share API not supported');
-//     }
-//   };
-
-//   if (isLoading) {
-//     return (
-//       <div className="container mx-auto px-4 py-8">
-//         <div className="flex flex-col md:flex-row gap-8">
-//           <Skeleton className="w-full md:w-1/2 h-96" />
-//           <div className="w-full md:w-1/2 space-y-4">
-//             <Skeleton className="h-10 w-3/4" />
-//             <Skeleton className="h-6 w-1/2" />
-//             <Skeleton className="h-24 w-full" />
-//             <Skeleton className="h-10 w-full" />
-//             <Skeleton className="h-10 w-full" />
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <div className="flex flex-col md:flex-row gap-8">
-//         <div className="w-full md:w-1/2">
-//           <div className="relative">
-//             <img
-//               src={product.product.image}
-//               alt={product.product.name}
-//               className="w-full h-auto object-cover rounded-lg shadow-lg"
-//               onClick={() => setOpenLightbox(true)}
-//             />
-//             <Button
-//               variant="ghost"
-//               size="icon"
-//               className="absolute top-2 right-2 bg-white bg-opacity-50 hover:bg-opacity-100"
-//               onClick={() => setOpenLightbox(true)}
-//             >
-//               <Eye className="h-5 w-5" />
-//             </Button>
-//           </div>
-//           <Lightbox
-//             open={openLightbox}
-//             close={() => setOpenLightbox(false)}
-//             slides={[{ src: product.product.image }]}
-//           />
-//         </div>
-//         <div className="w-full md:w-1/2 space-y-6">
-//           <h1 className="text-3xl font-bold">{product.product.name}</h1>
-//           <div className="flex items-baseline space-x-4">
-//             <span className="text-2xl font-semibold text-indigo-600">₹{product.product.discountedPrice}</span>
-//             <span className="text-lg text-gray-500 line-through">₹{product.product.price}</span>
-//             <span className="text-sm font-medium text-green-500">{product.product.discount}% off</span>
-//           </div>
-//           <p className="text-gray-700">{product.product.description1}</p>
-//           {product.product.description2 && <p className="text-gray-700">{product.product.description2}</p>}
-//           {product.product.description3 && <p className="text-gray-700">{product.product.description3}</p>}
-//           <div className="space-y-4">
-//             <Input
-//               placeholder="Add customization note"
-//               value={customizationNote}
-//               onChange={(e) => setCustomizationNote(e.target.value)}
-//             />
-//             <Input
-//               type="file"
-//               onChange={handleImageUpload}
-//               accept="image/*"
-//             />
-//           </div>
-//           <div className="flex space-x-4">
-//             <Button className="flex-1" onClick={handleAddToCart}>
-//               <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
-//             </Button>
-//             <Button variant="outline" onClick={handleShare}>
-//               <Share2 className="mr-2 h-4 w-4" /> Share
-//             </Button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ProductDetails;
-
 const ProductCard = ({ product }) => (
   <div className="bg-white rounded-lg shadow-md overflow-hidden">
     <img src={product.product.image} alt={product.product.name} className="w-full h-48 object-cover" />
@@ -309,6 +177,8 @@ const ProductDetails = () => {
               <span className="text-sm font-medium text-green-500">{product.product.discount.toFixed(2)}% off</span>
             )}
           </div>
+          
+
           <div className="prose max-w-none">
           <ul className="list-disc pl-5 font-poppins">
               {descriptionPoints.map((point, index) => (
@@ -324,7 +194,17 @@ const ProductDetails = () => {
               </div>
             )}
           </div>
-          
+          <div className="bg-gray-50 border-l-4 border-blue-500 rounded-md p-4">
+              <div className="flex items-start space-x-3">
+                <div className="text-sm text-gray-700 font-poppins">
+                  <p className="font-semibold mb-1">Please Note:</p>
+                  <p>• The price shown above is for the product only</p>
+                  <p>• Additional delivery charges will be added separately</p>
+                  <p>• Final delivery cost will be shown after payment completion</p>
+                </div>
+              </div>
+            </div>
+       
           <form className="mt-5 ">
          
         <h4 className="font-poppins font-semibold md:text-lg lg:text-xl text-md bg-gradient-to-r from-blue-500 to-black text-transparent bg-clip-text">
@@ -367,6 +247,7 @@ const ProductDetails = () => {
 </button>
 
             </div>
+    
 
 <button
                 onClick={handleAddToCart}
@@ -375,14 +256,7 @@ const ProductDetails = () => {
               >
                 Add to Cart
               </button>
-          <div className="flex space-x-4">
-           
-            
-
-           
-            
-            
-          </div>
+              
         </div>
       </div>
 

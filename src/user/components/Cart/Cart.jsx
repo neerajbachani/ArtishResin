@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCart } from "../../redux/Cart/Action";
 import CartItem from "./CartItem";
-import { Button, Typography, Box, Divider, Paper } from "@mui/material";
+import { Button, Typography, Box, Divider, Paper, Link } from "@mui/material";
 import { ShoppingBag } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
@@ -15,6 +16,11 @@ const Cart = () => {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   const { cart } = useSelector((store) => store);
+
+  const handleWhatsAppDeliveryInfo = () => {
+    const message = encodeURIComponent(`Can I get delivery charge info of this product ${window.location.origin}/products/id/${cart.cartItems[0]?.product?._id}`);
+    window.open(`https://wa.me/9429350252?text=${message}`, '_blank');
+  };
 
   useEffect(() => {
     setProgress(50);
@@ -80,14 +86,39 @@ const Cart = () => {
             <Typography>Discount</Typography>
             <Typography color="green">-₹{cart.cart?.discount}</Typography>
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
-            <Typography>Delivery Charges</Typography>
-            <Typography color="green">Free</Typography>
+          
+          {/* Updated Delivery Charges Section */}
+          <Box sx={{ bgcolor: '#f5f5f5', p: 2, borderRadius: 1, mb: 1, mt: 1 }}>
+            <Typography sx={{ mb: 1 }}>Delivery Charges</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Will be calculated after payment
+            </Typography>
+            <Box 
+              onClick={handleWhatsAppDeliveryInfo}
+              sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                cursor: 'pointer',
+                color: '#25D366',
+                '&:hover': { textDecoration: 'underline' }
+              }}
+            >
+              <FaWhatsapp style={{ marginRight: '8px' }} />
+              <Typography variant="body2">
+                Check delivery charges on WhatsApp
+              </Typography>
+            </Box>
           </Box>
+
           <Divider sx={{ my: 2 }} />
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>Total Amount</Typography>
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>₹{cart.cart?.totalDiscountedPrice}</Typography>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>₹{cart.cart?.totalDiscountedPrice}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                (+ Delivery charges)
+              </Typography>
+            </Box>
           </Box>
           <Button 
             variant="contained" 
