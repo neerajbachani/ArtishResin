@@ -47,7 +47,7 @@ const ManageOurProduct = () => {
 
   useEffect(() => {
     dispatch(getOurProduct());
-    dispatch(findProducts({ pageNumber: 1, pageSize: 100 }));
+    dispatch(findProducts({ pageNumber: 1, pageSize: 1000 }));
   }, [dispatch, ourProduct.deleteOurProducts, ourProduct.createOurProducts]);
 
   const handleChange = (e) => {

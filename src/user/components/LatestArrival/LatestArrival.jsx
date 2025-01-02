@@ -7,6 +7,7 @@ import { getOurProduct } from '../../redux/OurProduct/Action';
 import ProductCard from './ProductCardLA';
 
 const LatestArrival = ({products}) => {
+  console.log("products hai bhai", products)
   const leftColumnRef = useRef(null);
   const rightColumnRef = useRef(null);
  

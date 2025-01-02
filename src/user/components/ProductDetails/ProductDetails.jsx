@@ -27,13 +27,13 @@ import { FaWhatsapp } from 'react-icons/fa'
 
 const ProductCard = ({ product }) => (
   <div className="bg-white rounded-lg shadow-md overflow-hidden">
-    <img src={product.product.image} alt={product.product.name} className="w-full h-48 object-cover" />
+    <img src={product.product?.image} alt={product.product?.name} className="w-full h-48 object-cover" />
     <div className="p-4">
-      <h3 className="text-lg font-semibold mb-2">{product.product.name}</h3>
+      <h3 className="text-lg font-semibold mb-2">{product.product?.name}</h3>
       <div className="flex justify-between items-center">
-        <span className="text-indigo-600 font-bold">₹{product.product.discountedPrice}</span>
-        {product.product.discount && (
-          <span className="text-sm text-green-500">{product.product.discount}% off</span>
+        <span className="text-indigo-600 font-bold">₹{product.product?.discountedPrice}</span>
+        {product.product?.discount && (
+          <span className="text-sm text-green-500">{product.product?.discount}% off</span>
         )}
       </div>
     </div>
@@ -148,8 +148,8 @@ const ProductDetails = () => {
         <div className="w-full md:w-1/2">
           <div className="relative">
             <img
-              src={product.product.image}
-              alt={product.product.name}
+              src={product.product?.image}
+              alt={product.product?.name}
               className="w-full h-auto object-cover rounded-lg shadow-lg"
               onClick={() => setOpenLightbox(true)}
             />
@@ -165,29 +165,29 @@ const ProductDetails = () => {
           <Lightbox
             open={openLightbox}
             close={() => setOpenLightbox(false)}
-            slides={[{ src: product.product.image }]}
+            slides={[{ src: product.product?.image }]}
           />
         </div>
         <div className="w-full md:w-1/2 space-y-6">
-          <h1 className="text-3xl font-bold">{product.product.name}</h1>
+          <h1 className="text-3xl font-bold">{product.product?.name}</h1>
           <div className="flex items-baseline space-x-4">
-            <span className="text-2xl font-semibold text-indigo-600">₹{product.product.discountedPrice}</span>
-            <span className="text-lg text-gray-500 line-through">₹{product.product.price}</span>
-            {product.product.discount && (
-              <span className="text-sm font-medium text-green-500">{product.product.discount.toFixed(2)}% off</span>
+            <span className="text-2xl font-semibold text-indigo-600">₹{product.product?.discountedPrice}</span>
+            <span className="text-lg text-gray-500 line-through">₹{product.product?.price}</span>
+            {product.product?.discount && (
+              <span className="text-sm font-medium text-green-500">{product.product?.discount.toFixed(2)}% off</span>
             )}
           </div>
           
 
           <div className="prose max-w-none">
           <ul className="list-disc pl-5 font-poppins">
-              {descriptionPoints.map((point, index) => (
+              {descriptionPoints?.map((point, index) => (
                 <li key={index}>{point}</li>
               ))}
             </ul>
-            {product.product.description2 && <p>{product.product.description2}</p>}
-            {product.product.description3 && <p>{product.product.description3}</p>}
-            {product.product.details && (
+            {product.product?.description2 && <p>{product.product?.description2}</p>}
+            {product.product?.description3 && <p>{product.product?.description3}</p>}
+            {product.product?.details && (
               <div className="mt-4">
                 <h3 className="text-lg font-semibold mb-2">Product Details</h3>
                 <div dangerouslySetInnerHTML={{ __html: product.product.details }} className="list-disc pl-5" />

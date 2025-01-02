@@ -43,7 +43,7 @@ const ManageOurBestSellerProduct = () => {
 
   useEffect(() => {
     dispatch(getOurBestSellerProduct());
-    dispatch(findProducts({ pageNumber: 1, pageSize: 100 }));
+    dispatch(findProducts({ pageNumber: 1, pageSize: 1000 }));
   }, [dispatch, ourBestSellerProduct.createOurBestSellerProducts, ourBestSellerProduct.deleteOurBestSellerProducts]);
 
   const handleProductSelect = useCallback((event) => {
